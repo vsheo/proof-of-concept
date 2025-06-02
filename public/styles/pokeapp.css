@@ -8,6 +8,11 @@
 }
 
 body {
+    /* kleuren */
+    --color-gray: rgb(231, 230, 236);
+    --color-primary-daylight: rgb(246, 246, 255);
+    --color-primary-purple: rgb(86, 49, 232);
+
     /* type kleuren */
     --color-pokemon-type-grass: rgb(190, 226, 183);
     --color-pokemon-type-normal: rgb(189, 189, 189);
@@ -27,8 +32,69 @@ body {
     --color-pokemon-type-dragon: rgb(106, 164, 245);
     --color-pokemon-type-dark: rgb(153, 153, 153);
     --color-pokemon-type-fairy: rgb(255, 161, 235);
-    --color-gray: rgb(231, 230, 236);
-    --color-primary-daylight: rgb(246, 246, 255);
-    --color-primary-purple: rgb(86, 49, 232);
+
+    /* typografie */
+    --ff-primary: 'Rubik', sans-serif;
+
+    /* font sizes */
+    --fs-primary: 1.25rem;
+    --fs-txt-resp: clamp(1.25rem, calc(1.5vw + 1rem), 2rem);
+    --fs-title-32: 2rem;
+    --fs-subt-resp: clamp(2rem, calc(1.5vw + 1rem), 2.5rem);
+    --fs-title-40: 2.5rem;
+
+    /* font weight */
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('/fonts/Rubik-Regular.ttf') format('truetype');
+    font-weight: var(--fw-regular);
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('/fonts/Rubik-Medium.ttf') format('truetype');
+    font-weight: var(--fw-medium);
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('/fonts/Rubik-SemiBold.ttf') format('truetype');
+    font-weight: var(--fw-semibold);
+    font-style: normal;
+}
+
+
+/* ====================================================== TYPOGRAFIE ====================================================== */
+body {
+    font-family: var(--ff-primary);
+    font-size: var(--fs-primary);
+    font-weight: var(--fw-regular);
+}
+
+.primary-txt-home {
+    font-size: var(--fs-txt-resp);
+    font-weight: var(--fw-medium);
+}
+
+.primary-txt-detail {
+    font-size: var(--fs-txt-resp);
+    font-weight: var(--fw-semibold);
+}
+
+.title-home {
+    font-size: var(--fs-title-32);
+    font-weight: var(--fw-semibold);
+}
+
+.title-detail {
+    font-size: var(--fs-title-40);
+    font-weight: var(--fw-semibold);
 }
 
