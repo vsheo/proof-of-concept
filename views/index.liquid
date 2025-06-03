@@ -1,23 +1,23 @@
 {% render 'partials/head.liquid' %}
 
-<main>
-    <h1><img src="/assets/PokemonLogo.svg" width="361" height="107" alt="pokemon logo"></h1>
+<main class="index-container">
+    <h1 class="title-site"><img src="/assets/PokemonLogo.svg" width="361" height="107" alt="pokemon logo"></h1>
 
-    <section>
+    <section class="filter-container">
         <h2 class="title-home">All Pokemon</h2>
 
-        <form method="post" action="/">
+        <form method="post" action="/" class="search-bar">
             <input type="search" placeholder="Search All Pokemon">
-            <button><img class="svg" src="/assets/btn-search.svg" width="20" height="20" alt="start search"></button>
+            <button class="btn-submit"><img class="svg" src="/assets/btn-search.svg" width="25" height="25" alt="start search"></button>
         </form>
 
-        <a href="/">All Pokemon</a>
-        <a href="/">Caught Pokemon</a>
+        <a href="/" class="filter-all-pkm"><img src="/assets/all-pkm.svg" width="24" height="24" alt="logo for all pokemon"><span>All Pokemon</span></a>
+        <a href="/" class="filter-caught-pkm"><img src="/assets/pokeball-black.svg" width="24" height="24" alt="pokeball logo"><span>Caught Pokemon</span></a>
     </section>
 
     <div class="pkm-container">
         <article>
-            <h3>Bulbasaur</h3>
+            <h3 class="primary-h3-home">Bulbasaur</h3>
             <img src="/assets/pokeball.svg" width="40" height="40" alt="{{bulba}} is caught">
             <picture>
                 <source type="image/avif" srcset="/assets/test-bulba.avif">

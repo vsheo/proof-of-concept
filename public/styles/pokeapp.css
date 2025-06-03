@@ -11,7 +11,9 @@ body {
     /* kleuren */
     --color-gray: rgb(231, 230, 236);
     --color-primary-daylight: rgb(246, 246, 255);
+    --color-primary-midnight: rgb(14, 9, 64);
     --color-primary-purple: rgb(86, 49, 232);
+    --color-search: rgb(237, 246, 255);
 
     /* type kleuren */
     --color-pokemon-type-grass: rgb(190, 226, 183);
@@ -78,7 +80,7 @@ body {
     font-weight: var(--fw-regular);
 }
 
-.primary-txt-home {
+.primary-h3-home {
     font-size: var(--fs-txt-resp);
     font-weight: var(--fw-medium);
 }
@@ -98,3 +100,6 @@ body {
     font-weight: var(--fw-semibold);
 }
 
+a {
+    text-decoration: none;
+}
