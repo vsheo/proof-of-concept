@@ -1,14 +1,14 @@
-{% render 'partials/head.liquid', title: 'Home' %}
+{% render 'partials/head.liquid' %}
 
 <main>
-    <h1><img src="/assets/PokemonLogo.svg" alt="pokemon logo"></h1>
+    <h1><img src="/assets/PokemonLogo.svg" width="361" height="107" alt="pokemon logo"></h1>
 
     <section>
         <h2 class="title-home">All Pokemon</h2>
 
         <form method="post" action="/">
             <input type="search" placeholder="Search All Pokemon">
-            <button><img class="svg" src="/assets/btn-search.svg" alt="search button"></button>
+            <button><img class="svg" src="/assets/btn-search.svg" width="20" height="20" alt="start search"></button>
         </form>
 
         <a href="/">All Pokemon</a>
@@ -18,7 +18,7 @@
     <div class="pkm-container">
         <article>
             <h3>Bulbasaur</h3>
-            <img src="/assets/pokeball.svg" alt="{{bulba}} is caught">
+            <img src="/assets/pokeball.svg" width="40" height="40" alt="{{bulba}} is caught">
             <picture>
                 <source type="image/avif" srcset="/assets/test-bulba.avif">
                 <source type="image/webp" srcset="/assets/test-bulba.webp">
