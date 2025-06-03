@@ -16,6 +16,11 @@ app.get("/", async function (request, response) {
     response.render("index.liquid");
 });
 
+// detail GET
+app.get("/detail", async function (request, response) {
+    response.render("detail.liquid");
+});
+
 app.set("port", process.env.PORT || 8000);
 
 app.listen(app.get("port"), function () {

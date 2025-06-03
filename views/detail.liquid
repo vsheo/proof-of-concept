@@ -1,0 +1,115 @@
+{% render 'partials/head.liquid' %}
+
+<main>
+    <h1><img src="/assets/PokemonLogo.svg" width="361" height="107" alt="pokemon logo"></h1>
+
+    <section>
+        <span>001</span>
+        <img src="/assets/pokeball.svg" width="40" height="40" alt="{{bulba}} is caught">
+        <h2>Bulba</h2>
+        <picture>
+            <source type="image/avif" srcset="/assets/test-bulba.avif">
+            <source type="image/webp" srcset="/assets/test-bulba.webp">
+            <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
+        </picture>
+    </section>
+
+    <section class="about-container">
+        <h3>About</h3>
+        <span>Stats</span>
+        <span>Evolutions</span>
+
+        <table class="pkm-about">
+            <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td>bulba</td>
+                </tr>
+                <tr>
+                    <td>Id</td>
+                    <td>001</td>
+                </tr>
+                <tr>
+                    <td>Base XP</td>
+                    <td>64</td>
+                </tr>
+                <tr>
+                    <td>Weight</td>
+                    <td>69 kg</td>
+                </tr>
+                <tr>
+                    <td>Height</td>
+                    <td>70 cm</td>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td>Grass Poison</td>
+                </tr>
+                <tr>
+                    <td>Abilities</td>
+                    <td>Overgrow, Chlorophyll</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="stats-container">
+        <span>About</span>
+        <h3>Stats</h3>
+        <span>Evolutions</span>
+
+        <table class="pkm-stats">
+            <tbody>
+                <tr>
+                    <td>HP</td>
+                    <td>45</td>
+                    <td><meter value="45"></meter></td>
+                </tr>
+                <tr>
+                    <td>Attack</td>
+                    <td>49</td>
+                    <td><meter value="49"></meter></td>
+                </tr>
+                <tr>
+                    <td>Defense</td>
+                    <td>49</td>
+                    <td><meter value="49"></meter></td>
+                </tr>
+                <tr>
+                    <td>Special Attack</td>
+                    <td>65</td>
+                    <td><meter value="65"></meter></td>
+                </tr>
+                <tr>
+                    <td>Special Defense</td>
+                    <td>65</td>
+                    <td><meter value="65"></meter></td>
+                </tr>
+                <tr>
+                    <td>Speed</td>
+                    <td>45</td>
+                    <td><meter value="45"></meter></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="stats-container">
+        <span>About</span>
+        <span>Stats</span>
+        <h3>Evolutions</h3>
+
+        <article>
+            <picture>
+                <source type="image/avif" srcset="/assets/test-bulba.avif">
+                <source type="image/webp" srcset="/assets/test-bulba.webp">
+                <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
+            </picture>
+
+            <span>001</span>
+            <h4>Bulba</h4>
+        </article>
+    </section>
+</main>
+
+{% render 'partials/foot.liquid' %}
