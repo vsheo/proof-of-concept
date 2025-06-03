@@ -1,11 +1,31 @@
 {% render 'partials/head.liquid', title: 'Home' %}
 
 <main>
-    <span class="primary-txt-home">testtesttest</span>
-    <span class="primary-txt-detail">testtesttest</span>
-    <span class="title-home">testtesttest</span>
-    <span class="title-detail">testtesttest</span>
-    <span>testtesttest</span>
+    <h1><img src="/assets/PokemonLogo.svg" alt="pokemon logo"></h1>
+
+    <section>
+        <h2 class="title-home">All Pokemon</h2>
+
+        <form method="post" action="">
+            <input type="search" placeholder="Search All Pokemon"/>
+            <button><img class="svg" src="/assets/btn-search.svg" alt="search button"></button>
+        </form>
+
+        <a href="/">All Pokemon</a>
+        <a href="/">Caught Pokemon</a>
+    </section>
+
+    <section>
+        <article>
+            <h3>Bulbasaur</h3>
+            <img src="/assets/pokeball.svg" alt="{{bulba}} is caught">
+            <picture>
+                <source type="image/avif" srcset="/assets/test-bulba.avif">
+                <source type="image/webp" srcset="/assets/test-bulba.webp">
+                <img src="/assets/test-bulba.png" width="70px" height="68px" alt="test-bulba" loading="lazy">
+            </picture>
+        </article>
+    </section>
 </main>
 
 {% render 'partials/foot.liquid' %}
