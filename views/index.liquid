@@ -6,8 +6,8 @@
     <section>
         <h2 class="title-home">All Pokemon</h2>
 
-        <form method="post" action="">
-            <input type="search" placeholder="Search All Pokemon"/>
+        <form method="post" action="/">
+            <input type="search" placeholder="Search All Pokemon">
             <button><img class="svg" src="/assets/btn-search.svg" alt="search button"></button>
         </form>
 
@@ -15,17 +15,17 @@
         <a href="/">Caught Pokemon</a>
     </section>
 
-    <section>
+    <div>
         <article>
             <h3>Bulbasaur</h3>
             <img src="/assets/pokeball.svg" alt="{{bulba}} is caught">
             <picture>
                 <source type="image/avif" srcset="/assets/test-bulba.avif">
                 <source type="image/webp" srcset="/assets/test-bulba.webp">
-                <img src="/assets/test-bulba.png" width="70px" height="68px" alt="test-bulba" loading="lazy">
+                <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
             </picture>
         </article>
-    </section>
+    </div>
 </main>
 
 {% render 'partials/foot.liquid' %}
