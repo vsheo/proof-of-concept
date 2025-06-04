@@ -23,14 +23,15 @@ app.set("views", "./views");
 //     response.render("index.liquid", { pokeman: pokemonResponseJSON.results,  });
 // });
 
+// read de cache.json die lokaal staat
+const cacheData = fs.readFileSync('cache.json', 'utf-8');
+const cacheDataJSON = JSON.parse(cacheData);
 
 
 // index GET
 app.get("/", async function (request, response) {
-    const ffff = getPkmData()
-
-    const cacheData = fs.readFileSync('cache.json', 'utf-8');
-    const cacheDataJSON = JSON.parse(cacheData);
+    // getPkmNameId()
+    getPkmType()
 
     response.render("index.liquid", { pkmData: cacheDataJSON });
 });
@@ -38,22 +39,35 @@ app.get("/", async function (request, response) {
 
 import fs from 'fs'
 
-// get all names
-async function getPkmData() {
+// get all names and generate id's
+async function getPkmNameId() {
     // deze link, + de name heeft de id van de pokemon
-	const indexDataResp = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`);
-	const indexDataRespJSON = await indexDataResp.json();
-    const pkmNameUrl = indexDataRespJSON.results
+	const nameIdResp = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`);
+	const nameIdRespJSON = await nameIdResp.json();
+    const pkmNameId = nameIdRespJSON.results
 
     // gebruik map om de name van elke pokemon op te slaan in een list
-    const nameList = pkmNameUrl.map((pokemon, index) => ({
+    const nameIds = pkmNameId.map((pokemon, index) => ({
         id: index + 1,
         pokemon
     }));
 
     // sla de names op in de cache
-    fs.writeFileSync('cache.json', JSON.stringify(nameList, null, 2));
+    fs.writeFileSync('cache.json', JSON.stringify(nameIds, null, 2));
 }
+
+
+async function getPkmType() {
+    // deze link heeft alle data van de pokemon, hieruit wil ik alleen de types halen
+    const typesResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${cacheDataJSON[0].id}`);
+	const typesRespJSON = await typesResp.json();
+    const pkmNameUrl = typesRespJSON
+
+    const types = pkmNameUrl.types;
+
+    fs.writeFileSync('cache.json', JSON.stringify(types, null, 2));
+}
+
 
 
 
