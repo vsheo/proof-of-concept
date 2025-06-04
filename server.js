@@ -29,7 +29,10 @@ app.set("views", "./views");
 app.get("/", async function (request, response) {
     const ffff = getPkmData()
 
-    response.render("index.liquid", { pokeman: ffff });
+    const cacheData = fs.readFileSync('cache.json', 'utf-8');
+    const cacheDataJSON = JSON.parse(cacheData);
+
+    response.render("index.liquid", { pkmData: cacheDataJSON });
 });
 
 
@@ -43,12 +46,13 @@ async function getPkmData() {
     const pkmNameUrl = indexDataRespJSON.results
 
     // gebruik map om de name van elke pokemon op te slaan in een list
-    const nameList = pkmNameUrl.map(pokemon => pokemon.name);
+    const nameList = pkmNameUrl.map((pokemon, index) => ({
+        id: index + 1,
+        pokemon
+    }));
 
     // sla de names op in de cache
     fs.writeFileSync('cache.json', JSON.stringify(nameList, null, 2));
-
-	// return nameList;
 }
 
 
