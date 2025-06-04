@@ -15,7 +15,7 @@
         <a href="/" class="filter-caught-pkm"><img src="/assets/pokeball-black.svg" width="24" height="24" alt="pokeball logo"><span>Caught Pokemon</span></a>
     </section>
 
-    <div class="pkm-container">
+  <div class="pkm-container">
         {% for pkm in pkmData %}
             <article class="pkm-card">
                 {% assign type = "grass" %}
@@ -31,6 +31,6 @@
         {% endfor %}
     </div>
 </main>
-{% comment %} {{pkmData|json}} {% endcomment %}
+{% comment %} {{pkmData.types[0].type.name|json}} {% endcomment %}
 
 {% render 'partials/foot.liquid' %}

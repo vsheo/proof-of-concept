@@ -30,6 +30,8 @@ const cacheDataJSON = JSON.parse(cacheData);
 
 // index GET
 app.get("/", async function (request, response) {
+    // deze moeten om de beurt gedaan worden omdat het voor nu beide in cache.json schrijft
+    // de eerste is nodig om de 2de to doen
     // getPkmNameId()
     getPkmType()
 
@@ -47,9 +49,9 @@ async function getPkmNameId() {
     const pkmNameId = nameIdRespJSON.results
 
     // gebruik map om de name van elke pokemon op te slaan in een list
-    const nameIds = pkmNameId.map((pokemon, index) => ({
+    const nameIds = pkmNameId.map((pkm, index) => ({
         id: index + 1,
-        pokemon
+        pkm
     }));
 
     // sla de names op in de cache
@@ -63,7 +65,10 @@ async function getPkmType() {
 	const typesRespJSON = await typesResp.json();
     const pkmNameUrl = typesRespJSON
 
-    const types = pkmNameUrl.types;
+    // const types = pkmNameUrl.types;
+    const types = pkmNameUrl.types.map((typeObj) => ({
+        type: typeObj.type.name
+    }));
 
     fs.writeFileSync('cache.json', JSON.stringify(types, null, 2));
 }
