@@ -33,6 +33,7 @@ app.get("/", async function (request, response) {
 });
 
 
+import fs from 'fs'
 
 // get all names
 async function getPkmData() {
@@ -44,7 +45,10 @@ async function getPkmData() {
     // gebruik map om de name van elke pokemon op te slaan in een list
     const nameList = pkmNameUrl.map(pokemon => pokemon.name);
 
-	return nameList;
+    // sla de names op in de cache
+    fs.writeFileSync('cache.json', JSON.stringify(nameList, null, 2));
+
+	// return nameList;
 }
 
 
