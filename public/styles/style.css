@@ -81,10 +81,14 @@
     "name pokeball"
     ". pokeman"
     ;
+    max-width: 350px;
 
     .pkm-background {
         grid-column: 1 / -1;
         grid-row: 1 / -1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .pkm-name {
@@ -96,7 +100,7 @@
     .pkm-pokeball {
         grid-area: pokeball;
         justify-self: end;
-        margin: .5em 1em 0 0;
+        margin: 1em 1em 0 0;
     }
 
     .pkm-sprite {
