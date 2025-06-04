@@ -16,24 +16,24 @@ body {
     --color-search: rgb(237, 246, 255);
 
     /* type kleuren */
-    --color-pokemon-type-grass: rgb(190, 226, 183);
-    --color-pokemon-type-normal: rgb(189, 189, 189);
-    --color-pokemon-type-fire: rgb(255, 179, 190);
-    --color-pokemon-type-water: rgb(165, 183, 255);
-    --color-pokemon-type-flying: rgb(170, 205, 255);
-    --color-pokemon-type-fighting: rgb(233, 168, 164);
-    --color-pokemon-type-poison: rgb(219, 191, 231);
-    --color-pokemon-type-electric: rgb(255, 233, 135);
-    --color-pokemon-type-ground: rgb(210, 158, 131);
-    --color-pokemon-type-rock: rgb(171, 171, 171);
-    --color-pokemon-type-psychic: rgb(255, 187, 244);
-    --color-pokemon-type-ice: rgb(157, 209, 255);
-    --color-pokemon-type-bug: rgb(199, 248, 204);
-    --color-pokemon-type-ghost: rgb(192, 149, 212);
-    --color-pokemon-type-steel: rgb(194, 194, 194);
-    --color-pokemon-type-dragon: rgb(106, 164, 245);
-    --color-pokemon-type-dark: rgb(153, 153, 153);
-    --color-pokemon-type-fairy: rgb(255, 161, 235);
+    --color-grass: rgb(190, 226, 183);
+    --color-normal: rgb(189, 189, 189);
+    --color-fire: rgb(255, 179, 190);
+    --color-water: rgb(165, 183, 255);
+    --color-flying: rgb(170, 205, 255);
+    --color-fighting: rgb(233, 168, 164);
+    --color-poison: rgb(219, 191, 231);
+    --color-electric: rgb(255, 233, 135);
+    --color-ground: rgb(210, 158, 131);
+    --color-rock: rgb(171, 171, 171);
+    --color-psychic: rgb(255, 187, 244);
+    --color-ice: rgb(157, 209, 255);
+    --color-bug: rgb(199, 248, 204);
+    --color-ghost: rgb(192, 149, 212);
+    --color-steel: rgb(194, 194, 194);
+    --color-dragon: rgb(106, 164, 245);
+    --color-dark: rgb(153, 153, 153);
+    --color-fairy: rgb(255, 161, 235);
 
     /* typografie */
     --ff-primary: 'Rubik', sans-serif;

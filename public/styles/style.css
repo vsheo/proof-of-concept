@@ -70,5 +70,37 @@
 }
 
 .pkm-container {
+    margin-top: 1em;
+}
 
+.pkm-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "name pokeball"
+    ". pokeman"
+    ;
+
+    .pkm-background {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+    }
+
+    .pkm-name {
+        grid-area: name;
+        margin: .7em 0 0 1em ;
+        color: var(--color-primary-daylight);
+    }
+
+    .pkm-pokeball {
+        grid-area: pokeball;
+        justify-self: end;
+        margin: .5em 1em 0 0;
+    }
+
+    .pkm-sprite {
+        grid-area: pokeman;
+        place-self: center;
+    }
 }
