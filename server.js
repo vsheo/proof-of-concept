@@ -18,7 +18,8 @@ const cacheDataJSON = JSON.parse(cacheData);
 
 // index GET
 app.get("/", async function (request, response) {
-    const twelveH = 12 * 60 * 60 * 1000;
+    // 12 uur in milliseconden
+    const twelveH = 43200000
     const now = Date.now();
 
     // https://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
