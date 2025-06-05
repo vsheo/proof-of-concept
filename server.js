@@ -18,7 +18,19 @@ const cacheDataJSON = JSON.parse(cacheData);
 
 // index GET
 app.get("/", async function (request, response) {
-    getIndexData()
+    const twelveH = 12 * 60 * 60 * 1000;
+    const now = Date.now();
+
+    // check de laatste keer dat cache.json bewerkt was
+    var stats = fs.statSync('cache.json');
+    var mtime = stats.mtimeMs;
+    if ((now - mtime) < twelveH) {
+        console.log('cache is new')
+    }
+    else {
+        getIndexData()
+        console.log('cache geupdate')
+    }
 
     response.render("index.liquid", { pkmData: cacheDataJSON });
 });
