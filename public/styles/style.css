@@ -2,9 +2,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: var(--color-primary-daylight);
 
     .title-site {
-        margin-top: .5em;
+        padding-top: .5em;
     }
 }
 
@@ -23,11 +24,12 @@
         grid-template-areas:
         "btn input"
         ;
-        background-color: var(--color-search);
+      background-color: var(--color-search);
         padding: .5em;
         border-radius: 16px;
         height: 2.4em;
-        width: 15em;
+        width: 13em;
+        margin: 0 1em;
 
         input {
             grid-area: input;
@@ -48,7 +50,8 @@
         align-items: center;
         border-radius: 16px;
         padding: .5em;
-        width: 15em;
+        width: 13em;
+        margin: 1em 1em 0 1em;
         height: 2.4em;
         span {
             margin-left: .5em;
@@ -58,19 +61,19 @@
     .filter-all-pkm {
         background-color: var(--color-primary-purple);
         color: var(--color-primary-daylight);
-        margin-top: 1em;
-
     }
 
     .filter-caught-pkm {
         background-color: var(--color-primary-daylight);
         color: var(--color-primary-midnight);
-        margin-top: 1em;
     }
 }
 
 .pkm-container {
-    margin-top: 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1em;
+    margin: 1em 1em;
 }
 
 .pkm-card {
@@ -82,6 +85,7 @@
     ". pokeman"
     ;
     max-width: 350px;
+    /* margin-bottom: 1em; */
 
     .pkm-background {
         grid-column: 1 / -1;
