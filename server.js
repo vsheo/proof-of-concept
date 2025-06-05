@@ -23,10 +23,16 @@ app.get("/", async function (request, response) {
     response.render("index.liquid", { pkmData: cacheDataJSON });
 });
 
+// detail GET
+app.get("/detail", async function (request, response) {
+    response.render("detail.liquid");
+});
 
-// get all names and generate id's
+
+// FUNCTIES
+// get names, id's and types van elke pokemon 
 async function getIndexData() {
-    // deze url heeft de 
+    // deze url heeft alle pokemon names en een link naar de details van de pokemon waar de types staan
 	const nameURLResp = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`)
 	const nameURLRespJSON = await nameURLResp.json()
     const pkmNameURL = nameURLRespJSON.results
@@ -39,12 +45,12 @@ async function getIndexData() {
     const pkmURLs = pkmNameURL.map(pokemon => pokemon.url)
 
     // https://hostman.com/tutorials/how-to-use-javascript-array-map/#example-3--applying-discounts-to-products
-    // gebruik map op een fetch te doen op elke url in pkmURL
+    // gebruik map om een fetch te doen op elke url in pkmURL
     const fetchPromises = pkmURLs.map(async (detailURL, index) => {
         const pkmDetailResp = await fetch(detailURL)
         const pkmDetails = await pkmDetailResp.json()
         
-        // gebruik map om uit de pkmDetails de types te halen, dit werkt(appart getest)
+        // gebruik map om uit de pkmDetails de types te halen
         const types = pkmDetails.types.map((pokemon) => pokemon.type.name)
 
         // https://www.javascripttutorial.net/javascript-return-multiple-values/#:~:text=Returning%20multiple%20values%20from%20a%20function%20using%20an%20object
@@ -56,7 +62,7 @@ async function getIndexData() {
     })
 
     // https://hostman.com/tutorials/how-to-use-javascript-array-map/#managing-asynchronous-operations
-    // de rede waarom mijn json leeg was is omdat ik geen promise.all gebruikt had waardoor de volgende fetch uitgevoerd werd zonder dat de vorige klaar was
+    // promise.all om de volgende fetch uit te voeren alleen als de vorige klaar is
     const pkmTypes = await Promise.all(fetchPromises)
 
     // gebruik de functie om de correcte structuur te maken
@@ -68,22 +74,12 @@ async function getIndexData() {
 
 // deze functie neemt de name, id en types van een pokemon, zet het samen en geeft het terug met een return
 function structureJSON(names, types) {
-    // for (let i = 0; i < types.length; i++) {
-    //     types[i].name1 = names[i]
-    // }
-
     types.forEach((type, i) => {
         type.name = names[i]
     });
 
     return types
 }
-
-
-// detail GET
-app.get("/detail", async function (request, response) {
-    response.render("detail.liquid");
-});
 
 app.set("port", process.env.PORT || 8000);
 
