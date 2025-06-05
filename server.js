@@ -21,6 +21,7 @@ app.get("/", async function (request, response) {
     const twelveH = 12 * 60 * 60 * 1000;
     const now = Date.now();
 
+    // https://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
     // check de laatste keer dat cache.json bewerkt was
     var stats = fs.statSync('cache.json');
     var mtime = stats.mtimeMs;
