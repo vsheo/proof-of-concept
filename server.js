@@ -30,10 +30,7 @@ const cacheDataJSON = JSON.parse(cacheData);
 
 // index GET
 app.get("/", async function (request, response) {
-    // deze moeten om de beurt gedaan worden omdat het voor nu beide in cache.json schrijft
-    // de eerste is nodig om de 2de to doen
-    // getPkmNameId()
-    getPkmType()
+    getIndexData()
 
     response.render("index.liquid", { pkmData: cacheDataJSON });
 });
@@ -42,21 +39,35 @@ app.get("/", async function (request, response) {
 import fs from 'fs'
 
 // get all names and generate id's
-async function getPkmNameId() {
+async function getIndexData() {
     // deze link, + de name heeft de id van de pokemon
-	const nameIdResp = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`);
-	const nameIdRespJSON = await nameIdResp.json();
-    const pkmNameId = nameIdRespJSON.results
+	const nameURLResp = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`)
+	const nameURLRespJSON = await nameURLResp.json()
+    const pkmNameURL = nameURLRespJSON.results
 
-    // gebruik map om de name van elke pokemon op te slaan in een list
-    const nameIds = pkmNameId.map((pkm, index) => ({
-        id: index + 1,
-        pkm
-    }));
+    // gebruik map om een lijst met pokemon names te maken
+    const pkmName = pkmNameURL.map(pokemon => pokemon.name)
+
+    // gebruik map om een lijst van fetch url's te maken
+    const pkmURL = pkmNameURL.map(pokemon => pokemon.url)
+
+    // gebruik map op een fetch te doen op elke url in pkmURL
+    const pkmTypes = pkmURL.map(async (detailsURL, index) => {
+        const pkmDetailsResp = await fetch(detailsURL)
+        const pkmDetails = await pkmDetailsResp.json()
+        
+        // gebruik map om uit de pkmDetails de types te halen
+        const types = pkmDetails.types.map((pokemon) => pokemon.type.name)
+
+        return types, index + 1
+    })
+
 
     // sla de names op in de cache
-    fs.writeFileSync('cache.json', JSON.stringify(nameIds, null, 2));
+    fs.writeFileSync('cache.json', JSON.stringify(pkmTypes, null, 2));
 }
+
+
 
 
 async function getPkmType() {
@@ -73,6 +84,36 @@ async function getPkmType() {
     fs.writeFileSync('cache.json', JSON.stringify(types, null, 2));
 }
 
+
+async function getIndexData() {
+    const nameIdResp = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=10`);
+    const nameIdRespJSON = await nameIdResp.json();
+    const pkmList = nameIdRespJSON.results;
+
+    // promise.all: wacht totdat alle async klaar zijn
+    const resultList = await Promise.all(
+        // map: ga door alle pokemon in de lijst en doe iets. | index is de positie van de pokemon in de array.
+        pkmList.map(async (pkm, index) => {
+            // uit de eerste fetch krijgen we pokemon name en een url naar details info van die pokemon
+            const detailResp = await fetch(pkm.url);
+            const detailRespJSON = await detailResp.json();
+
+            const types = detailRespJSON.types.map((types) => types.type.name);
+
+            return {
+                // maak zelf een id door 1 op te tellen bij de index (zodat id overeen komt met de pokemon id)
+                id: index + 1,
+                // name van de pokemon
+                name: pkm.name,
+                // ||: betekent OR, als de eerste niet bestaat is het leeg
+                type1: types[0] || null,
+                type2: types[1] || null,
+            };
+        })
+    );
+
+    fs.writeFileSync("cache.json", JSON.stringify(resultList, null, 2));
+}
 
 
 
