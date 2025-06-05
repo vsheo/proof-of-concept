@@ -31,31 +31,47 @@ async function getIndexData() {
 	const nameURLRespJSON = await nameURLResp.json()
     const pkmNameURL = nameURLRespJSON.results
 
+    // https://hostman.com/tutorials/how-to-use-javascript-array-map/
     // gebruik map om een lijst met pokemon names te maken
     const pkmName = pkmNameURL.map(pokemon => pokemon.name)
 
     // gebruik map om een lijst van fetch url's te maken
-    const pkmURL = pkmNameURL.map(pokemon => pokemon.url)
+    const pkmURLs = pkmNameURL.map(pokemon => pokemon.url)
 
+    // https://hostman.com/tutorials/how-to-use-javascript-array-map/#example-3--applying-discounts-to-products
     // gebruik map op een fetch te doen op elke url in pkmURL
-    const pkmTypes = pkmURL.map(async (detailsURL, index) => {
-        const pkmDetailsResp = await fetch(detailsURL)
-        const pkmDetails = await pkmDetailsResp.json()
+    const fetchPromises = pkmURLs.map(async (detailURL, index) => {
+        const pkmDetailResp = await fetch(detailURL)
+        const pkmDetails = await pkmDetailResp.json()
         
         // gebruik map om uit de pkmDetails de types te halen, dit werkt(appart getest)
         const types = pkmDetails.types.map((pokemon) => pokemon.type.name)
 
-        return types, index + 1
+        // https://www.javascripttutorial.net/javascript-return-multiple-values/#:~:text=Returning%20multiple%20values%20from%20a%20function%20using%20an%20object
+        // hiermee kan ik javascript object terug geven, die ik met JSON.stringify tot JSON kan maken
+        return  {
+            id: index + 1,
+            types
+        };
     })
 
-    // sla de names op in de cache, dit werkt
-    // fs.writeFileSync('cache.json', JSON.stringify(pkmName, null, 2));
+    // https://hostman.com/tutorials/how-to-use-javascript-array-map/#managing-asynchronous-operations
+    // de rede waarom mijn json leeg was is omdat ik geen promise.all gebruikt had waardoor de volgende fetch uitgevoerd werd zonder dat de vorige klaar was
+    const pkmTypes = await Promise.all(fetchPromises)
 
-    // check de list met fetch urls, dit werkt
-    fs.writeFileSync('cache.json', JSON.stringify(pkmURL, null, 2));
+    // gebruik de functie om de correcte structuur te maken
+    const jsonStruc = structureJSON(pkmName, pkmTypes)
 
-    // sla de pokemon types op in de cache, dit werkt niet
-    // fs.writeFileSync('cache.json', JSON.stringify(pkmTypes, null, 2));
+    // zet de structuur om naar JSON en sla het op in de cache
+    fs.writeFileSync('cache.json', JSON.stringify(jsonStruc, null, 2));
+}
+
+// deze functie neemt de name, id en types van een pokemon, zet het samen en geeft het terug met een return
+function structureJSON(name, types) {
+    return {
+        name: name,
+        types: types
+    }
 }
 
 
