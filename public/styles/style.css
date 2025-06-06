@@ -3,17 +3,19 @@
     flex-direction: column;
     background-color: var(--color-primary-daylight);
 
-    .title-site {
-        grid-area: title;
-        place-self: center;
-        padding-top: .5em;
+    @media (min-width: 1114px) {
+        flex-direction: row;
     }
 }
 
-.filter-container {
+.top-section {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .title-site {
+        padding-top: .5em;
+    }
 
     .title-home {
         margin: 1em 0 1em 0;
@@ -71,15 +73,12 @@
 }
 
 .pkm-container {
+    flex: 1;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     place-items: center;
     gap: 1em;
     margin: 1em 1em;
-
-    @media (min-width: 1114px) {
-        
-    }
 }
 
 .pkm-card {
