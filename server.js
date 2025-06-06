@@ -14,6 +14,16 @@ app.set("views", "./views")
 // read de cache.json die lokaal staat
 const cacheData = fs.readFileSync("cache.json", "utf-8");
 const cacheDataJSON = JSON.parse(cacheData)
+// https://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
+// check de laatste keer dat cache.json bewerkt was
+var stats = fs.statSync("cache.json")
+var mtime = stats.mtimeMs
+if (now - mtime < twelveH) {
+    console.log("cache is new")
+} else {
+    getIndexData()
+    console.log("cache geupdate")
+}
 
 // index GET
 app.get("/", async function (request, response) {
@@ -21,16 +31,7 @@ app.get("/", async function (request, response) {
     const twelveH = 43200000;
     const now = Date.now();
 
-    // https://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
-    // check de laatste keer dat cache.json bewerkt was
-    // var stats = fs.statSync("cache.json")
-    // var mtime = stats.mtimeMs
-    // if (now - mtime < twelveH) {
-    //     console.log("cache is new")
-    // } else {
-    //     getIndexData()
-    //     console.log("cache geupdate")
-    // }
+
 
     response.render("index.liquid", { pkmData: cacheDataJSON });
 })
