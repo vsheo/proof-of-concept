@@ -45,7 +45,7 @@ app.get("/detail", async function (request, response) {
 // get names, id's and types van elke pokemon
 async function getIndexData() {
     // deze url heeft alle pokemon names en een link naar de details van de pokemon waar de types staan
-    const nameURLResp = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=25`)
+    const nameURLResp = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`)
     const nameURLRespJSON = await nameURLResp.json()
     const pkmNameURL = nameURLRespJSON.results
 
