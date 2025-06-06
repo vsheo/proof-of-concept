@@ -18,11 +18,11 @@ const cacheDataJSON = JSON.parse(cacheData)
 // index GET
 app.get("/", async function (request, response) {
     // 12 uur in milliseconden
-    const twelveH = 43200000;
-    const now = Date.now();
+    // const twelveH = 43200000;
+    // const now = Date.now();
 
-    // https://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
-    // check de laatste keer dat cache.json bewerkt was
+    // // https://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
+    // // check de laatste keer dat cache.json bewerkt was
     // var stats = fs.statSync("cache.json")
     // var mtime = stats.mtimeMs
     // if (now - mtime < twelveH) {
@@ -31,7 +31,9 @@ app.get("/", async function (request, response) {
     //     getIndexData()
     //     console.log("cache geupdate")
     // }
-    getIndexData()
+
+    // getIndexData()
+
 
     response.render("index.liquid", { pkmData: cacheDataJSON });
 })
