@@ -1,1 +1,190 @@
-
+[
+  {
+    "id": 1,
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "name": "bulbasaur"
+  },
+  {
+    "id": 2,
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "name": "ivysaur"
+  },
+  {
+    "id": 3,
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "name": "venusaur"
+  },
+  {
+    "id": 4,
+    "types": [
+      "fire"
+    ],
+    "name": "charmander"
+  },
+  {
+    "id": 5,
+    "types": [
+      "fire"
+    ],
+    "name": "charmeleon"
+  },
+  {
+    "id": 6,
+    "types": [
+      "fire",
+      "flying"
+    ],
+    "name": "charizard"
+  },
+  {
+    "id": 7,
+    "types": [
+      "water"
+    ],
+    "name": "squirtle"
+  },
+  {
+    "id": 8,
+    "types": [
+      "water"
+    ],
+    "name": "wartortle"
+  },
+  {
+    "id": 9,
+    "types": [
+      "water"
+    ],
+    "name": "blastoise"
+  },
+  {
+    "id": 10,
+    "types": [
+      "bug"
+    ],
+    "name": "caterpie"
+  },
+  {
+    "id": 11,
+    "types": [
+      "bug"
+    ],
+    "name": "metapod"
+  },
+  {
+    "id": 12,
+    "types": [
+      "bug",
+      "flying"
+    ],
+    "name": "butterfree"
+  },
+  {
+    "id": 13,
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "name": "weedle"
+  },
+  {
+    "id": 14,
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "name": "kakuna"
+  },
+  {
+    "id": 15,
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "name": "beedrill"
+  },
+  {
+    "id": 16,
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "name": "pidgey"
+  },
+  {
+    "id": 17,
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "name": "pidgeotto"
+  },
+  {
+    "id": 18,
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "name": "pidgeot"
+  },
+  {
+    "id": 19,
+    "types": [
+      "normal"
+    ],
+    "name": "rattata"
+  },
+  {
+    "id": 20,
+    "types": [
+      "normal"
+    ],
+    "name": "raticate"
+  },
+  {
+    "id": 21,
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "name": "spearow"
+  },
+  {
+    "id": 22,
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "name": "fearow"
+  },
+  {
+    "id": 23,
+    "types": [
+      "poison"
+    ],
+    "name": "ekans"
+  },
+  {
+    "id": 24,
+    "types": [
+      "poison"
+    ],
+    "name": "arbok"
+  },
+  {
+    "id": 25,
+    "types": [
+      "electric"
+    ],
+    "name": "pikachu"
+  }
+]
