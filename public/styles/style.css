@@ -12,9 +12,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: var(--color-layering-daylight);
+
+    @media (min-width: 1114px) {
+        align-self: start;
+        position: sticky;
+        top: 0;
+        padding: 0 1em;
+        height: 100dvh;
+    }
 
     .title-site {
         padding-top: .5em;
+
+        @media (min-width: 1114px) {
+            margin-top: 1em;
+        }
     }
 
     .title-home {
@@ -77,8 +90,13 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     place-items: center;
+    background-color: var(--color-primary-daylight);
     gap: 1em;
     margin: 1em 1em;
+
+    @media (min-width: 1114px) {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
 }
 
 .pkm-card {
