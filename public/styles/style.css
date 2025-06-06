@@ -1,15 +1,22 @@
 .index-container {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-areas:
+    "title"
+    "search"
+    "pkmContainer"
+    ;
     align-items: center;
     background-color: var(--color-primary-daylight);
 
     .title-site {
+        grid-area: title;
+        justify-self: center;
         padding-top: .5em;
     }
 }
 
 .filter-container {
+    grid-area: search;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -70,10 +77,10 @@
 }
 
 .pkm-container {
+    grid-area: pkmContainer;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    width: 100dvw;
-    justify-content: center;
+    place-items: center;
 
     gap: 1em;
     margin: 1em 1em;
@@ -88,7 +95,6 @@
     ". pokeman"
     ;
     max-width: 350px;
-    /* margin-bottom: 1em; */
 
     .pkm-background {
         grid-column: 1 / -1;
