@@ -26,10 +26,10 @@ app.get("/", async function (request, response) {
     var stats = fs.statSync("cache.json")
     var mtime = stats.mtimeMs
     if (now - mtime < twelveH) {
-        console.log("cache is new")
+        // console.log("cache is new")
     } else {
         getIndexData()
-        console.log("cache geupdate")
+        // console.log("cache geupdate")
     }
 
 
@@ -37,15 +37,18 @@ app.get("/", async function (request, response) {
     response.render("index.liquid", { pkmData: cacheDataJSON });
 })
 
-app.get("/:name", async function (request, response) {
-    const pkmSearch = request.params.name;
-    console.log(pkmSearch)
+// app.get("/:name", async function (request, response) {
+//     const pkmSearch = request.params.name;
+//     // console.log(pkmSearch)
 
-    response.redirect('/');
-})
+//     response.redirect('/');
+// })
 
 // detail GET
-app.get("/detail", async function (request, response) {
+app.get("/:pkmName", async function (request, response) {
+    const pkmName = request.params.pkmName;
+    console.log(pkmName)
+
     response.render("detail.liquid")
 });
 
@@ -104,9 +107,5 @@ function structureJSON(names, types) {
 app.set("port", process.env.PORT || 8000)
 
 app.listen(app.get("port"), function () {
-    console.log(
-        `Project draait via http://localhost:${app.get(
-            "port"
-        )}/\n\nSucces deze sprint. En maak mooie dingen! 🙂`
-    );
+    console.log(`Project draait via http://localhost:${app.get( "port" )}/`);
 });
