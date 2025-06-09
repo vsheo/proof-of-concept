@@ -145,21 +145,16 @@
 .detail-container {
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr;
     grid-template-areas:
     "pokemon"
-    "about"
-    "stats"
-    "evolution"
+    "details"
     ;
     place-items: center;
-
-    .pkm-background {
-        grid-column: 1 / -1;
-        grid-row: 1 / -1;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+    
+    background-image: url('/assets/bg-pokeball-detail.svg');
+    background-repeat: no-repeat;
+    background-position: center;
 
     /* tab switcher logica */
     /* https://medium.com/@pimterry/better-css-only-tabs-with-target-7886c88deb75#:~:text=back%20to%20IE9.-,It%20looks%20like%20this%3A,-JS%20Bin */
@@ -203,6 +198,9 @@
         color: var(--color-primary-daylight);
         margin-top: .5em;
     }
+
+    .pkm-sprite {
+    }
 }
 
 .info-container {
@@ -220,7 +218,7 @@
 }
 
 .about {
-    grid-area: about;
+    grid-area: details;
 
     table {
         width: 100%;
@@ -236,7 +234,7 @@
 }
 
 .stats {
-    grid-area: stats;
+    grid-area: details;
 
     .pkm-stats {
         margin: 1em 0;
@@ -273,7 +271,7 @@
 }
 
 .evolution {
-    grid-area: evolution;
+    grid-area: details;
     
     .pkm-evo {
         display: grid;
