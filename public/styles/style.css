@@ -123,7 +123,9 @@
     .pkm-name {
         grid-area: name;
         margin: .7em 0 0 1em ;
-        color: var(--color-primary-daylight);
+        a {
+            color: var(--color-primary-daylight);
+        }
     }
 
     .pkm-pokeball {
@@ -138,4 +140,191 @@
         overflow: hidden;
         margin-right: 3em;
     }
+}
+
+.detail-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+    "pokemon"
+    "about"
+    "stats"
+    "evolution"
+    ;
+    /* height: 100dvh; */
+    place-items: center;
+
+    .pkm-background {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.pkm-info {
+    grid-area: pokemon;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title-site {
+        z-index: 1;
+        margin-top: .7em;
+    }
+
+    .id-pokeball {
+        display: flex;
+        align-items: center;
+        margin-top: .5em;
+    }
+
+    .details-pkm-id {
+        height: 57px;
+        width: 123px;
+    }
+
+    .pkm-pokeball {
+        justify-self: start;
+        margin-left: .5em;
+    }
+
+    .pkm-name {
+        color: var(--color-primary-daylight);
+        margin-top: .5em;
+    }
+}
+
+.info-container {
+    background-color: var(--color-primary-daylight);
+    border-radius: 10px;
+    margin:  1em 1em 1em;
+    width: 100%;
+    max-width: 375px;
+
+    .titles {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 1em;
+    }
+}
+
+.about {
+    grid-area: about;
+
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 1em .5em;
+        margin: 1em 0;
+
+        td:last-child {
+            text-align: end;
+            font-weight: var(--fw-regular);
+        }
+    }
+}
+
+.stats {
+    display: none;
+    grid-area: stats;
+
+    .pkm-stats {
+        margin: 1em 0;
+
+        li {
+            display: grid;
+            grid-template-areas:
+            "stat number"
+            "meter meter"
+            ;
+            margin: .5em 2em;
+
+            .stat {
+                grid-area: stat;
+            }
+
+            .number {
+                grid-area: number;
+                font-weight: var(--fw-regular);
+                justify-self: end;
+            }
+
+            meter {
+                grid-area: meter;
+                width: 100%;
+                height: 10px;
+
+                &::-webkit-meter-optimum-value {
+                    background: var(--color-primary-purple);
+                }
+            }
+        }
+    }
+}
+
+.evolution {
+    display: none;
+
+    grid-area: evolution;
+    
+    .pkm-evo {
+        display: grid;
+        grid-template-columns: min-content 1fr;
+        grid-template-rows: min-content min-content;
+        grid-template-areas:
+        "sprite id"
+        "sprite name";
+        margin: 1em;
+        border-radius: 15px;
+        box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
+
+        .sprite {
+            grid-area: sprite;
+            padding: .5em;
+            margin-right: .5em;
+            border-radius: 15px 0 0 15px;
+        }
+
+        .details-pkm-id {
+            grid-area: id;
+            align-self: end;
+            height: 27px;
+            width: 60px;
+        }
+
+        .pkm-name {
+            grid-area: name;
+            align-self: center;
+        }
+    }
+}
+
+
+
+
+.stats-container {
+    /* display: none; */
+    text-align: end;
+
+    .titles-container {
+        h3 {}
+
+        span {}
+    }
+
+    .table-regular {}
+}
+
+.evo-container {
+    /* display: none; */
+
+    .titles-container {
+        h3 {}
+
+        span {}
+    }
+
+    .pkm-evo {}
 }

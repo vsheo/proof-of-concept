@@ -40,6 +40,7 @@ body {
     --ff-primary: 'Rubik', sans-serif;
 
     /* font sizes */
+    --fs-small: 1rem;
     --fs-primary: 1.25rem;
     --fs-txt-resp: clamp(1.25rem, calc(1.5vw + 1rem), 2rem);
     --fs-title-32: 2rem;
@@ -55,21 +56,21 @@ body {
 @font-face {
     font-family: 'Rubik';
     src: url('/fonts/Rubik-Regular.ttf') format('truetype');
-    font-weight: var(--fw-regular);
+    font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Rubik';
     src: url('/fonts/Rubik-Medium.ttf') format('truetype');
-    font-weight: var(--fw-medium);
+    font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Rubik';
     src: url('/fonts/Rubik-SemiBold.ttf') format('truetype');
-    font-weight: var(--fw-semibold);
+    font-weight: 600;
     font-style: normal;
 }
 
@@ -101,6 +102,24 @@ body {
     font-weight: var(--fw-semibold);
 }
 
+.detail-info {
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+}
+
 a {
     text-decoration: none;
+    color: black;
+}
+
+
+.details-pkm-id {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary-purple);
+    color: var(--color-primary-daylight);
+    height: 57px;
+    width: 123px;
+    border-radius: 24px;
 }
