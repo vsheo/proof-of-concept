@@ -174,9 +174,13 @@
     align-items: center;
     height: 100%;
     width: 100%;
+    background-image: url('/assets/bg-pokeball-detail.svg');
+    background-repeat: no-repeat;
+    background-position: center;
 
     @media (min-width: 720px) {
         max-width: 400px;
+        background-position: bottom left 5px;
     }
 
     .title-site {
@@ -242,6 +246,10 @@
             height: .4em;
             width: calc(100% - 3em);
             margin: .5em 0;
+
+            @media (min-width: 720px) {
+                width: 100%;
+            }
         }
 
         .bar {
@@ -250,7 +258,6 @@
         }
 
         .indicator {
-            grid-column: 2 / span 1;
             background-color: var(--color-primary-purple);
             width: 100%;
         }
@@ -269,6 +276,15 @@
 
 .about {
     grid-area: details;
+
+    .tab-titles .indicator {
+        grid-column: 1 / span 1;
+        margin-left: 3em;
+
+        @media (min-width: 720px) {
+            margin: 0;
+        }
+    }
 
     table {
         width: 100%;
@@ -289,6 +305,10 @@
 
 .stats {
     grid-area: details;
+
+    .tab-titles .indicator {
+        grid-column: 2 / span 1;
+    }
 
     .pkm-stats {
         margin: 1em 0;
@@ -330,6 +350,15 @@
 
 .evolution {
     grid-area: details;
+
+    .tab-titles .indicator {
+        grid-column: 3 / span 1;
+        margin-right: 3em;
+
+        @media (min-width: 720px) {
+            margin: 0;
+        }
+    }
     
     .pkm-evo {
         display: grid;
