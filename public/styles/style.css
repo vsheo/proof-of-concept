@@ -152,18 +152,18 @@
     ;
     place-items: center;
     
-    background-image: url('/assets/bg-pokeball-detail.svg');
-    background-repeat: no-repeat;
-    background-position: center;
+    /* background-image: url('/assets/bg-pokeball-detail.svg'); */
+    /* background-repeat: no-repeat; */
+    /* background-position: center; */
 
-    /* tab switcher logica */
-    /* https://medium.com/@pimterry/better-css-only-tabs-with-target-7886c88deb75#:~:text=back%20to%20IE9.-,It%20looks%20like%20this%3A,-JS%20Bin */
-    .info-container:not(:target) {
-        display: none;
-    }
-    
-    .info-container:target {
-      display: block;
+    @media (min-width: 720px) {
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 1fr;
+        grid-template-areas:
+        "pokemon details"
+        ;
+        background-image: none;
+        height: 100dvh;
     }
 }
 
@@ -172,6 +172,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;
+    width: 100%;
+
+    @media (min-width: 720px) {
+        max-width: 400px;
+    }
 
     .title-site {
         z-index: 1;
@@ -198,9 +204,6 @@
         color: var(--color-primary-daylight);
         margin-top: .5em;
     }
-
-    .pkm-sprite {
-    }
 }
 
 .info-container {
@@ -210,11 +213,36 @@
     width: calc(100% - 2em);
     max-width: 375px;
 
+    @media (min-width: 720px) {
+        margin: 0;
+        width: 100%;
+        height: 100dvh;
+        max-width: none;
+        border-radius: unset;
+        place-content: center;
+        font-size: var(--fs-details-resp);
+    }
+
     .tab-titles {
         display: flex;
         justify-content: space-around;
         margin-top: 1em;
+
+        @media (min-width: 720px) {
+            max-width: 550px;
+            margin: 0 auto;
+        }
     }
+}
+
+/* tab switcher */
+/* https://medium.com/@pimterry/better-css-only-tabs-with-target-7886c88deb75#:~:text=back%20to%20IE9.-,It%20looks%20like%20this%3A,-JS%20Bin */
+.info-container:not(:target) {
+    display: none;
+}
+
+.info-container:target {
+    display: block;
 }
 
 .about {
@@ -225,6 +253,10 @@
         border-collapse: separate;
         border-spacing: 1em .5em;
         margin: 1em 0;
+
+        @media (min-width: 950px) {
+            border-spacing: 7vw .5em;
+        }
 
         td:last-child {
             text-align: end;
@@ -296,6 +328,11 @@
             align-self: end;
             height: 27px;
             width: 60px;
+
+            @media (min-width: 720px) {
+                height: 40px;
+                width: 90px;
+            }
         }
 
         .pkm-name {
@@ -303,32 +340,4 @@
             align-self: center;
         }
     }
-}
-
-
-
-
-.stats-container {
-    /* display: none; */
-    text-align: end;
-
-    .titles-container {
-        h3 {}
-
-        span {}
-    }
-
-    .table-regular {}
-}
-
-.evo-container {
-    /* display: none; */
-
-    .titles-container {
-        h3 {}
-
-        span {}
-    }
-
-    .pkm-evo {}
 }
