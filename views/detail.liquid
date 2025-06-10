@@ -16,7 +16,7 @@
         </picture>
     </section>
 
-    <section class="about info-container detail-info" id="about">
+    <section class="info-container detail-info">
         <nav class="tab-titles">
             <span><a href="#about">About</a></span>
             <span><a href="#stats">Stats</a></span>
@@ -25,7 +25,7 @@
             <div class="indicator"></div>
         </nav>
 
-        <table class="table-regular pkm-about">
+        <table class="pkm-about tab" id="about">
             <tbody>
                 <tr>
                     <td>Name</td>
@@ -57,18 +57,8 @@
                 </tr>
             </tbody>
         </table>
-    </section>
 
-    <section class="stats info-container detail-info" id="stats">
-        <nav class="tab-titles">
-            <span><a href="#about">About</a></span>
-            <span><a href="#stats">Stats</a></span>
-            <span><a href="#evolutions">Evolutions</a></span>
-            <div class="bar"></div>
-            <div class="indicator"></div>
-        </nav>
-
-        <ul class="pkm-stats">
+        <ul class="pkm-stats tab" id="stats">
             <li>
                 <span class="stat">HP</span>
                 <span class="number">45</span>
@@ -100,49 +90,41 @@
                 <meter value="45" min="0" max="100"></meter>
             </li>
         </ul>
-    </section>
 
-    <section class="evolution info-container detail-info" id="evolutions">
-        <nav class="tab-titles">
-            <span><a href="#about">About</a></span>
-            <span><a href="#stats">Stats</a></span>
-            <span><a href="#evolutions">Evolutions</a></span>
-            <div class="bar"></div>
-            <div class="indicator"></div>
-        </nav>
+        <section class="evolution tab" id="evolutions">
+            <article class="pkm-evo">
+                <picture class="sprite" style="background-color: var(--color-grass);">
+                    <source type="image/avif" srcset="/assets/test-bulba.avif">
+                    <source type="image/webp" srcset="/assets/test-bulba.webp">
+                    <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
+                </picture>
 
-        <article class="pkm-evo">
-            <picture class="sprite" style="background-color: var(--color-grass);">
-                <source type="image/avif" srcset="/assets/test-bulba.avif">
-                <source type="image/webp" srcset="/assets/test-bulba.webp">
-                <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
-            </picture>
+                <span class="details-pkm-id">001</span>
+                <h4 class="pkm-name">Bulba</h4>
+            </article>
 
-            <span class="details-pkm-id">001</span>
-            <h4 class="pkm-name">Bulba</h4>
-        </article>
+            <article class="pkm-evo">
+                <picture class="sprite" style="background-color: var(--color-grass);">
+                    <source type="image/avif" srcset="/assets/test-bulba.avif">
+                    <source type="image/webp" srcset="/assets/test-bulba.webp">
+                    <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
+                </picture>
 
-        <article class="pkm-evo">
-            <picture class="sprite" style="background-color: var(--color-grass);">
-                <source type="image/avif" srcset="/assets/test-bulba.avif">
-                <source type="image/webp" srcset="/assets/test-bulba.webp">
-                <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
-            </picture>
+                <span class="details-pkm-id">001</span>
+                <h4 class="pkm-name">Bulba</h4>
+            </article>
 
-            <span class="details-pkm-id">001</span>
-            <h4 class="pkm-name">Bulba</h4>
-        </article>
+            <article class="pkm-evo">
+                <picture class="sprite" style="background-color: var(--color-grass);">
+                    <source type="image/avif" srcset="/assets/test-bulba.avif">
+                    <source type="image/webp" srcset="/assets/test-bulba.webp">
+                    <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
+                </picture>
 
-        <article class="pkm-evo">
-            <picture class="sprite" style="background-color: var(--color-grass);">
-                <source type="image/avif" srcset="/assets/test-bulba.avif">
-                <source type="image/webp" srcset="/assets/test-bulba.webp">
-                <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
-            </picture>
-
-            <span class="details-pkm-id">001</span>
-            <h4 class="pkm-name">Bulba</h4>
-        </article>
+                <span class="details-pkm-id">001</span>
+                <h4 class="pkm-name">Bulba</h4>
+            </article>
+        </section>
     </section>
 </main>
 
