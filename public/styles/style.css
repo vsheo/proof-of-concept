@@ -224,13 +224,35 @@
     }
 
     .tab-titles {
-        display: flex;
-        justify-content: space-around;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+        "a b c"
+        "bar bar bar";
+        place-items: center;
         margin-top: 1em;
 
         @media (min-width: 720px) {
             max-width: 550px;
             margin: 0 auto;
+        }
+
+        .bar, .indicator {
+            grid-area: bar;
+            height: .4em;
+            width: calc(100% - 3em);
+            margin: .5em 0;
+        }
+
+        .bar {
+            grid-column: 1 / span 3;
+            background-color: lightgrey;
+        }
+
+        .indicator {
+            grid-column: 2 / span 1;
+            background-color: var(--color-primary-purple);
+            width: 100%;
         }
     }
 }

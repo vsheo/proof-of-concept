@@ -10,6 +10,7 @@
 body {
     /* kleuren */
     --color-gray: rgb(231, 230, 236);
+    --color-gray-bar: rgba(0, 0, 0, .2%);
     --color-primary-daylight: rgb(246, 246, 255);
     --color-layering-daylight: rgb(250, 253, 255);
     --color-primary-midnight: rgb(14, 9, 64);
