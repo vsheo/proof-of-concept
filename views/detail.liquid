@@ -1,18 +1,24 @@
 {% render 'partials/head.liquid' %}
 
-<main class="detail-container"  style="background-color: var(--color-grass);">
-    <section class="pkm-info" style="background-color: var(--color-grass); background-image: url('/assets/bg-pokeball-detail.svg');">
+<main class="detail-container"  style="background-color: var(--color-{{pkmInfo.types[0].type.name}});">
+    <section class="pkm-info" style="background-color: var(--color-{{pkmInfo.types[0].type.name}}); background-image: url('/assets/bg-pokeball-detail.svg');">
         <h1 class="title-site"><a href="/"><img src="/assets/PokemonLogo.svg" width="300" height="107" alt="pokemon logo"></a></h1>
         <div class="id-pokeball">
-            <span class="details-pkm-id title-home">001</span>
+            {% if pkmInfo.id < 10 %}
+                <span class="details-pkm-id title-home">00{{pkmInfo.id}}</span>
+            {% elsif pkmInfo.id < 100 %}
+                <span class="details-pkm-id title-home">0{{pkmInfo.id}}</span>
+            {% else %}
+                <span class="details-pkm-id title-home">{{pkmInfo.id}}</span>
+            {% endif %}
             <img class="pkm-pokeball" src="/assets/pokeball.svg" width="40" height="40" alt="{{bulba}} is caught">
         </div>
 
-        <h2 class="pkm-name title-detail">Bulba</h2>
+        <h2 class="pkm-name title-detail">{{pkmInfo.name}}</h2>
         <picture class="pkm-sprite">
-            <source type="image/avif" srcset="/assets/test-bulba.avif">
-            <source type="image/webp" srcset="/assets/test-bulba.webp">
-            <img src="/assets/test-bulba.png" width="179" height="174" alt="test-bulba" loading="lazy">
+            {% comment %} <source type="image/avif" srcset="/assets/test-bulba.avif"> {% endcomment %}
+            {% comment %} <source type="image/webp" srcset="/assets/test-bulba.webp"> {% endcomment %}
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{pkmInfo.id}}.png" width="179" height="174" alt="test-bulba" loading="lazy">
         </picture>
     </section>
 
@@ -27,93 +33,58 @@
 
         <dl class="pkm-about tab" id="about">
             <dt>Name</dt>
-            <dd>bulba</dd>
+            <dd>{{pkmInfo.name}}</dd>
 
             <dt>Id</dt>
-            <dd>001</dd>
+            <dd>{{pkmInfo.id}}</dd>
 
             <dt>Base XP</dt>
-            <dd>64</dd>
+            <dd>{{pkmInfo.base_experience}}</dd>
 
             <dt>Weight</dt>
-            <dd>69 kg</dd>
+            <dd>{{pkmInfo.weight}} kg</dd>
 
             <dt>Height</dt>
-            <dd>70 cm</dd>
+            <dd>{{pkmInfo.height}} cm</dd>
 
             <dt>Type</dt>
-            <dd>Grass Poison</dd>
+            <dd>
+                {% for type in pkmInfo.types %}
+                    <span>{{type.type.name}}</span>
+                {% endfor %}
+            </dd>
 
             <dt>Abilities</dt>
-            <dd>Overgrow, Chlorophyll</dd>
+            <dd>
+                {% for ability in pkmInfo.abilities %}
+                    <span>{{ability.ability.name}}</span>
+                {% endfor %}
+            </dd>
         </dl>
 
         <ul class="pkm-stats tab" id="stats">
-            <li>
-                <span class="stat">HP</span>
-                <span class="number">45</span>
-                <meter value="45" min="0" max="100"></meter>
-            </li>
-            <li>
-                <span class="stat">Attack</span>
-                <span class="number">49</span>
-                <meter value="49" min="0" max="100"></meter>
-            </li>
-            <li>
-                <span class="stat">Defense</span>
-                <span class="number">49</span>
-                <meter value="49" min="0" max="100"></meter>
-            </li>
-            <li>
-                <span class="stat">Special Attack</span>
-                <span class="number">65</span>
-                <meter value="65" min="0" max="100"></meter>
-            </li>
-            <li>
-                <span class="stat">Special Defense</span>
-                <span class="number">65</span>
-                <meter value="65" min="0" max="100"></meter>
-            </li>
-            <li>
-                <span class="stat">Speed</span>
-                <span class="number">45</span>
-                <meter value="45" min="0" max="100"></meter>
-            </li>
+            {% for stat in pkmInfo.stats %}
+                <li>
+                    <span class="stat">{{stat.stat.name}}</span>
+                    <span class="number">{{stat.base_stat}}</span>
+                    <meter value="{{stat.base_stat}}" min="0" max="255"></meter>
+                </li>
+            {% endfor %}
         </ul>
 
         <section class="evolution tab" id="evolutions">
-            <article class="pkm-evo">
-                <picture class="sprite" style="background-color: var(--color-grass);">
-                    <source type="image/avif" srcset="/assets/test-bulba.avif">
-                    <source type="image/webp" srcset="/assets/test-bulba.webp">
-                    <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
-                </picture>
+            {% for i in (1..3) -%}
+                <article class="pkm-evo">
+                    <picture class="sprite" style="background-color: var(--color-grass);">
+                        <source type="image/avif" srcset="/assets/test-bulba.avif">
+                        <source type="image/webp" srcset="/assets/test-bulba.webp">
+                        <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
+                    </picture>
 
-                <span class="details-pkm-id">001</span>
-                <h4 class="pkm-name">Bulba</h4>
-            </article>
-
-            <article class="pkm-evo">
-                <picture class="sprite" style="background-color: var(--color-grass);">
-                    <source type="image/avif" srcset="/assets/test-bulba.avif">
-                    <source type="image/webp" srcset="/assets/test-bulba.webp">
-                    <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
-                </picture>
-
-                <span class="details-pkm-id">001</span>
-                <h4 class="pkm-name">Bulba</h4>
-            </article>
-
-            <article class="pkm-evo">
-                <picture class="sprite" style="background-color: var(--color-grass);">
-                    <source type="image/avif" srcset="/assets/test-bulba.avif">
-                    <source type="image/webp" srcset="/assets/test-bulba.webp">
-                    <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
-                </picture>
-
-                <span class="details-pkm-id">001</span>
-                <h4 class="pkm-name">Bulba</h4>
-            </article>
+                    <span class="details-pkm-id">001</span>
+                    <h4 class="pkm-name">Bulba</h4>
+                </article>
+            {% endfor %}
         </section>
     </section>
 </main>
