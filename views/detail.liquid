@@ -73,18 +73,42 @@
         </ul>
 
         <section class="evolution tab" id="evolutions">
-            {% for i in (1..3) -%}
+            <article class="pkm-evo">
+                <picture class="sprite" style="background-color: var(--color-{{pkmInfo.types[0].type.name}});">
+                    {% comment %} <source type="image/avif" srcset="/assets/test-bulba.avif"> {% endcomment %}
+                    {% comment %} <source type="image/webp" srcset="/assets/test-bulba.webp"> {% endcomment %}
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{pkmInfo.id}}.png" width="70" height="68" alt="test-bulba" loading="lazy">
+                </picture>
+
+                <span class="details-pkm-id">{{pkmInfo.id}}</span>
+                <h4 class="pkm-name">{{evolutions.chain.species.name}}</h4>
+            </article>
+
+            {% if evolutions.chain.evolves_to[0].species.name %}
                 <article class="pkm-evo">
-                    <picture class="sprite" style="background-color: var(--color-grass);">
-                        <source type="image/avif" srcset="/assets/test-bulba.avif">
-                        <source type="image/webp" srcset="/assets/test-bulba.webp">
+                    <picture class="sprite" style="background-color: var(--color-{{pkmInfo.types[0].type.name}});">
+                        {% comment %} <source type="image/avif" srcset="/assets/test-bulba.avif"> {% endcomment %}
+                        {% comment %} <source type="image/webp" srcset="/assets/test-bulba.webp"> {% endcomment %}
                         <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
                     </picture>
 
                     <span class="details-pkm-id">001</span>
                     <h4 class="pkm-name">{{evolutions.chain.evolves_to[0].species.name}}</h4>
                 </article>
-            {% endfor %}
+            {% endif %}
+
+            {% if evolutions.chain.evolves_to[0].evolves_to[0].species.name %}
+                <article class="pkm-evo">
+                    <picture class="sprite" style="background-color: var(--color-{{pkmInfo.types[0].type.name}});">
+                        {% comment %} <source type="image/avif" srcset="/assets/test-bulba.avif"> {% endcomment %}
+                        {% comment %} <source type="image/webp" srcset="/assets/test-bulba.webp"> {% endcomment %}
+                        <img src="/assets/test-bulba.png" width="70" height="68" alt="test-bulba" loading="lazy">
+                    </picture>
+
+                    <span class="details-pkm-id">001</span>
+                    <h4 class="pkm-name">{{evolutions.chain.evolves_to[0].evolves_to[0].species.name}}</h4>
+                </article>
+            {% endif %}
         </section>
     </section>
 </main>

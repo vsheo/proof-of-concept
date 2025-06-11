@@ -53,10 +53,10 @@ app.get("/:pkmName", async function (request, response) {
     const pkmInfoRespJSON = await pkmInfoResp.json()
 
     // gebruik pkm name en zoek pkm id in cache.json
-    const findPkmInfo = cacheDataJSON.find(pokemon => pokemon.name === pkmName);
+    const findPkmInfo = cacheDataJSON.find(pokemon => pokemon.name === pkmName).id;
 
     // in deze url vind je de link naar data voor de evolution-chain. hier vind je de 
-    const getEvoChain = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${findPkmInfo.id}`)
+    const getEvoChain = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${findPkmInfo}`)
     const evoChain = await getEvoChain.json()
 
     // fetch evolution chain
