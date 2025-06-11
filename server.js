@@ -47,18 +47,9 @@ app.get("/", async function (request, response) {
 // detail GET
 app.get("/:pkmName", async function (request, response) {
     const pkmName = request.params.pkmName;
-    // console.log(pkmName)
 
     const pkmInfoResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${pkmName}`)
     const pkmInfoRespJSON = await pkmInfoResp.json()
-    // const pkmNameURL = nameURLRespJSON.results
-
-    // RespJSON filter
-    // const pkmStatsFiltered = {};
-    const filters = ['abilities', 'stats', 'base_experience', 'weight', 'height', 'abilities']
-    // filters.forEach(function(item) {
-    //   pkmStatsFiltered[item] = pkmStatsRespJSON[item]
-    // })
 
     response.render("detail.liquid", { pkmInfo: pkmInfoRespJSON })
 });
