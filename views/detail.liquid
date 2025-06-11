@@ -84,7 +84,7 @@
                 <h4 class="pkm-name">{{evolutions.chain.species.name}}</h4>
             </article>
 
-            {% if evolutions.chain.evolves_to[0].species.name %}
+            {% for evo in evolutions.chain.evolves_to %}
                 <article class="pkm-evo">
                     <picture class="sprite" style="background-color: var(--color-{{pkmInfo.types[0].type.name}});">
                         {% comment %} <source type="image/avif" srcset="/assets/test-bulba.avif"> {% endcomment %}
@@ -93,11 +93,11 @@
                     </picture>
 
                     <span class="details-pkm-id">001</span>
-                    <h4 class="pkm-name">{{evolutions.chain.evolves_to[0].species.name}}</h4>
+                    <h4 class="pkm-name">{{evo.species.name}}</h4>
                 </article>
-            {% endif %}
+            {% endfor %}
 
-            {% if evolutions.chain.evolves_to[0].evolves_to[0].species.name %}
+            {% for evo in evolutions.chain.evolves_to[0].evolves_to %}
                 <article class="pkm-evo">
                     <picture class="sprite" style="background-color: var(--color-{{pkmInfo.types[0].type.name}});">
                         {% comment %} <source type="image/avif" srcset="/assets/test-bulba.avif"> {% endcomment %}
@@ -106,9 +106,9 @@
                     </picture>
 
                     <span class="details-pkm-id">001</span>
-                    <h4 class="pkm-name">{{evolutions.chain.evolves_to[0].evolves_to[0].species.name}}</h4>
+                    <h4 class="pkm-name">{{evo.species.name}}</h4>
                 </article>
-            {% endif %}
+            {% endfor %}
         </section>
     </section>
 </main>
