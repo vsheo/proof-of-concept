@@ -243,7 +243,7 @@
         }
 
         .bar, .indicator {
-            grid-area: bar;
+            grid-area: bar; 
             height: .4em;
             width: calc(100% - 3em);
             margin: .5em 0;
@@ -261,6 +261,7 @@
         .indicator {
             background-color: var(--color-primary-purple);
             width: 33%;
+            transform: translateX(-100%);
             grid-column: 1 / span 3;
             transition: transform 0.5s ease;
         }
@@ -278,14 +279,15 @@
 }
 
 /* tab: bar indicator */
-#about:target ~ nav .indicator {
+.info-container:has(.pkm-about:target) .indicator  {
+    /* background-color: aquamarine; */
+    transform: translateX(-100%);
+}
+.info-container:has(.pkm-stats:target) .indicator  {
     transform: translateX(0%);
 }
-#stats:target ~ nav .indicator {
+.info-container:has(.evolution:target) .indicator  {
     transform: translateX(100%);
-}
-#evolution:target ~ nav .indicator {
-    transform: translateX(200%);
 }
 
 .pkm-about {
