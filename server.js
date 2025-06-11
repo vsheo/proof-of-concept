@@ -49,6 +49,7 @@ app.get("/", async function (request, response) {
 app.get("/:pkmName", async function (request, response) {
     const pkmName = request.params.pkmName;
 
+    // pokemon details and stats
     const pkmInfoResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${pkmName}`)
     const pkmInfoRespJSON = await pkmInfoResp.json()
 
@@ -61,22 +62,24 @@ app.get("/:pkmName", async function (request, response) {
 
     // fetch evolution chain
     const getEvoData = await fetch(evoChain.evolution_chain.url)
-    const EvoData = await getEvoData.json()
+    const evoData = await getEvoData.json()
 
+    // split de url van evolution-chain om id te krijgen, voor elke stage
+    const basicId = evoData.chain.species.url.split('/')[6]
+    // console.log(basicId)
 
-    // const currentEvo = await fetch(`https://pokeapi.co/api/v2/evolution-chain/${id}`)
-    // const currentEvoRespJSON = await currentEvoResp.json()
+    const stageOneId = evoData.chain.evolves_to.map((pkmStage) => {
+        return pkmStage.species.url.split('/')[6]
+    });
+    // console.log(stageOneId)
 
-    response.render("detail.liquid", { pkmInfo: pkmInfoRespJSON, evolutions: EvoData })
+    const stageTwoId = evoData.chain.evolves_to[0].evolves_to.map((pkmStage) => {
+        return pkmStage.species.url.split('/')[6]
+    });
+    // console.log(stageTwoId)
+
+    response.render("detail.liquid", { pkmInfo: pkmInfoRespJSON, evolutions: evoData, basicId: basicId, stageOneIds: stageOneId, stageTwoIds: stageTwoId })
 });
-
-// async function getEvolutions(id) {
-//     const currentEvo = await fetch(`https://pokeapi.co/api/v2/evolution-chain/${id}`)
-//     const currentEvoRespJSON = await currentEvoResp.json()
-// }
-
-
-
 
 
 // FUNCTIES
