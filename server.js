@@ -68,15 +68,20 @@ app.get("/:pkmName", async function (request, response) {
     const basicId = evoData.chain.species.url.split('/')[6]
     // console.log(basicId)
 
-    const stageOneId = evoData.chain.evolves_to.map((pkmStage) => {
-        return pkmStage.species.url.split('/')[6]
-    });
-    // console.log(stageOneId)
+    let stageOneId = [];
+    let stageTwoId = [];
 
-    const stageTwoId = evoData.chain.evolves_to[0].evolves_to.map((pkmStage) => {
-        return pkmStage.species.url.split('/')[6]
-    });
-    // console.log(stageTwoId)
+    if (evoData.chain.evolves_to.length > 0) {
+        stageOneId = evoData.chain.evolves_to.map((pkmStage) => {
+            return pkmStage.species.url.split('/')[6]
+        });
+        // console.log(stageOneId)
+
+        stageTwoId = evoData.chain.evolves_to[0].evolves_to.map((pkmStage) => {
+            return pkmStage.species.url.split('/')[6]
+        });
+        // console.log(stageTwoId)
+    }
 
     response.render("detail.liquid", { pkmInfo: pkmInfoRespJSON, evolutions: evoData, basicId: basicId, stageOneIds: stageOneId, stageTwoIds: stageTwoId })
 });
