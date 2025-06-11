@@ -26,16 +26,17 @@ app.get("/", async function (request, response) {
     var stats = fs.statSync("cache.json")
     var mtime = stats.mtimeMs
     if (now - mtime < twelveH) {
-        // console.log("cache is new")
+        console.log("cache is new")
     } else {
         getIndexData()
-        // console.log("cache geupdate")
+        console.log("cache geupdate")
     }
-
-
 
     response.render("index.liquid", { pkmData: cacheDataJSON });
 })
+
+// index POST
+// https://fdnd.directus.app/items/messages
 
 // app.get("/:name", async function (request, response) {
 //     const pkmSearch = request.params.name;
@@ -51,10 +52,28 @@ app.get("/:pkmName", async function (request, response) {
     const pkmInfoResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${pkmName}`)
     const pkmInfoRespJSON = await pkmInfoResp.json()
 
-    response.render("detail.liquid", { pkmInfo: pkmInfoRespJSON })
+    // gebruik pkm name en zoek pkm id in cache.json
+    const findPkmInfo = cacheDataJSON.find(pokemon => pokemon.name === pkmName);
+
+    // in deze url vind je de link naar data voor de evolution-chain. hier vind je de 
+    const getEvoChain = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${findPkmInfo.id}`)
+    const evoChain = await getEvoChain.json()
+
+    // fetch evolution chain
+    const getEvoData = await fetch(evoChain.evolution_chain.url)
+    const EvoData = await getEvoData.json()
+
+
+    // const currentEvo = await fetch(`https://pokeapi.co/api/v2/evolution-chain/${id}`)
+    // const currentEvoRespJSON = await currentEvoResp.json()
+
+    response.render("detail.liquid", { pkmInfo: pkmInfoRespJSON, evolutions: EvoData })
 });
 
-
+// async function getEvolutions(id) {
+//     const currentEvo = await fetch(`https://pokeapi.co/api/v2/evolution-chain/${id}`)
+//     const currentEvoRespJSON = await currentEvoResp.json()
+// }
 
 
 

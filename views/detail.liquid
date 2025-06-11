@@ -82,11 +82,12 @@
                     </picture>
 
                     <span class="details-pkm-id">001</span>
-                    <h4 class="pkm-name">Bulba</h4>
+                    <h4 class="pkm-name">{{evolutions.chain.evolves_to[0].species.name}}</h4>
                 </article>
             {% endfor %}
         </section>
     </section>
 </main>
 
+{% comment %} {{evolutions | json}} {% endcomment %}
 {% render 'partials/foot.liquid' %}
