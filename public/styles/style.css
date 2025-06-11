@@ -318,6 +318,10 @@
         margin: 0 clamp(.5em, 80%, 1.5em) .5em clamp(.5em, 80%, 1.5em);
     }
 
+    dt {
+        text-wrap: nowrap;
+    }
+
     dd {
         text-align: end;
         font-weight: var(--fw-regular);
