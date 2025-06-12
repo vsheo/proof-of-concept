@@ -32,12 +32,14 @@ app.get("/", async function (request, response) {
         console.log("cache geupdate")
     }
 
-    response.render("index.liquid", { pkmData: cacheDataJSON });
+    await changeCaught(2)
+    const caughtList = await getBookmarks()
+    console.log(caughtList)
+
+    response.render("index.liquid", { pkmData: cacheDataJSON, pkmCaught: caughtList });
 })
 
 // index POST
-// https://fdnd.directus.app/items/messages
-
 // app.get("/:name", async function (request, response) {
 //     const pkmSearch = request.params.name;
 //     // console.log(pkmSearch)
@@ -147,6 +149,61 @@ function structureJSON(names, types) {
 
     return types;
 }
+
+
+async function changeCaught(pkmId) {
+    // url waar het pokemon id opgeslagen moet worden
+    const postURL = "https://fdnd.directus.app/items/messages/";
+
+    // filter om te zoeken naar het pokemon id,
+    const checkPkm = await fetch(postURL + `?filter={"for":"vsheoPKM","text":"${pkmId}"}`);
+    const checkPkmResponseJSON = await checkPkm.json();
+    // console.log(checkPkmResponseJSON.data[0].id)
+
+    // if statement om te kijken als het id al in de lijst staat
+    if (checkPkmResponseJSON.data.length > 0) {
+        // als dat het geval is dan gebruiken we de id, die directus maakt, om het met delete uit de lijst te haalen
+        // postURL + id geeft de json die delete moet worden terug
+        await fetch(postURL + checkPkmResponseJSON.data[0].id, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+    }
+    // Voeg de nieuwe pokemon id toe aan de list in directus
+    else {
+        await fetch(postURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            // de pokemon id slaan we op in de text
+            body: JSON.stringify({
+                for: 'vsheoPKM',
+                text: pkmId,
+            }),
+        });
+    }
+}
+
+// dit is een functie die een array maakt met alle bookmarked cadeau's
+async function getBookmarks() {
+	// haal alle items uit een lijst op, ik gebruik de for om aan te geven dat het voor mijn pagina is
+	const yourList = `https://fdnd.directus.app/items/messages?filter={"for":"vsheoPKM"}`;
+	const yourListResponse = await fetch(yourList);
+	const yourListResponseJSON = await yourListResponse.json();
+
+	// alle milledoni_products_id's uit "liked_products" maken tot een array
+	const pkmIdArray = yourListResponseJSON.data.map(
+		entry => entry.text
+	);
+
+	// return een array met alle milledoni_products_id's, dit zijn de bookmarked cadeau's
+	return pkmIdArray;
+}
+
 
 app.set("port", process.env.PORT || 8000)
 
