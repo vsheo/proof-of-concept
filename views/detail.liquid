@@ -14,9 +14,12 @@
             <img class="pkm-pokeball" src="/assets/pokeball.svg" width="40" height="40" alt="{{bulba}} is caught">
         </div>
 
+        {% comment %} {% assign current_spName = "" %} {% endcomment %}
         {% for pkm in pkmData %}
             {% if pkm.id == pkmInfo.id %}
-                <h2 class="pkm-name title-detail">{{pkm.spName}}</h2>
+                {% comment %} maak de spName gobal zodat het weer gebruikt kan worden zonder for loop {% endcomment %}
+                {% assign current_spName = pkm.spName %}
+                <h2 class="pkm-name title-detail">{{current_spName}}</h2>
             {% endif %}
         {% endfor %}
         <picture class="pkm-sprite">
@@ -37,7 +40,7 @@
 
         <dl class="pkm-about tab" id="about">
             <dt>Name</dt>
-            <dd>{{pkmInfo.name}}</dd>
+            <dd>{{current_spName}}</dd>
 
             <dt>Id</dt>
             <dd>{{pkmInfo.id}}</dd>
@@ -54,7 +57,7 @@
             <dt>Type</dt>
             <dd>
                 {% for type in pkmInfo.types %}
-                    <span>{{type.type.name}}</span>
+                    <span class="type" style="background-color: var(--color-{{pkmInfo.types[forloop.index0].type.name}});">{{type.type.name}}</span>
                 {% endfor %}
             </dd>
 
