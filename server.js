@@ -23,7 +23,7 @@ app.get("/", async function (request, response) {
 
     // https://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
     // check de laatste keer dat cache.json bewerkt was
-    var stats = fs.statSync("cache.json")
+    var stats = await fs.statSync("cache.json")
     var mtime = stats.mtimeMs
     if (now - mtime < twelveH) {
         console.log("cache is new")
@@ -32,7 +32,7 @@ app.get("/", async function (request, response) {
         console.log("cache geupdate")
     }
 
-    await changeCaught(2)
+    // alle caught pokemon
     const caughtList = await getBookmarks()
     console.log(caughtList)
 
@@ -40,15 +40,17 @@ app.get("/", async function (request, response) {
 })
 
 // index POST
-// app.get("/:name", async function (request, response) {
-//     const pkmSearch = request.params.name;
-//     // console.log(pkmSearch)
+app.post("/toggle-caught/:pkmId", async function (request, response) {
+    const id = request.params.pkmId;
+    // change if pokemon is caught
+    await changeCaught("vsheoPKM", id)
+    console.log(id)
 
-//     response.redirect('/');
-// })
+    response.redirect('/');
+})
 
 // detail GET
-app.get("/:pkmName", async function (request, response) {
+app.get("/details/:pkmName", async function (request, response) {
     const pkmName = request.params.pkmName;
 
     // pokemon details and stats
@@ -150,13 +152,12 @@ function structureJSON(names, types) {
     return types;
 }
 
-
-async function changeCaught(pkmId) {
+async function changeCaught(userList, pkmId) {
     // url waar het pokemon id opgeslagen moet worden
     const postURL = "https://fdnd.directus.app/items/messages/";
 
     // filter om te zoeken naar het pokemon id,
-    const checkPkm = await fetch(postURL + `?filter={"for":"vsheoPKM","text":"${pkmId}"}`);
+    const checkPkm = await fetch(postURL + `?filter={"for":"${userList}","text":"${pkmId}"}`);
     const checkPkmResponseJSON = await checkPkm.json();
     // console.log(checkPkmResponseJSON.data[0].id)
 
@@ -203,7 +204,6 @@ async function getBookmarks() {
 	// return een array met alle milledoni_products_id's, dit zijn de bookmarked cadeau's
 	return pkmIdArray;
 }
-
 
 app.set("port", process.env.PORT || 8000)
 

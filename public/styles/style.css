@@ -131,7 +131,18 @@
     .pkm-pokeball {
         grid-area: pokeball;
         justify-self: end;
+    }
+
+    .btn-caught {
         margin: 1em 1em 0 0;
+        border: none;
+        height: min-content;
+        width: min-content;
+        background: inherit;
+
+        &:active {
+            scale: .7;
+        }
     }
 
     .pkm-sprite {
