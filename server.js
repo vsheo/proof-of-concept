@@ -15,6 +15,7 @@ app.set("views", "./views")
 const cacheData = await fs.readFileSync("cache.json", "utf-8");
 const cacheDataJSON = JSON.parse(cacheData)
 
+
 // index GET
 app.get("/", async function (request, response) {
     // 12 uur in milliseconden
@@ -32,7 +33,7 @@ app.get("/", async function (request, response) {
         console.log("cache geupdate")
     }
 
-    // alle caught pokemon
+    // all caught pokemon
     const caughtList = await getBookmarks("vsheoPKM")
     console.log(caughtList)
 
@@ -92,7 +93,11 @@ app.get("/details/:pkmName", async function (request, response) {
         // console.log(stageTwoId)
     }
 
-    response.render("detail.liquid", { pkmData: cacheDataJSON, pkmInfo: pkmInfoRespJSON, evolutions: evoData, basicId: basicId, stageOneIds: stageOneId, stageTwoIds: stageTwoId })
+    // all caught pokemon
+    const caughtList = await getBookmarks("vsheoPKM")
+    console.log(caughtList)
+
+    response.render("detail.liquid", { pkmData: cacheDataJSON, pkmInfo: pkmInfoRespJSON, evolutions: evoData, basicId: basicId, stageOneIds: stageOneId, stageTwoIds: stageTwoId, pkmCaught: caughtList })
 });
 
 

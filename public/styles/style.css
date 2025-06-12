@@ -450,10 +450,11 @@
 
 
 .loading-state {
-    position: fixed;
-    transform-origin: 35% 53%;
+    position: relative;
+    transform-origin: center;
     animation: spin .25s linear infinite reverse;
 }
+
 
 @keyframes spin {
   from {

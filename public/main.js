@@ -11,7 +11,9 @@ if ("fetch" in window && "DOMParser" in window) {
         }
 
         event.preventDefault();
-        form.classList.add('loading-state')
+
+        const imgRotate = form.querySelector("img");
+        imgRotate.classList.add('loading-state')
 
 
         const response = await fetch(form.action, {
