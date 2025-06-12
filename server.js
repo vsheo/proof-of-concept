@@ -33,7 +33,7 @@ app.get("/", async function (request, response) {
     }
 
     // alle caught pokemon
-    const caughtList = await getBookmarks()
+    const caughtList = await getBookmarks("vsheoPKM")
     console.log(caughtList)
 
     response.render("index.liquid", { pkmData: cacheDataJSON, pkmCaught: caughtList });
@@ -190,9 +190,9 @@ async function changeCaught(userList, pkmId) {
 }
 
 // dit is een functie die een array maakt met alle bookmarked cadeau's
-async function getBookmarks() {
+async function getBookmarks(list) {
 	// haal alle items uit een lijst op, ik gebruik de for om aan te geven dat het voor mijn pagina is
-	const yourList = `https://fdnd.directus.app/items/messages?filter={"for":"vsheoPKM"}`;
+	const yourList = `https://fdnd.directus.app/items/messages?filter={"for":"${list}"}`;
 	const yourListResponse = await fetch(yourList);
 	const yourListResponseJSON = await yourListResponse.json();
 
