@@ -14,7 +14,11 @@
             <img class="pkm-pokeball" src="/assets/pokeball.svg" width="40" height="40" alt="{{bulba}} is caught">
         </div>
 
-        <h2 class="pkm-name title-detail">{{pkmInfo.name}}</h2>
+        {% for pkm in pkmData %}
+            {% if pkm.id == pkmInfo.id %}
+                <h2 class="pkm-name title-detail">{{pkm.spName}}</h2>
+            {% endif %}
+        {% endfor %}
         <picture class="pkm-sprite">
             {% comment %} <source type="image/avif" srcset="/assets/test-bulba.avif"> {% endcomment %}
             {% comment %} <source type="image/webp" srcset="/assets/test-bulba.webp"> {% endcomment %}

@@ -12,7 +12,7 @@ app.engine("liquid", engine.express())
 app.set("views", "./views")
 
 // read de cache.json die lokaal staat
-const cacheData = fs.readFileSync("cache.json", "utf-8");
+const cacheData = await fs.readFileSync("cache.json", "utf-8");
 const cacheDataJSON = JSON.parse(cacheData)
 
 // index GET
@@ -51,6 +51,11 @@ app.get("/:pkmName", async function (request, response) {
 
     // pokemon details and stats
     const pkmInfoResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${pkmName}`)
+    if (!pkmInfoResp.ok) {
+        const error = await pkmInfoResp.text()
+        console.error(`Failed to fetch Pokémon "${pkmName}". Status: ${pkmInfoResp.status}. Response: ${error}`)
+        return 
+    }
     const pkmInfoRespJSON = await pkmInfoResp.json()
 
     // gebruik pkm name en zoek pkm id in cache.json
@@ -83,7 +88,7 @@ app.get("/:pkmName", async function (request, response) {
         // console.log(stageTwoId)
     }
 
-    response.render("detail.liquid", { pkmInfo: pkmInfoRespJSON, evolutions: evoData, basicId: basicId, stageOneIds: stageOneId, stageTwoIds: stageTwoId })
+    response.render("detail.liquid", { pkmData: cacheDataJSON, pkmInfo: pkmInfoRespJSON, evolutions: evoData, basicId: basicId, stageOneIds: stageOneId, stageTwoIds: stageTwoId })
 });
 
 
@@ -109,12 +114,16 @@ async function getIndexData() {
         const pkmDetails = await pkmDetailResp.json()
 
         // gebruik map om uit de pkmDetails de types te halen
-        const types = pkmDetails.types.map((pokemon) => pokemon.type.name);
+        const types = pkmDetails.types.map((pokemon) => pokemon.type.name)
+
+        const speciesName = pkmDetails.species.name
+       
 
         // https://www.javascripttutorial.net/javascript-return-multiple-values/#:~:text=Returning%20multiple%20values%20from%20a%20function%20using%20an%20object
         // hiermee kan ik javascript object terug geven, die ik met JSON.stringify tot JSON kan maken
         return {
             id: index + 1,
+            spName: speciesName,
             types,
         }
     })
