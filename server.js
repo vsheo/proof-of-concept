@@ -63,7 +63,7 @@ app.get("/pokemon/caught", async function (request, response) {
     );
 
 
-    response.render("index.liquid", { pkmCaught: caughtList, pkmData: caughtData });
+    response.render("index.liquid", { pkmCaught: caughtList, pkmData: caughtData, caught: "caught" });
 })
 
 

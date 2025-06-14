@@ -5,6 +5,10 @@
         <a href="/">Home</a>
     {% endif %}
 
+    {% if caught %}
+        <a href="/pokemon/caught">&rsaquo; pokemon caught</a>
+    {% endif %}
+
     {% if gen %}
         <a href="/pokemon/generation-{{gen}}">&rsaquo; generation {{gen}}</a>
     {% endif %}
