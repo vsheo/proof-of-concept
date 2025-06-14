@@ -1,0 +1,16 @@
+<nav class="breadcrumbs" style="background-color: var(--color-primary-purple);">
+    {% if home %}
+        <a href="/">Home &rsaquo;All pokemon</a>
+    {% else %}
+        <a href="/">Home</a>
+    {% endif %}
+
+    {% if gen %}
+        <a href="/pokemon/generation-{{gen}}">&rsaquo; generation {{gen}}</a>
+    {% endif %}
+
+    {% if pkmData %}
+        {% assign pkmId = pkmInfo.id | minus: 1 %}
+        <a href="/details/{{pkmData[pkmId].name}}#about">&rsaquo; details: {{ pkmData[pkmId].spName }}</a>
+    {% endif %}
+</nav>

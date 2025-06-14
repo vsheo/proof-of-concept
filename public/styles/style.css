@@ -2,6 +2,17 @@
     navigation: auto;
 }
 
+.breadcrumbs {
+    padding: .2em 0 .2em .5em;
+
+    a {
+        color: var(--color-layering-daylight);
+
+        &:hover {
+            color: goldenrod;
+        }
+    }
+}
 .index-container {
     display: flex;
     flex-direction: column;

@@ -1,4 +1,5 @@
 {% render 'partials/head.liquid' %}
+{% render 'partials/breadcrumb.liquid', pkmData: pkmData, pkmInfo: pkmInfo %}
 
 <main class="detail-container"  style="background-color: var(--color-{{pkmInfo.types[0].type.name}});">
     <section class="pkm-info" style="background-color: var(--color-{{pkmInfo.types[0].type.name}}); background-image: url('/assets/bg-pokeball-detail.svg');">
