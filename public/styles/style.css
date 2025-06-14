@@ -136,6 +136,7 @@
     background-color: var(--color-primary-daylight);
     gap: 1em;
     margin: 1em 1em;
+    align-self: start;
 
     @media (min-width: 1114px) {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

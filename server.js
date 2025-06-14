@@ -35,12 +35,22 @@ app.get("/", async function (request, response) {
 
     // all caught pokemon
     const caughtList = await getBookmarks("vsheoPKM")
-    console.log(caughtList)
+    // console.log(caughtList)
 
     response.render("index.liquid", { pkmData: cacheDataJSON, pkmCaught: caughtList, pageTitle: "All Pokemon" });
 })
 
+// index POST
+app.post("/toggle-caught/:pkmId", async function (request, response) {
+    const id = request.params.pkmId;
+    // change if pokemon is caught
+    await changeCaught("vsheoPKM", id)
+    // console.log(id)
 
+    response.redirect('/');
+})
+
+// index Gen filter
 app.get("/pokemon/generation-:number", async function (request, response) {
     const gen = request.params.number;
     const pkmGeneration = [0, [0,151], [152,251], [252,386], [387,493], [494,649], [650,721], [722,809], [810,905], [906,1025]]
@@ -52,7 +62,18 @@ app.get("/pokemon/generation-:number", async function (request, response) {
     response.render("index.liquid", { pkmData: genData, pkmCaught: caughtList, gen: gen, pageTitle: "Generation "+gen });
 })
 
+// index search
+app.get("/search", async function (request, response) {
+    const searchName = request.query.query;
 
+    const findPkmData = cacheDataJSON.filter(pokemon =>
+        pokemon.name.includes(searchName)
+    );
+
+    response.render("index.liquid", { pkmData:findPkmData });
+});
+
+// index caught filter
 app.get("/pokemon/caught", async function (request, response) {
     // all caught pokemon
     const caughtList = await getBookmarks("vsheoPKM")
@@ -62,19 +83,7 @@ app.get("/pokemon/caught", async function (request, response) {
         caughtList.includes(pkm.id.toString())
     );
 
-
     response.render("index.liquid", { pkmCaught: caughtList, pkmData: caughtData, pageTitle: "Pokemon caught" });
-})
-
-
-// index POST
-app.post("/toggle-caught/:pkmId", async function (request, response) {
-    const id = request.params.pkmId;
-    // change if pokemon is caught
-    await changeCaught("vsheoPKM", id)
-    console.log(id)
-
-    response.redirect('/');
 })
 
 // detail GET
