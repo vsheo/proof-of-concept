@@ -67,7 +67,7 @@ app.get("/search", async function (request, response) {
     const searchName = request.query.query;
 
     const findPkmData = cacheDataJSON.filter(pokemon =>
-        pokemon.name.includes(searchName)
+        pokemon.name.includes(searchName.toLowerCase())
     );
 
     response.render("index.liquid", { pkmData:findPkmData });
