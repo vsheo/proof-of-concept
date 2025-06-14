@@ -1,12 +1,12 @@
 {% render 'partials/head.liquid' %}
 
-{% render 'partials/breadcrumb.liquid', gen: gen, home: "home", caught: caught %}
+{% render 'partials/breadcrumb.liquid', gen: gen, pageTitle: pageTitle %}
 
 <main class="index-container">
     <section class="top-section">
         <h1 class="title-site"><a href="/"><img src="/assets/PokemonLogo.svg" width="300" height="107" alt="pokemon logo"></a></h1>
 
-        <h2 class="title-home">All Pokemon</h2>
+        <h2 class="title-home">{{pageTitle}}</h2>
 
         <form method="get" action="/:name" class="search-bar">
             <input type="search" placeholder="Search All Pokemon">

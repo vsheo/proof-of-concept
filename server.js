@@ -37,7 +37,7 @@ app.get("/", async function (request, response) {
     const caughtList = await getBookmarks("vsheoPKM")
     console.log(caughtList)
 
-    response.render("index.liquid", { pkmData: cacheDataJSON, pkmCaught: caughtList });
+    response.render("index.liquid", { pkmData: cacheDataJSON, pkmCaught: caughtList, pageTitle: "All Pokemon" });
 })
 
 
@@ -49,7 +49,7 @@ app.get("/pokemon/generation-:number", async function (request, response) {
     // all caught pokemon
     const caughtList = await getBookmarks("vsheoPKM")
 
-    response.render("index.liquid", { pkmData: genData, pkmCaught: caughtList, gen: gen });
+    response.render("index.liquid", { pkmData: genData, pkmCaught: caughtList, gen: gen, pageTitle: "Generation "+gen });
 })
 
 
@@ -63,7 +63,7 @@ app.get("/pokemon/caught", async function (request, response) {
     );
 
 
-    response.render("index.liquid", { pkmCaught: caughtList, pkmData: caughtData, caught: "caught" });
+    response.render("index.liquid", { pkmCaught: caughtList, pkmData: caughtData, pageTitle: "Pokemon caught" });
 })
 
 

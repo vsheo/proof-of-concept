@@ -1,11 +1,11 @@
 <nav class="breadcrumbs">
-    {% if home %}
+    {% if pageTitle == "All Pokemon" %}
         <a href="/">Home: All pokemon</a>
     {% else %}
         <a href="/">Home</a>
     {% endif %}
 
-    {% if caught %}
+    {% if pageTitle == "Pokemon caught" %}
         <a href="/pokemon/caught">&rsaquo; pokemon caught</a>
     {% endif %}
 
