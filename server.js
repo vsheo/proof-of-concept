@@ -41,27 +41,30 @@ app.get("/", async function (request, response) {
 })
 
 
-app.get("/generation/:number", async function (request, response) {
+app.get("/pokemon/generation-:number", async function (request, response) {
     const gen = request.params.number;
     const pkmGeneration = [0, [0,151], [152,251], [252,386], [387,493], [494,649], [650,721], [722,809], [810,905], [906,1025]]
     const genData = cacheDataJSON.filter(pkm => pkm.id >= pkmGeneration[gen][0] && pkm.id <= pkmGeneration[gen][1])
 
     // all caught pokemon
     const caughtList = await getBookmarks("vsheoPKM")
-    console.log(caughtList)
 
-    response.render("index.liquid", { pkmData: genData, pkmCaught: caughtList });
+    response.render("index.liquid", { pkmData: genData, pkmCaught: caughtList, gen: gen });
 })
 
-// gen 1: https://pokeapi.co/api/v2/pokemon?limit=151&offset=0
-// gen 2: https://pokeapi.co/api/v2/pokemon?limit=100&offset=151
-// gen 3: https://pokeapi.co/api/v2/pokemon?limit=135&offset=251
-// gen 4: https://pokeapi.co/api/v2/pokemon?limit=107&offset=386
-// gen 5: https://pokeapi.co/api/v2/pokemon?limit=156&offset=493
-// gen 6: https://pokeapi.co/api/v2/pokemon?limit=72&offset=649
-// gen 7: https://pokeapi.co/api/v2/pokemon?limit=87&offset=721
-// gen 8: https://pokeapi.co/api/v2/pokemon?limit=96&offset=809
-// gen 9: https://pokeapi.co/api/v2/pokemon?limit=120&offset=905
+
+app.get("/pokemon/caught", async function (request, response) {
+    // all caught pokemon
+    const caughtList = await getBookmarks("vsheoPKM")
+
+    // get all caught pokemon data
+    const caughtData = cacheDataJSON.filter(pkm =>
+        caughtList.includes(pkm.id.toString())
+    );
+
+
+    response.render("index.liquid", { pkmCaught: caughtList, pkmData: caughtData });
+})
 
 
 // index POST

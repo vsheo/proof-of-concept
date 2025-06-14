@@ -3,6 +3,7 @@
 }
 
 .breadcrumbs {
+    background-color: var(--color-primary-purple);
     padding: .2em 0 .2em .5em;
 
     a {
