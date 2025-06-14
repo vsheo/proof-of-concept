@@ -40,9 +40,9 @@
 
     <section class="info-container detail-info">
         <nav class="tab-titles">
-            <span><a href="#about">About</a></span>
-            <span><a href="#stats">Stats</a></span>
-            <span><a href="#evolutions">Evolutions</a></span>
+            <a href="#about">About</a>
+            <a href="#stats">Stats</a>
+            <a href="#evolutions">Evolutions</a>
             <div class="bar"></div>
             <div class="indicator"></div>
         </nav>
@@ -74,6 +74,7 @@
             <dd>
                 {% for ability in pkmInfo.abilities %}
                     <span class="text">{{ability.ability.name}}</span>
+                    {% if forloop.index == 1 %}, {% endif %}
                 {% endfor %}
             </dd>
         </dl>
@@ -103,7 +104,7 @@
                 {% else %}
                     <span class="details-pkm-id">{{basicId}}</span>
                 {% endif %}
-                <h4 class="pkm-name">{{evolutions.chain.species.name}}</h4>
+                <h4 class="pkm-name"><a href="/details/{{evolutions.chain.species.name}}#about">{{evolutions.chain.species.name}}</a></h4>
             </article>
 
             {% for evo in evolutions.chain.evolves_to %}
@@ -121,7 +122,7 @@
                     {% else %}
                         <span class="details-pkm-id">{{stageOneIds[forloop.index0]}}</span>
                     {% endif %}
-                    <h4 class="pkm-name">{{evo.species.name}}</h4>
+                    <h4 class="pkm-name"><a href="/details/{{evo.species.name}}#about">{{evo.species.name}}</a></h4>
                 </article>
             {% endfor %}
 
@@ -140,7 +141,7 @@
                     {% else %}
                         <span class="details-pkm-id">{{stageTwoIds[forloop.index0]}}</span>
                     {% endif %}
-                    <h4 class="pkm-name">{{evo.species.name}}</h4>
+                    <h4 class="pkm-name"><a href="/details/{{evo.species.name}}#about">{{evo.species.name}}</a></h4>
                 </article>
             {% endfor %}
         </section>
