@@ -300,9 +300,10 @@
             padding: 0 1em;
         }
 
-        .tab-titles a {
-            display: block;
-            box-sizing: border-box;
+        .tab-titles, a {
+            width: 100%;
+            height: 100%;
+            text-align: center;
         }
 
         .bar, .indicator {
@@ -322,10 +323,10 @@
         }
 
         .indicator {
+            grid-column: 1 / span 3;
             background-color: var(--color-primary-purple);
             width: 33%;
             transform: translateX(-100%);
-            grid-column: 1 / span 3;
             transition: transform 0.5s ease;
         }
     }
