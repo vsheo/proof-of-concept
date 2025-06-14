@@ -1,6 +1,8 @@
 @view-transition {
-    navigation: auto;
+  navigation: auto;
 }
+/* https://codepen.io/argyleink/pen/VwBKjwj?editors=0110 */
+
 
 .breadcrumbs {
     background-color: var(--color-primary-purple);
@@ -57,7 +59,7 @@
         grid-template-areas:
         "btn input"
         ;
-      background-color: var(--color-search);
+        background-color: var(--color-search);
         padding: .5em;
         border-radius: 16px;
         height: 2.4em;
@@ -136,10 +138,10 @@
     background-color: var(--color-primary-daylight);
     gap: 1em;
     margin: 1em 1em;
-    align-self: start;
 
     @media (min-width: 1114px) {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        align-self: start;
     }
 }
 
