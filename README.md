@@ -76,26 +76,40 @@ https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b
 
 Daarna heb ik classes aangemaakt voor titels en subtitels.
 
-primary-h3-home
+primary-h3-home<br>
 Deze class gebruik ik voor de namen van de Pokémon op de index pagina (op de Pokémon kaartjes)
 https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b116dea1/public/styles/pokeapp.css#L87-L90
 
-primary-txt-detail
+primary-txt-detail<br>
 https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b116dea1/public/styles/pokeapp.css#L92-L95
 
-title-page
+title-page<br>
 Voor de titels op de home en detail pagina.
+https://github.com/vsheo/proof-of-concept/blob/cf1818df527b4414dae92b5c776e22044fbb6738/public/styles/pokeapp.css#L97-L100
 
-title-detail
+title-detail<br>
 Voor de naam van de Pokémon/de titel van de detail pagina.
 https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b116dea1/public/styles/pokeapp.css#L102-L105
 
-detail-info
+detail-info<br>
 Voor de tekst in de tabs op de detail pagina.
 https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b116dea1/public/styles/pokeapp.css#L107-L110
 
 En deze gebruik ik om de standaard styling van links te resetten.
 https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b116dea1/public/styles/pokeapp.css#L112-L115
+
+Ik heb ook responsive font sizes gemaakt met `clamp()`.
+Deze gebruik ik alleen voor titels op de mobiele en tablet versies van de website.
+Zo zijn de titels groter als het scherm breeder is.
+https://github.com/vsheo/proof-of-concept/blob/cf1818df527b4414dae92b5c776e22044fbb6738/public/styles/pokeapp.css#L45
+https://github.com/vsheo/proof-of-concept/blob/cf1818df527b4414dae92b5c776e22044fbb6738/public/styles/pokeapp.css#L47
+https://github.com/vsheo/proof-of-concept/blob/cf1818df527b4414dae92b5c776e22044fbb6738/public/styles/pokeapp.css#L49
+
+
+In het design wordt Rubik font gebruikt.
+Ik ben door het hele design gegaan en zag dat alleen de font-weight versies 400, 500 en 600 gebruikt worden.
+Daarom laad ik alleen deze drie in, zodat de website sneller is en er geen ongebruikte fonts worden gedownload.
+https://github.com/vsheo/proof-of-concept/blob/cf1818df527b4414dae92b5c776e22044fbb6738/public/styles/pokeapp.css#L58-L77
 
 
 
