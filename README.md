@@ -66,7 +66,30 @@ Wat kun je doen op de Poké-app website?
 
 ## CSS
 ### Styleguide
+
+
+
 ### View transition
+De view transition vindt plaats op de index pagina wanneer search bar gebruikt wordt.
+
+https://github.com/user-attachments/assets/40c7a95f-dcdc-4817-b53c-1ce3bc7d4a70
+
+In de CSS heeft de navigatie `view-transition {navigation: auto;}` dit zorgt er automatisch voor dat de Pokémon kaartjes naar boven sliden nadat een search request submit wordt.
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/public/styles/style.css#L1-L3
+
+Elke Pokémon kaart heeft een unieke id nodig voor de view transition.
+Hiervoor gebruik ik Liquid om deze id’s te genereren met behulp van de Pokémon id uit de database.
+https://github.com/vsheo/proof-of-concept/blob/8f33d5b7f865650751e04fd03fdec71ba7cfa9eb/views/index.liquid#L39
+
+Omdat ik `preventDefault()` gebruik nadat een search request submit wordt, moet ik nu zelf de view transition aanroepen voordat de search results worden weergegeven
+https://github.com/vsheo/proof-of-concept/blob/8f33d5b7f865650751e04fd03fdec71ba7cfa9eb/public/main.js#L66-L68
+
+De slide animatie, de fade in en fade out worden automatisch aangemaakt door de browser en de `@View-transition`.
+
+
+
+
+
 ### Detail - Tabs
 Op de detail pagina zijn er drie tabs die informatie over de Pokémon weergeven.
 Dit is gemaakt met CSS door gebruik te maken van id’s op de elementen, anker tag elemenmten die naar deze id’s toe gaan en de `:target` pseudo class.
