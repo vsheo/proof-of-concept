@@ -21,8 +21,8 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
       * [loading animation](#loading-animation)
       * [Prevent Default - Search](#Prevent-Default---Search)
     * [Server](#Server)
-      * [Routes](#Routes)
       * [Functies](#Functies)
+      * [Routes](#Routes)
   * [Installatie](#installatie)
   * [Bronnen](#bronnen)
   * [Licentie](#licentie)
@@ -248,7 +248,15 @@ https://github.com/vsheo/proof-of-concept/blob/431a26b798248a4e54fa282bba2c67b20
 
 
 #### Functies - getBookmarks
-Deze functie haalt alle 
+Deze functie haalt alle Pokémon id’s op die zijn opgeslagen in de lijst `vsheoPKM`.
+Alle opgeslagen Pokémon van deze lijst zijn te vinden via de volgende URL:
+https://fdnd.directus.app/items/messages?filter={"for":"vsheoPKM"}
+
+Deze data halen we op met een fetch.
+https://github.com/vsheo/proof-of-concept/blob/602827d8a9dce6ec7b567c6e9287185e955aa7b0/server.js#L236-L238
+
+Daarna slaan we alle id’s op in een array, die we doorsturen met een return
+https://github.com/vsheo/proof-of-concept/blob/602827d8a9dce6ec7b567c6e9287185e955aa7b0/server.js#L241-L246
 
 
 
