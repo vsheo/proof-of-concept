@@ -75,7 +75,88 @@ Wat kun je doen op de Poké-app website?
 
 ## JavaScript
 ### loading animation
+Op de hoofdpagina kun je Pokémon toevoegen aan je "Caught Pokémon" lijst.
+Dit doe je door op het Pokéball icon te klikken, dat normaal grijs is. Zodra je hierop klikt, wordt de Pokémon toegevoegd aan je "Caught Pokémon" lijst. Met prevent Default stop ik de pagina refresh. In plaats daarvan verschijnt er een draaiende Pokéball animatie totdat de Pokémon is toegevoegd aan je lijst. Daarna stopt de animatie en zie je een ingekleurde Pokéball.
+
+https://github.com/user-attachments/assets/de41020d-dec8-41ec-b4ad-7cfa4ac79167
+
+Deze JavaScript-code wordt alleen uitgevoerd als je browser fetch requests en DOMParser ondersteunt.
+Als dit ondersteunt wordt, dan luistert JavaScript naar het submit event op de website. Het element waarop de submit plaatsvindt, wordt opgeslagen in een variabele.
+Deze variabele is de form die submit wordt.
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L4-L6
+
+Daarna controleren we of het formulier het `data-enhanced` attribuut heeft.
+Het `data-enhanced` attribuut is een unieke id, die later nodig is om precies dit element terug te vinden en te vervangen door een nieuwe versie.(pokeball grijs of ingekleurd)
+Als het formulier geen `data-enhanced` attribuut heeft, stopt de code hier.
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L13-L14
+
+Op deze website zijn er twee soorten submit events.
+Als het submit event komt van een element met de class `pkm-pokeball`, gaat de code verder, anders stopt de code.
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L13
+
+Nu we hebben gecontroleerd waar dit submit event vandaan komt, weten we dat het bedoeld is om een Pokémon toe te voegen aan de lijst 'Caught Pokémon'.
+De browser wil nu de pagina refreshen om de nieuwe state van het Pokéball icon te laten zien, maar dit stoppen we met `preventDefault()`.
+In plaats van een refresh laten we het Pokéball icon draaien door er een extra class aan toe te voegen.
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L14-L17
+
+Daarna voeren we een fetch uit naar de URL die in de action van de form staat. om de POST te verwerken op de server.
+`method: form.method` betekent dat de methode wordt ingesteld op de waarde die in het method attribuut van het formulier in de HTML staat.
+in dit geval is dat POST
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L19-L22
+
+De response zou normaal vanzelf als HTML in de pagina geladen worden. Maar omdat we `preventDefault()` gebruiken, moeten we dit nu zelf doen.
+We zetten de response eerst om naar text.
+Die text kunnen we met DOMParser omzetten naar HTML.
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L24-L27
+
+De responseDOM bevat de HTML van de hele pagina.
+Maar wij hebben alleen het element nodig dat het unieke data-enhanced attribuut van de form bevat
+Daarom zoeken we in de nieuwe DOM specifiek naar dat element.
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L29-L31
+
+We hebben de POST verwerkt en de nieuwe HTML staat nu in de variabele `newState`.
+Nu kunnen we de loading animatie stoppen door de class van het element weg te halen.
+Daarna vervangen we het oude form met de nieuwe form uit `newState`.
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L33-L35
+
+
+
+
+
 ### Prevent Default - Search
+
+
+Deze client side fetch werkt grotendeels hetzelfde als die van de loading animation.
+Het verschil is dat we hier controleren of het submit event van de search bar komt.
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L46-L47
+
+Daarna maken we zelf de URL voor de search request, dit wordt normaal door de browser gedaan.
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L50
+
+Op deze URL voeren we een GET request uit.
+De response zetten we daarna weer om in HTML.
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L52-L59
+
+Ook deze response bevat de HTML van de hele pagina.
+Maar wij willen alleen de new state van de pkm-container.
+Normaal bevat deze container alle Pokémon kaartjes, maar in de new state staan alleen de search results in.
+
+We gebruiken deze keer geen `data-enhanced` attribuut, omdat er maar een pkm-container is.
+In de huidige DOM selecteren we de pkm-container, en ook in de nieuwe DOM, die we uit de response halen, selecteren we dezelfde pkm-container.
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L61-L64
+
+Om de nieuwe staat van de container weer te geven, is het vervangen van de oude met de nieuwe met dit:
+`currentState.outerHTML = newState.outerHTML;`
+al genoeg
+
+Maar wij willen een view transition die de search results naar boven brengt.
+Het probleem is dat `preventDefault()` de view transition tegenhoudt.
+Daarom moeten we in JavaScript de view transition zelf aanroepen
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L65-L68
+
+Ik gebruik ook een breadcrumb menu bovenaan mijn pagina.
+Dit moeten we ook zelf vervangen met de nieuwe versie.
+https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17d7cfec5/public/main.js#L71-L73
 
 
 
