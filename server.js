@@ -237,12 +237,12 @@ async function getBookmarks(list) {
 	const yourListResponse = await fetch(yourList);
 	const yourListResponseJSON = await yourListResponse.json();
 
-	// alle milledoni_products_id's uit "liked_products" maken tot een array
+	// alle pokemon id's uit "text" maken tot een array
 	const pkmIdArray = yourListResponseJSON.data.map(
 		entry => entry.text
 	);
 
-	// return een array met alle milledoni_products_id's, dit zijn de bookmarked cadeau's
+	// return een array met alle pokemon id's
 	return pkmIdArray;
 }
 
