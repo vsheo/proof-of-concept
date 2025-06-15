@@ -145,7 +145,8 @@ Wat we nu nog nodig hebben, zijn alleen de namen, die we al in de array (pkmName
 Om de namen toe te voegen aan de JSON structuur die fetchPromises(pkmTypes) teruggeeft, heb ik een nieuwe functie geschreven.
 Deze functie neemt de pkmTypes (waarin nu ook de species name staan, deze was later toegevoegd) en de pkmName array en voegt ze samen
 https://github.com/vsheo/proof-of-concept/blob/b4cabe896cba3240dad86f1b4dc123499dd5868e/server.js#L181
-https://github.com/vsheo/proof-of-concept/blob/b4cabe896cba3240dad86f1b4dc123499dd5868e/server.js#L188-L194
+https://github.com/vsheo/proof-of-concept/blob/91f460a5eca511b8ff5c7cd1320844b17e8c175f/server.js#L188-L193
+
 
 Nu dat we al deze data samen hebben, slaan we die op in een lokaal JSON bestant
 https://github.com/vsheo/proof-of-concept/blob/b4cabe896cba3240dad86f1b4dc123499dd5868e/server.js#L184
@@ -155,6 +156,13 @@ https://github.com/vsheo/proof-of-concept/blob/b4cabe896cba3240dad86f1b4dc123499
 
 
 #### Functies - structureJSON
+Deze functie neemt een array met Pokémon data (de pkmTypes: id, types en species name) en voegt aan elk JavaScript object een nieuw veld toe (de name van de pokemon)
+en geeft de nieuw structuur terug via de return.
+https://github.com/vsheo/proof-of-concept/blob/91f460a5eca511b8ff5c7cd1320844b17e8c175f/server.js#L188-L194
+
+
+
+
 #### Functies - changeCaught
 #### Functies - getBookmarks
 
