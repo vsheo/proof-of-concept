@@ -158,12 +158,91 @@ https://github.com/vsheo/proof-of-concept/blob/b4cabe896cba3240dad86f1b4dc123499
 #### Functies - structureJSON
 Deze functie neemt een array met Pokémon data (de pkmTypes: id, types en species name) en voegt aan elk JavaScript object een nieuw veld toe (de name van de pokemon)
 en geeft de nieuw structuur terug via de return.
-https://github.com/vsheo/proof-of-concept/blob/91f460a5eca511b8ff5c7cd1320844b17e8c175f/server.js#L188-L194
+https://github.com/vsheo/proof-of-concept/blob/431a26b798248a4e54fa282bba2c67b20b8196a1/server.js#L188-L194
+
+De Data ziet er nu zo uit:
+```JSON
+[
+  {
+    "id": 1,
+    "spName": "bulbasaur",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "name": "bulbasaur"
+  },
+```
 
 
 
 
 #### Functies - changeCaught
+Deze functie maakt het mogelijk om een Pokémon op te slaan in een lijst.
+Dit gebeurt door het Pokémon id en een naam (bijvoorbeeld een gebruikers naam of lijst naam) op te slaan in Directus.
+
+Het ID is nodig om later terug te vinden welke Pokémon is opgeslagen, en de naam is nodig om in Directus te kunnen filteren op alle Pokémon in een bepaalde lijst.
+
+Directus heeft hiervoor geen speciaal URL, maar omdat het zo eenvoudig is, kunnen we "misbruik" maken van: https://fdnd.directus.app/items/messages/
+Dit structuur ziet er zo uit:
+```JSON
+{
+"data": [
+    {
+        "id": 102,
+        "created": "2025-02-25T18:47:54.749Z",
+        "from": "Systeem",
+        "text": "marcinma is ingelogd!",
+        "for": "Team Hype"
+    },
+```
+
+Het veld `for` wordt gebruikt om de lijstnaam op te slaan, lijst naam: vsheoPKM
+Het veld `text` wordt gebruikt om de Pokémon id op te slaan
+
+In deze functie beginnen we met een fetch op het Pokémon id dat wordt meegegeven via de POST route.
+In deze POST route wordt ook de userList meegegeven, in dit geval: vsheoPKM. Voor nu is er maar een lijst
+https://github.com/vsheo/proof-of-concept/blob/431a26b798248a4e54fa282bba2c67b20b8196a1/server.js#L198-L202
+
+De response ziet er zo uit wanneer de Pokémon id al in de lijst staat:
+```JSON
+{
+    "data": [
+        {
+            "id": 1416,
+            "created": "2025-06-13T06:58:54.032Z",
+            "from": null,
+            "text": "4",
+            "for": "vsheoPKM"
+        }
+    ]
+}
+```
+En zo ziet de response eruit als de Pokémon nog niet is opgeslagen:
+```JSON
+{
+    "data": []
+}
+```
+
+Met een if-statement kunnen we controleren of de `data` array meer dan een item bevat.
+Als dat waar is, betekent het dat de Pokémon id al is opgeslagen.
+In dat geval kunnen we de Pokémon uit de lijst halen met een DELETE
+https://github.com/vsheo/proof-of-concept/blob/431a26b798248a4e54fa282bba2c67b20b8196a1/server.js#L206
+
+Voor het uitvoeren van een DELETE hebben we de id uit `data.id` nodig.
+Deze id wordt automatisch gegenereerd door Directus wanneer er iets wordt opgeslagen.
+We hebben deze unieke id nodig om het juiste item uit de lijst te kunnen verwijderen.
+
+de `postURL` + `data.id` geeft maar 1 item terug, de pokemon die we uit de lijst moeten verwijderen.
+voorbeeld URL: https://fdnd.directus.app/items/messages/1522
+https://github.com/vsheo/proof-of-concept/blob/431a26b798248a4e54fa282bba2c67b20b8196a1/server.js#L209-L215
+
+Als de data in de response leeg is, betekent dit dat de Pokémon nog niet in de lijst staat.
+In dat geval slaan we de Pokémon op in de lijst door een POST te doen op de `postURL`.
+Hier geven we de lijst naam(`vsheoPKM`) mee in het veld `for`, en de Pokémon id(`pkmId`) in het veld `text`
+https://github.com/vsheo/proof-of-concept/blob/431a26b798248a4e54fa282bba2c67b20b8196a1/server.js#L218-L230
+
 #### Functies - getBookmarks
 
 
