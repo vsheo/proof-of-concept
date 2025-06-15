@@ -124,6 +124,11 @@ https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17
 
 
 ### Prevent Default - Search
+Op de hoofdpagina kun je de search bar gebruiken om naar Pokémon te zoeken. Ook hier gebruik ik `preventDefault()` om de refresh van de pagina te stoppen en haal ik met een client side fetch de new state van de pagina op.
+De search results worden daarna met een view transition op de pagina weergegeven.
+
+https://github.com/user-attachments/assets/fa34efca-1968-48a3-b814-746460be38d4
+
 
 
 Deze client side fetch werkt grotendeels hetzelfde als die van de loading animation.
