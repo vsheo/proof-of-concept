@@ -66,6 +66,38 @@ Wat kun je doen op de Poké-app website?
 
 ## CSS
 ### Styleguide
+De styleguide gebruik ik alleen voor kleuren en fonts.
+
+De custom properties voor kleuren, font-sizes en font-weights heb ik op de body aangemaakt. Hierdoor kan ik ze ook in mijn andere stylesheet gebruiken.
+https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b116dea1/public/styles/pokeapp.css#L10-L56
+
+De primary font-family, font-weight en font-size heb ik op de body geplaatst, zo is het gelijk op alle tekst van de pagina
+https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b116dea1/public/styles/pokeapp.css#L81-L85
+
+Daarna heb ik classes aangemaakt voor titels en subtitels.
+
+primary-h3-home
+Deze class gebruik ik voor de namen van de Pokémon op de index pagina (op de Pokémon kaartjes)
+https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b116dea1/public/styles/pokeapp.css#L87-L90
+
+primary-txt-detail
+https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b116dea1/public/styles/pokeapp.css#L92-L95
+
+title-page
+Voor de titels op de home en detail pagina.
+
+title-detail
+Voor de naam van de Pokémon/de titel van de detail pagina.
+https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b116dea1/public/styles/pokeapp.css#L102-L105
+
+detail-info
+Voor de tekst in de tabs op de detail pagina.
+https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b116dea1/public/styles/pokeapp.css#L107-L110
+
+En deze gebruik ik om de standaard styling van links te resetten.
+https://github.com/vsheo/proof-of-concept/blob/2a73c052bf4e5807b5eeaa15a58611a5b116dea1/public/styles/pokeapp.css#L112-L115
+
+
 
 
 
