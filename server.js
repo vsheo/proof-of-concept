@@ -186,8 +186,8 @@ async function getIndexData() {
 
 // deze functie neemt de name, id en types van een pokemon, zet het samen en geeft het terug met een return
 function structureJSON(names, pkmData) {
-    pkmData.forEach((type, i) => {
-        type.name = names[i]
+    pkmData.forEach((data, i) => {
+        data.name = names[i]
     });
 
     return pkmData;
