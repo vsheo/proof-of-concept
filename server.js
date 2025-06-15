@@ -22,15 +22,23 @@ app.get("/", async function (request, response) {
     const twelveH = 43200000;
     const now = Date.now();
 
-    // https://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
-    // check de laatste keer dat cache.json bewerkt was
-    var stats = await fs.statSync("cache.json")
-    var mtime = stats.mtimeMs
-    if (now - mtime < twelveH) {
-        console.log("cache is new")
-    } else {
-        getIndexData()
-        console.log("cache geupdate")
+    // check als iets in cacheData geschreven staat, als dat zo is check de laatste keer dat de file was bewerkt
+    if (cacheData.length > 0) {
+        // https://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
+        // check de laatste keer dat cache.json bewerkt was
+        var stats = await fs.statSync("cache.json")
+        var mtime = stats.mtimeMs
+        if (now - mtime < twelveH) {
+            console.log("cache is new")
+        } else {
+            await getIndexData()
+            console.log("cache geupdate")
+        }
+    }
+    // als het leeg is voer de functie getIndexData() uit
+    else {
+        await getIndexData()
+        console.log("cache is gemaakt")
     }
 
     // all caught pokemon
