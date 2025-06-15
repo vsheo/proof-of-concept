@@ -68,6 +68,58 @@ Wat kun je doen op de Poké-app website?
 ### Styleguide
 ### View transition
 ### Detail - Tabs
+Op de detail pagina zijn er drie tabs die informatie over de Pokémon weergeven.
+Dit is gemaakt met CSS door gebruik te maken van id’s op de elementen, anker tag elemenmten die naar deze id’s toe gaan en de `:target` pseudo class.
+
+https://github.com/user-attachments/assets/101f037f-605f-4739-aa53-aa7073246a0a
+
+In HTML heb ik een nav met 3 links, een voor elke tab. Daarnaast heb ik twee div's. een voor de grijze achtergrond en een tweede voor een bar die meebeweegt naar de tab open staat
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/views/detail.liquid#L43-L49
+
+Op de containers van deze elementen heb ik id’s. dit is waar de links in de nav naar toe gaan
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/views/detail.liquid#L51
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/views/detail.liquid#L83
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/views/detail.liquid#L93
+
+Voor de layout gebruik ik een grid.
+De twee div's plaats ik in dezelfde grid area, zodat ze op elkaar komen te staan.
+De 3 links geef ik geen grid area mee, die worden vanzelf in de juiste grid-cellen geplaatst.
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/public/styles/style.css#L312-L319
+
+De links in de grid cel geef ik 100% height en width, zodat je niet alleen op de tekst hoeft te klikken om van tab te veranderen, maar ook eromheen.
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/public/styles/style.css#L329-L333
+
+De grijze bar krijgt de breedte van alle drie de grid cellen
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/public/styles/style.css#L346-L349
+
+De paarse indicator krijgt ook de totale breedte van alle drie de grid cellen, maar een width van 33%.
+Op de grid heb ik `place-items: center`, zodat de tekst, bar en de indicator in het midden van elke grid cel worden geplaatst.
+Hierdoor begint de indicator ook in de middelste grid cel.
+Daarom hebben we een translate om de indicator naar links te verschuiven, zodat deze bij de eerste tab ("about") begint.
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/public/styles/style.css#L351-L357
+
+Om de content te laten veranderen wanneer er op een tab geklikt wordt, gebruiken we eerst de combinaties van `:not` en `:target` om alle elementen die niet de target zijn, op `display: none` te zetten.
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/public/styles/style.css#L363-L365
+
+Nu staan alle 3 tabs op display: none.
+We gebruiken `:target` om de tab die nu actief is (deze zie je terug in de URL) op `display: block` te zetten.
+(in pkm-about gebruik ik een grid voor de layout, dus `display: block` haalt die layout weg. hier zet ik `display: grid` terug zodra de tab about actief is)
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/public/styles/style.css#L367-L373
+
+
+Nu hebben we tabs die van content veranderen wanneer er op een link geklikt wordt.
+Maar als je voor het eerst op de detail pagina komt, zijn alle tabs op `display: none`, omdat er nog geen target is.
+Om dit probleem op te lossen, heb ik op de index pagina,in de link naar de detail pagina, aangegeven dat `#about` gelijk de target is.
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/views/index.liquid#L42
+
+Nu komen we op een detail pagina waar about meteen de target is, en de andere twee tabs op display: none staan
+
+Om de indicator mee te laten bewegen, gebruiken we `:has` samen met `:target`
+We gebruiken `:has` op de container die alle 3 tabs heeft, de info-container.
+Als de info-container, pkm-about heeft dat de target is, dan verplaatsen we de indicator naar links.
+https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/public/styles/style.css#L376-L378
+
+Dit doen we ook wanneer pkm-stats of pkm-evolution de target is.
 
 
 
@@ -128,8 +180,6 @@ Op de hoofdpagina kun je de search bar gebruiken om naar Pokémon te zoeken. Ook
 De search results worden daarna met een view transition op de pagina weergegeven.
 
 https://github.com/user-attachments/assets/fa34efca-1968-48a3-b814-746460be38d4
-
-
 
 Deze client side fetch werkt grotendeels hetzelfde als die van de loading animation.
 Het verschil is dat we hier controleren of het submit event van de search bar komt.
