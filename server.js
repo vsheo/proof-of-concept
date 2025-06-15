@@ -11,35 +11,40 @@ const engine = new Liquid()
 app.engine("liquid", engine.express())
 app.set("views", "./views")
 
+// 12 uur in milliseconden
+const twelveH = 43200000;
+const now = Date.now();
+
 // read de cache.json die lokaal staat
-const cacheData = await fs.readFileSync("cache.json", "utf-8");
+const cacheData = fs.readFileSync("cache.json", "utf-8");
+
+// check als iets in cacheData geschreven staat, als dat zo is check de laatste keer dat de file was bewerkt
+if (cacheData.length > 0) {
+    // https://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
+    // check de laatste keer dat cache.json bewerkt was
+    var stats = fs.statSync("cache.json")
+    var mtime = stats.mtimeMs
+    if (now - mtime < twelveH) {
+        console.log("cache is new")
+    }
+    // Als cache.json ouder is dan 12 uur, wordt de Pokémon data opnieuw opgehaald en opgeslagen in cache.json
+    else {
+        getIndexData()
+        console.log("cache geupdate")
+    }
+}
+// als het leeg is voer de functie getIndexData() uit op de pokemon data op te halen
+else {
+    await getIndexData()
+    console.log("cache is gemaakt")
+}
+
+// nadat cacheData bestaat/up to dat is maken we JSON van de data
 const cacheDataJSON = JSON.parse(cacheData)
 
 
 // index GET
 app.get("/", async function (request, response) {
-    // 12 uur in milliseconden
-    const twelveH = 43200000;
-    const now = Date.now();
-
-    // check als iets in cacheData geschreven staat, als dat zo is check de laatste keer dat de file was bewerkt
-    if (cacheData.length > 0) {
-        // https://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
-        // check de laatste keer dat cache.json bewerkt was
-        var stats = await fs.statSync("cache.json")
-        var mtime = stats.mtimeMs
-        if (now - mtime < twelveH) {
-            console.log("cache is new")
-        } else {
-            await getIndexData()
-            console.log("cache geupdate")
-        }
-    }
-    // als het leeg is voer de functie getIndexData() uit
-    else {
-        await getIndexData()
-        console.log("cache is gemaakt")
-    }
 
     // all caught pokemon
     const caughtList = await getBookmarks("vsheoPKM")
