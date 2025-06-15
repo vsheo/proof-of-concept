@@ -97,6 +97,8 @@
     .pkm-filters {
         background-color: var(--color-primary-purple);
         color: var(--color-primary-daylight);
+        position: relative;
+        inset: 0;
 
         h2 {
             font-weight: var(--fw-medium);
@@ -105,7 +107,7 @@
             justify-content: center;
         }
 
-        &:has(:hover) .dorp-down {
+        &:hover .dorp-down {
             display: block;
         }
     }
@@ -113,20 +115,28 @@
     .dorp-down {
         display: none;
         position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        inset: 0;
+        background-color: inherit;
+        color: var(--color-primary-daylight);
+        font-size: var(--fs-primary);
+        font-weight: var(--fw-medium);
+        border-radius: 16px;
         padding: 12px 16px;
-        z-index: 1;
-
-        li:hover {
-            scale: 1.1;
-        }
+        cursor: pointer;
     }
 
     .pkm-caught {
         background-color: var(--color-primary-daylight);
         color: var(--color-primary-midnight);
+
+        &:hover {
+            background-color: var(--color-primary-purple);
+            color: var(--color-primary-daylight);
+
+        img {
+                filter: invert(1);
+            }
+        }
     }
 }
 
