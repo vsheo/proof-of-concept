@@ -243,7 +243,13 @@ In dat geval slaan we de Pokémon op in de lijst door een POST te doen op de `po
 Hier geven we de lijst naam(`vsheoPKM`) mee in het veld `for`, en de Pokémon id(`pkmId`) in het veld `text`
 https://github.com/vsheo/proof-of-concept/blob/431a26b798248a4e54fa282bba2c67b20b8196a1/server.js#L218-L230
 
+
+
+
+
 #### Functies - getBookmarks
+Deze functie haalt alle 
+
 
 
 
