@@ -45,7 +45,6 @@ const cacheDataJSON = JSON.parse(cacheData)
 
 // index GET
 app.get("/", async function (request, response) {
-
     // all caught pokemon
     const caughtList = await getBookmarks("vsheoPKM")
     // console.log(caughtList)
