@@ -6,11 +6,11 @@
         <h1 class="title-site"><a href="/"><img src="/assets/PokemonLogo.svg" width="300" height="107" alt="pokemon logo"></a></h1>
         <div class="id-pokeball">
             {% if pkmInfo.id < 10 %}
-                <span class="details-pkm-id title-home">00{{pkmInfo.id}}</span>
+                <span class="details-pkm-id title-page">00{{pkmInfo.id}}</span>
             {% elsif pkmInfo.id < 100 %}
-                <span class="details-pkm-id title-home">0{{pkmInfo.id}}</span>
+                <span class="details-pkm-id title-page">0{{pkmInfo.id}}</span>
             {% else %}
-                <span class="details-pkm-id title-home">{{pkmInfo.id}}</span>
+                <span class="details-pkm-id title-page">{{pkmInfo.id}}</span>
             {% endif %}
 
             
