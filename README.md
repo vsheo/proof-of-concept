@@ -667,9 +667,74 @@ https://github.com/vsheo/proof-of-concept/blob/602827d8a9dce6ec7b567c6e9287185e9
 
 
 ### Routes
-site map foto
+Dit is de sitemap van de website. In server.js heb ik voor al deze pagina’s een route gemaakt
+![site-map](https://github.com/user-attachments/assets/beb631e7-2290-4a90-9548-a0ba5e2b92fd)
 
-#### Routes - Index
+
+
+
+
+#### Routes - Index GET
+Dit is de hoofd pagina van de website. De data die ik hier nodig heb, bestaat uit:
+- De Pokémon name: deze gebruik ik voor de link naar de detail pagina
+- De Pokémon species name: dit is de correcte naam van de Pokémon. De Pokémon name bevat soms extra toevoegingen met een `-`
+- De Pokémon id: deze gebruik ik om unieke ID’s te genereren, bijvoorbeeld voor data-enhanced en view-transition-name
+- een lijst met alle Pokémon die in de caught list staan
+
+De data voor de caught list haal ik op door de functie `getBookmarks()` aan te roepen.
+Deze functie geeft een array terug met de id’s van de Pokémon die in de lijst staan.
+https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L49
+
+De overige data krijg ik door de functie `getIndexData()` aan te roepen.
+Deze functie maakt een JSON bestand met alle gegevens die nodig zijn om de Pokémon kaartjes op de index pagina te maken
+
+De functie `getIndexData()` roep ik niet direct aan in de index route, omdat ik deze data ook gebruik in de routes voor generation filters, search en caught.
+Daarom roep ik de functie een keer buiten de routes aan, en geef ik de data mee aan de routes waar het nodig is.
+
+De functie `getIndexData()` haalt meer dan 1000 Pokémon op via fetches.
+Om de performance te verbeteren, doet de server deze fetches maar een keer en slaat de data lokaal op, in de file [cache.json](https://github.com/vsheo/proof-of-concept/blob/main/cache.json)
+de volgende keer dat de index pagina ingeladen wordt gebruikt de server deze opgeslagen data, zodat het laden sneller gaat.
+cache.json:
+https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/cache.json#L1-L10
+
+Om ervoor te zorgen dat de gebruiker altijd nieuwe informatie ziet, heb ik een controle gemaakt met een if en else statement.
+met `fs.statSync` kijk ik als het cache.json bestand minder dan 12 uur geleden is bijgewerkt. als dat waar is gebeurt er niks en geef ik een console.log dat de cache new is
+https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L25-L29
+Als het cache.json bestand langer dan 12 uur geleden is bijgewerkt, voer ik de functie `getIndexData()` opnieuw uit.
+De oude cache wordt dan overschreven met nieuwe data
+https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L31-L35
+
+Als de server voor het eerst opgestart wordt, is het bestand cache.json leeg.
+Als je dan de volgende code uitvoert:
+```JSON
+const cacheData = fs.readFileSync("cache.json", "utf-8");
+const cacheDataJSON = JSON.parse(cacheData)
+```
+zal de website crashen, omdat JSON.parse niets kan parsen uit een leeg bestand.
+(voor nu heb ik cache.json bestand op github staan, omdat render de 1000+ fetches niet wilt uitvoeren)
+
+Met een if statement heb ik een fallback gemaakt voor dit probleem.
+Als er iets cache.json staat, is de lengte van de inhoud groter dan 0.
+In dat geval kan de code verdergaan met het controleren van de laatste bewerking van de file.
+https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L22-L34
+
+Als de cache leeg is, wordt de functie `getIndexData()` uitgevoerd om de data op te halen.
+https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L37-L40
+
+Nu staat er zeker iets in cache.json geschreven, dus wanneer we de JSON gaan parsen, crasht de website niet.
+
+
+
+
+
+#### Routes - Index POST
+de post die op de index pagina plaats vindt is het toevoegen of weghalen van een pokemon aan je caught pokemon list
+
+
+
+
+
+
 
 
 
