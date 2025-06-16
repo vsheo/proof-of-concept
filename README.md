@@ -49,7 +49,7 @@ Wat kun je doen op de Poké-app website?
 ## Kenmerken
 <!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met JS gedaan en hoe? Misschien heb je iets met NodeJS gedaan, of heb je een framwork of library gebruikt? -->
 ## Code conventies
-### Naamgeving
+### Code conventies - Naamgeving
 - Namen zijn zo kort mogelijk, maar nog steeds beschrijvend waarvoor het bedoeld is
 - HTML en CSS class names zijn altijd in kleine letters, met `-` tussen woorden
 - in HTML en CSS gebruik ik namen die aangeven wat het element is
@@ -69,7 +69,7 @@ https://github.com/vsheo/proof-of-concept/blob/d5dc532df03993b5b1dae9db611f52648
 
  
 
-### HTML
+### Code conventies - HTML
 - In de HTML worden inline elementen op een regel geschreven, ook als het gaat om bijvoorbeeld een <h2> met een afbeelding en een tekst erin (de tekst wordt in een span geschreven)
 https://github.com/vsheo/proof-of-concept/blob/0d7d10d53a93e092e325ab098389c94350fb1fd6/views/index.liquid#L16
 - block elementen krijgen een lege regel erboven en eronder
@@ -83,7 +83,7 @@ https://github.com/vsheo/proof-of-concept/blob/d5dc532df03993b5b1dae9db611f52648
 
 
 
-### CSS
+### Code conventies - CSS
 - CSS selectors hebben dezelfde volgorde als in HTML
 - Block elementen in HTML zijn genest in CSS
 - De CSS nesting gaat niet dieper dan drie lagen (de eerste laag is de eerste selector die genest staat)
@@ -133,7 +133,7 @@ en als position gebruikt wordt dan is left right top of bottom gelijk eronder
 
 
 
-### JavaScript
+### Code conventies - JavaScript
 - ik gebruik tabs, die ingesteld zijn op 4 spaties
 - code zoveel als mogelijk op 1 regel doen
 nadat de pokemon is gevonden haal ik alleen de id daarui(wat ik nodig heb)
@@ -147,21 +147,59 @@ https://github.com/vsheo/proof-of-concept/blob/5954516dbe2fbd706d3db72dce24aea68
 
 
 
-## HTML
-### Index
-### Details
+## Responsive
+### responsive - index
+
+https://github.com/user-attachments/assets/07d0bf8e-1154-4420-ba3a-19c386d9969e
+
+De kolommen op de index pagina worden automatisch gemaakt met grid.
+https://github.com/vsheo/proof-of-concept/blob/dad3bb20655942452122b7008b8dd77d6b93142b/public/styles/style.css#L169-L182
+Bij `grid-template-columns` gebruik ik: `repeat(auto-fill, minmax(250px, 1fr));`
+
+repeat herhaalt de kolommen.
+`auto-fill` zorgt ervoor dat er alleen nieuwe kolommen worden gemaakt als er genoeg ruimte daarvoor is.
+Met `minmax(250px, 1fr)` geef ik aan dat elke kolom minimaal 250px breed moet zijn, voordat er een nieuw kolom gemaakt mag worden
+De `1fr` geeft aan dat de kolom alle beschikbare ruimte mag innemen.
+Als er daarna weer genoeg plaats is voor een extra kolom(tenminste 250px width), dan wordt de bestaande kolom breedte vanzelf weer kleiner om ruimte te maken.
+
+Dit kunnen we gebruiken op de Pokémon kaartjes in de kolom.
+https://github.com/vsheo/proof-of-concept/blob/dad3bb20655942452122b7008b8dd77d6b93142b/public/styles/style.css#L184-L196
+Door deze kaartjes `width: 100%` te geven, worden ze vanzelf breder.
+Als er ruimte is voor een nieuwe kolom, dan worden de kaartjes vanzelf weer kleiner om plaats te maken voor de nieuwe kolom.
+Dit zorgt ervoor dat de mobiele en tablet versie nooit te veel witruimte heeft, met de breedte van de kolom.
+`max-width` zorgt ervoor dat de Pokémon kaartjes niet te ver stretchen.
+Dit is vooral handig op mobiele en tablet versies, bij de overgang van een naar twee kolommen zou het Pokémon kaartje te breed worden, `max-width` houd dat tegen.
 
 
 
 
 
-## Liquid
+### responsive - detail
+
+https://github.com/user-attachments/assets/e2d1f661-624b-4865-857f-152e4657a6a4
+
+Voor de detail pagina gebruik ik een grid om de pagina in twee sections te verdelen.
+Met een mediaquery verander ik de layout zodat de sections naast elkaar staan in de desktop versie.
+https://github.com/vsheo/proof-of-concept/blob/dad3bb20655942452122b7008b8dd77d6b93142b/public/styles/style.css#L252-L271
+
+In de sections gebruik ik flex met width op 100% om de beschikbare ruimte in beslag te nemen, en met max-width om de width te stoppen waar dat nodig is.
+https://github.com/vsheo/proof-of-concept/blob/dad3bb20655942452122b7008b8dd77d6b93142b/public/styles/style.css#L273-L287
+https://github.com/vsheo/proof-of-concept/blob/dad3bb20655942452122b7008b8dd77d6b93142b/public/styles/style.css#L316-L332
+
+
+
+
+
+## HTML en Liquid
 ### liquid assign
 Op verschillende plekken in mijn code heb ik assign gebruikt, meestal om variabelen aan te maken.
 In dit geval gebruik ik het om een integer om te zetten naar een string.
 `pkm.id` uit de database is een integer en `pkmCaught` is een string.
 Met Liquid zet ik de integer eerst om naar een string, zodat ik daarna twee waarden met elkaar kan vergelijken.
 https://github.com/vsheo/proof-of-concept/blob/7a7e0164d7eb408d732700fb24be7875ddc213c8/views/index.liquid#L45-L48
+
+
+
 
 
 ### breadcrumbs nav
