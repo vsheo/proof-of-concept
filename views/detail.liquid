@@ -4,6 +4,7 @@
 <main class="detail-container"  style="background-color: var(--color-{{pkmInfo.types[0].type.name}});">
     <section class="pkm-info" style="background-color: var(--color-{{pkmInfo.types[0].type.name}}); background-image: url('/assets/bg-pokeball-detail.svg');">
         <h1 class="title-site"><a href="/"><img src="/assets/PokemonLogo.svg" width="300" height="107" alt="pokemon logo"></a></h1>
+
         <div class="id-pokeball">
             {% if pkmInfo.id < 10 %}
                 <span class="details-pkm-id title-page">00{{pkmInfo.id}}</span>
@@ -12,8 +13,6 @@
             {% else %}
                 <span class="details-pkm-id title-page">{{pkmInfo.id}}</span>
             {% endif %}
-
-            
 
             {% assign pkmIdString = pkmInfo.id | append: "" %}
             {% if pkmCaught contains pkmIdString %}
@@ -105,6 +104,7 @@
                 {% else %}
                     <span class="details-pkm-id">{{basicId}}</span>
                 {% endif %}
+
                 <h4 class="pkm-name"><a href="/details/{{evolutions.chain.species.name}}#about">{{evolutions.chain.species.name}}</a></h4>
             </article>
 
@@ -123,6 +123,7 @@
                     {% else %}
                         <span class="details-pkm-id">{{stageOneIds[forloop.index0]}}</span>
                     {% endif %}
+
                     <h4 class="pkm-name"><a href="/details/{{evo.species.name}}#about">{{evo.species.name}}</a></h4>
                 </article>
             {% endfor %}
@@ -142,6 +143,7 @@
                     {% else %}
                         <span class="details-pkm-id">{{stageTwoIds[forloop.index0]}}</span>
                     {% endif %}
+
                     <h4 class="pkm-name"><a href="/details/{{evo.species.name}}#about">{{evo.species.name}}</a></h4>
                 </article>
             {% endfor %}
