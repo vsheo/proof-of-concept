@@ -707,7 +707,7 @@ https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281
 Als de server voor het eerst opgestart wordt, is het bestand cache.json leeg.
 Als je dan de volgende code uitvoert:
 ```JSON
-const cacheData = fs.readFileSync("cache.json", "utf-8");
+const cacheData = fs.readFileSync("cache.json", "utf-8")
 const cacheDataJSON = JSON.parse(cacheData)
 ```
 zal de website crashen, omdat JSON.parse niets kan parsen uit een leeg bestand.
@@ -728,12 +728,25 @@ Nu staat er zeker iets in cache.json geschreven, dus wanneer we de JSON gaan par
 
 
 #### Routes - Index POST
-de post die op de index pagina plaats vindt is het toevoegen of weghalen van een pokemon aan je caught pokemon list
+De POST op de index pagina voegt een Pokémon toe aan, of verwijdert deze uit, je caught Pokémon lijst.
+Op de pagina heeft elk Pokémon kaartje een unieke `action`, die wordt gemaakt met de Pokémon id.
+https://github.com/vsheo/proof-of-concept/blob/4a838bf90bf682e6b612788bb290ead482ad757d/views/index.liquid#L44
 
+deze id vraag ik in de server op met `request.params`
+https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L56-L57
 
+Het toevoegen of verwijderen van een Pokémon uit de lijst gebeurt via de `changeCaught()` functie.
+Deze functie neemt de naam van de eigenaar van de lijst en de Pokémon id mee via de `request.params`.
+de rest van deze POST wordt door de functie verwerkt
+https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L59C11-L59C23
 
+Nadat de post klaar is wordt de pagina redirect naar de hoofd pagina
+https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L62
 
-
+Eerst gebruikte ik `/:pkmId` voor de POST, en in een ander route `/gen`.
+Daardoor ontstond een probleem: de server ging de de generation nummer posten in de database.
+Nu heb ik de URL: URL: `/toggle-caught/:pkmId` voor de post
+en `/pokemon/generation-:number` voor de generation filters
 
 
 
