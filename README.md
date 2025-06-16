@@ -51,10 +51,14 @@ Wat kun je doen op de Poké-app website?
 ## Code conventies
 ### HTML
 
+
 ### CSS
-- Block elementen in HTML zijn genest in CSS via nesting
-- De nesting gaat niet dieper dan drie lagen (de eerste laag is de eerste selector die genest staat)
+- CSS selectors hebben dezelfde volgorde als in HTML
+- Block elementen in HTML zijn genest in CSS
+- De CSS nesting gaat niet dieper dan drie lagen (de eerste laag is de eerste selector die genest staat)
 - bij nesten is er een lege regel boven de geneste selector
+- Media queries staan altijd genest bij het element waarvoor ze bedoeld zijn
+
 voorbeeld HTML block in in CSS genest
 https://github.com/vsheo/proof-of-concept/blob/d0442e8c288f9f5501f73ac3fbcc6a63cc1e1ed8/views/index.liquid#L39-L63
 https://github.com/vsheo/proof-of-concept/blob/d0442e8c288f9f5501f73ac3fbcc6a63cc1e1ed8/public/styles/style.css#L159-L289
