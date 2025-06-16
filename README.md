@@ -57,7 +57,27 @@ Wat kun je doen op de Poké-app website?
 
 
 ## Liquid
+### liquid assign
+Op verschillende plekken in mijn code heb ik assign gebruikt, meestal om variabelen aan te maken.
+In dit geval gebruik ik het om een integer om te zetten naar een string.
+`pkm.id` uit de database is een integer en `pkmCaught` is een string.
+Met Liquid zet ik de integer eerst om naar een string, zodat ik daarna twee waarden met elkaar kan vergelijken.
+https://github.com/vsheo/proof-of-concept/blob/7a7e0164d7eb408d732700fb24be7875ddc213c8/views/index.liquid#L45-L48
+
+
 ### breadcrumbs nav
+Voor de breadcrumb nav heb ik een aparte Liquid partial gemaakt.
+In deze nav gebruik ik if statements om te kijken welke variabelen er zijn.
+afhankelijk daarvan wordt bepaald welke links in de breadcrumb nav laat zien.
+https://github.com/vsheo/proof-of-concept/blob/7a7e0164d7eb408d732700fb24be7875ddc213c8/views/partials/breadcrumb.liquid#L1-L20
+
+Deze partial wordt op de index pagina en de detail pagina ingeladen met render.
+Bij het inladen geef ik variabelen mee om aan te geven op welke pagina de gebruiker zich bevindt.
+Op basis van deze variabelen toont de breadcrumb nav de juiste linkjes.
+render op index.liquid
+https://github.com/vsheo/proof-of-concept/blob/7a7e0164d7eb408d732700fb24be7875ddc213c8/views/index.liquid#L3
+render op details.liquid
+https://github.com/vsheo/proof-of-concept/blob/7a7e0164d7eb408d732700fb24be7875ddc213c8/views/detail.liquid#L2
 
 
 
