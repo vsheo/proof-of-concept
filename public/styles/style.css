@@ -116,15 +116,14 @@
             left: 0;
             width: 13em;
             background-color: var(--color-primary-purple);
-            padding: 0.5rem;
-            margin: 0;
+            padding: 0.5em;
             list-style: none;
             border-radius: 0 0 16px 16px;
 
             li a {
-                color: var(--color-primary-daylight);
                 display: block;
                 width: 100%;
+                color: var(--color-primary-daylight);
             }
 
             a:hover {
