@@ -738,7 +738,7 @@ https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281
 Het toevoegen of verwijderen van een Pokémon uit de lijst gebeurt via de `changeCaught()` functie.
 Deze functie neemt de naam van de eigenaar van de lijst en de Pokémon id mee via de `request.params`.
 de rest van deze POST wordt door de functie verwerkt
-https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L59C11-L59C23
+https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L59
 
 Nadat de post klaar is wordt de pagina redirect naar de hoofd pagina
 https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L62
@@ -749,6 +749,20 @@ Nu heb ik de URL: URL: `/toggle-caught/:pkmId` voor de post
 en `/pokemon/generation-:number` voor de generation filters
 
 
+
+
+
+#### generation filter
+Deze route geeft alle Pokémon van een pokemon generation terug.
+
+Op de index pagina heb ik een ul met linkjes naar deze route. Het enige dat verschilt per link is het cijfer aan het eind van de URL, dat de generatie aangeeft.
+https://github.com/vsheo/proof-of-concept/blob/4a838bf90bf682e6b612788bb290ead482ad757d/views/index.liquid#L18-L29
+
+In de route haal ik het generatiecijfer op met `request.params`
+https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L66-L67
+
+Deze array bevat 10 items. Het item op de eerste index is een placeholder, zodat het generatie getal(die met request.params opgehaald wordt) overeenkomt met de index in de array (pkmGeneration[1] = [0,151]).
+Elke geneste array bevat het id van de eerste en laatste Pokémon die bij die generatie behoord (bijvoorbeeld generatie 1 = ID 1 t/m 151).
 
 
 
