@@ -776,7 +776,7 @@ https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595
 De data wordt meegegeven aan de pagina in de variable `pkmData`.
 In Liquid gebruik ik deze variabele om alle Pokémon kaartjes op de hoofd pagina in te laden.
 Voor de generation filter gebruik ik dezelfde variabele, maar dan met gefilterde data.
-Daardoor hoef ik in index.liquid verder niets aan te passen — de kaartjes worden automatisch goed in geladen.
+Daardoor hoef ik in index.liquid verder niets aan te passen, de kaartjes worden automatisch goed in geladen.
 https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L80
 
 Daarna roep ik de `getBookmarks()` functie aan om de lijst met caught Pokémon op te halen.
@@ -787,6 +787,25 @@ maar de succes state zal niet op beeld komen, omdat de caught Pokémon lijst dan
 https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L78
 
 De variabeles: `gen` en `pageTitle` heb ik nodig om het breadcrumb menu op te maken
+
+
+
+
+
+#### caught filter
+dit is een simple route die alleen de id uit de caught pokemon lijst neemt
+https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L84-L86
+
+Daarna filter ik op deze id’s in cache.json. De id’s uit de caught lijst zijn strings, omdat ze als string in Directus zijn opgeslagen.
+Ik zet de id’s uit cache.json eerst om naar een string met `toString()`, zodat ik ze kan vergelijken met de id’s uit de caughtList
+https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L92-L94
+
+Daarna stuur ik de array met alle Caught Pokémon data(`caughtData`) mee naar de pagina in de variabele `pkmData`, zodat Liquid de kaartjes op de juiste manier kan inladen.
+https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L96
+
+De variabele `pkmCaught: caughtList` gebruik ik om de ingekleurde Pokéball te tonen in plaats van de grijze, wanneer een Pokémon in jouw lijst staat.
+De variabele `pageTitle` wordt gebruikt voor het breadcrumb menu.
+
 
 
 ## Installatie
