@@ -6,7 +6,7 @@
 
 .breadcrumbs {
     background-color: var(--color-primary-purple);
-    padding: .2em 0 .2em .5em;
+    padding: 0.2em 0 0.2em 0.5em;
 
     a {
         color: var(--color-layering-daylight);
@@ -34,15 +34,15 @@
     background-color: var(--color-layering-daylight);
 
     @media (min-width: 1114px) {
-        align-self: start;
         position: sticky;
         top: 0;
-        padding: 0 1em;
+        align-self: start;
         height: 100dvh;
+        padding: 0 1em;
     }
 
     .title-site {
-        padding-top: .5em;
+        padding-top: 0.5em;
 
         @media (min-width: 1114px) {
             margin-top: 1em;
@@ -59,52 +59,53 @@
         grid-template-areas:
         "btn input"
         ;
-        background-color: var(--color-search);
-        padding: .5em;
-        border-radius: 16px;
         height: 2.4em;
         width: 13em;
+        background-color: var(--color-search);
+        padding: 0.5em;
+        border-radius: 16px;
+
         margin: 0 1em;
 
         input {
             grid-area: input;
-            border: none;
             background-color: inherit;
+            border: none;
         }
 
         .btn-submit {
             grid-area: btn;
-            border: none;
             background-color: inherit;
-            margin-right: .7em;
+            margin-right: 0.7em;
+            border: none;
         }
     }
 
     .pkm-filters, .pkm-caught {
         display: flex;
         align-items: center;
-        border-radius: 16px;
-        padding: .5em;
+        height: 2.4em;
         width: 13em;
         margin: 1em 1em 0 1em;
-        height: 2.4em;
+        padding: 0.5em;
+        border-radius: 16px;
         cursor: pointer;
         span {
-            margin-left: .5em;
+            margin-left: 0.5em;
         }
     }
 
     .pkm-filters {
-        background-color: var(--color-primary-purple);
-        color: var(--color-primary-daylight);
         position: relative;
         inset: 0;
+        background-color: var(--color-primary-purple);
+        color: var(--color-primary-daylight);
 
         h2 {
-            font-weight: var(--fw-medium);
-            font-size: var(--fs-primary);
             display: flex;
             justify-content: center;
+            font-weight: var(--fw-medium);
+            font-size: var(--fs-primary);
         }
 
         &:hover .dorp-down {
@@ -120,8 +121,8 @@
         color: var(--color-primary-daylight);
         font-size: var(--fs-primary);
         font-weight: var(--fw-medium);
-        border-radius: 16px;
         padding: 12px 16px;
+        border-radius: 16px;
         cursor: pointer;
     }
 
@@ -133,7 +134,7 @@
             background-color: var(--color-primary-purple);
             color: var(--color-primary-daylight);
 
-        img {
+            img {
                 filter: invert(1);
             }
         }
@@ -163,11 +164,11 @@
     "name pokeball"
     ". pokeman"
     ;
+    position: relative;
     width: 100%;
     max-width: 350px;
     box-sizing: border-box;
     cursor: pointer;
-    position: relative;
 
     .pkm-background {
         grid-column: 1 / -1;
@@ -180,7 +181,7 @@
 
     .pkm-name {
         grid-area: name;
-        margin: .7em 0 0 1em ;
+        margin: 0.7em 0 0 1em;
         a {
             color: var(--color-primary-daylight);
 
@@ -201,25 +202,25 @@
 
     /* https://codepen.io/potatoDie/pen/abzvGxG?editors=1100 */
     .btn-caught {
+        position: relative;
         margin: 1em 1em 0 0;
-        border: none;
         height: min-content;
         width: min-content;
         background: inherit;
+        border: none;
         cursor: pointer;
         z-index: 5;
-        position: relative;
 
         &:active {
-            scale: .7;
+            scale: 0.7;
         }
     }
 
     .pkm-sprite {
         grid-area: pokeman;
         place-self: center;
-        overflow: hidden;
         margin-right: 3em;
+        overflow: hidden;
     }
 }
 
@@ -232,10 +233,6 @@
     "details"
     ;
     place-items: center;
-    
-    /* background-image: url('/assets/bg-pokeball-detail.svg'); */
-    /* background-repeat: no-repeat; */
-    /* background-position: center; */
 
     @media (min-width: 820px) {
         grid-template-columns: auto 1fr;
@@ -265,14 +262,14 @@
     }
 
     .title-site {
+        margin-top: 0.7em;
         z-index: 1;
-        margin-top: .7em;
     }
 
     .id-pokeball {
         display: flex;
         align-items: center;
-        margin-top: .5em;
+        margin-top: 0.5em;
     }
 
     .details-pkm-id {
@@ -282,31 +279,31 @@
 
     .pkm-pokeball {
         justify-self: start;
-        margin-left: .5em;
+        margin-left: 0.5em;
     }
 
     .pkm-name {
         color: var(--color-primary-daylight);
-        margin-top: .5em;
+        margin-top: 0.5em;
     }
 }
 
 .info-container {
     grid-area: details;
-    background-color: var(--color-primary-daylight);
-    border-radius: 10px;
-    margin:  1em;
     width: calc(100% - 2em);
     max-width: 375px;
+    background-color: var(--color-primary-daylight);
+    margin: 1em;
+    border-radius: 10px;
 
     @media (min-width: 820px) {
-        margin: 0;
+        place-content: center;
         width: 100%;
         height: 100dvh;
         max-width: none;
-        border-radius: unset;
-        place-content: center;
         font-size: var(--fs-details-resp);
+        margin: 0;
+        border-radius: unset;
     }
 
     .tab-titles {
@@ -327,16 +324,16 @@
         }
 
         .tab-titles, a {
+            text-align: center;
             width: 100%;
             height: 100%;
-            text-align: center;
         }
 
         .bar, .indicator {
             grid-area: bar; 
-            height: .4em;
+            height: 0.4em;
             width: calc(100% - 3em);
-            margin: .5em 0;
+            margin: 0.5em 0;
 
             @media (min-width: 820px) {
                 width: 100%;
@@ -350,8 +347,8 @@
 
         .indicator {
             grid-column: 1 / span 3;
-            background-color: var(--color-primary-purple);
             width: 33%;
+            background-color: var(--color-primary-purple);
             transform: translateX(-100%);
             transition: transform 0.5s ease;
         }
@@ -374,11 +371,11 @@
 
 /* tab: bar indicator */
 .info-container:has(.pkm-about:target) .indicator  {
-    transform: translateX(-100%);
     margin-left: 2.8em;
+    transform: translateX(-100%);
 
     @media (min-width: 820px) {
-        margin-left: -.2em;
+        margin-left: -0.2em;
     }
 }
 
@@ -387,39 +384,36 @@
 }
 
 .info-container:has(.evolution:target) .indicator  {
-    transform: translateX(100%);
     margin-right: 2.8em;
+    transform: translateX(100%);
 
     @media (min-width: 820px) {
-        margin-right: -.2em;
+        margin-right: -0.2em;
     }
 }
 
 .pkm-about {
-    width: calc(100% - 2em);
-    justify-self: center;
     display: grid;
     grid-template-columns: min-content 1fr;
-
-    @media (min-width: 950px) {
-    }
+    justify-self: center;
+    width: calc(100% - 2em);
 
     dt, dd {
         margin: 0 clamp(.5em, 80%, 1.5em) .5em clamp(.5em, 80%, 1.5em);
         text-wrap: nowrap;
-
     }
 
     dd {
         text-align: end;
         font-weight: var(--fw-regular);
     }
+
     .type {
         color: var(--color-primary-daylight);
-        padding: 3px;
         font-weight: var(--fw-semibold);
-        border-radius: 4px;
         line-height: 1em;
+        padding: 3px;
+        border-radius: 4px;
     }
 }
 
@@ -436,7 +430,7 @@
         "stat number"
         "meter meter"
         ;
-        margin: .5em 2em;
+        margin: 0.5em 2em;
 
         .stat {
             grid-area: stat;
@@ -444,8 +438,8 @@
 
         .number {
             grid-area: number;
-            font-weight: var(--fw-regular);
             justify-self: end;
+            font-weight: var(--fw-regular);
         }
 
         meter {
@@ -467,11 +461,11 @@
     grid-template-areas:
     "sprite id"
     "sprite name";
+    position: relative;
+    background-color: var(--color-primary-daylight);
     margin: 1em;
     border-radius: 15px;
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
-    background-color: var(--color-primary-daylight);
-    position: relative;
 
     @media (min-width: 950px) {
         margin: 1em 7vw;
@@ -487,11 +481,11 @@
 
     .sprite {
         grid-area: sprite;
-        padding: .5em;
-        margin-right: .5em;
-        border-radius: 15px 0 0 15px;
         display: grid;
         place-items: center;
+        padding: 0.5em;
+        margin-right: 0.5em;
+        border-radius: 15px 0 0 15px;
 
         @media (min-width: 1050px) {
             width: 150px;
@@ -518,6 +512,7 @@
     .pkm-name {
         grid-area: name;
         align-self: center;
+
         a::before {
             content: '';
             display: block;
