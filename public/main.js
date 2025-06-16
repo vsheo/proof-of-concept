@@ -74,36 +74,26 @@ if ("onsubmit" in window && "DOMParser" in window) {
     })
 }
 
+
+// https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element#:~:text=Here%20is%20the%20vanilla%20JavaScript%20solution%20for%20future%20viewers.
+const filters = document.querySelector('.pkm-filters')
+
+// luister dan naar een klik event op de web pagina
+document.addEventListener('click', function (e) {
+    // als er een klik plaats vindt dat niet op/in het details element is
+    // of als er een klik plaatst vindt op het details element
+    if (filters !== e.target) {
+        // dan sluit het details element
+        filters.removeAttribute('open');
+    }
+});
+
+
+
 // auto submit
 // https://stackoverflow.com/questions/58629007/how-to-get-search-result-when-typing-without-hiting-enter-button-or-submit-butto
 // https://www.syncfusion.com/forums/161259/auto-search-when-typing
-const input = document.querySelector('input')
-input.addEventListener('keyup',)
 
-
-// const form = document.querySelector('.search-bar');
-
-// form.addEventListener('submit', async (e) => {
-//   e.preventDefault();
-
-//   const url = form.action + '?' + new URLSearchParams(new FormData(form));
-
-//   if (document.startViewTransition) {
-//     document.startViewTransition(async () => {
-//       const response = await fetch(url);
-//       const html = await response.text();
-
-//       // Replace content in .pkm-container
-//       const temp = document.createElement('div');
-//       temp.innerHTML = html;
-//       const newContainer = temp.querySelector('.pkm-container');
-
-//       document.querySelector('.pkm-container').replaceWith(newContainer);
-//     });
-//   } else {
-//     window.location.href = url;
-//   }
-// });
 
 
 
