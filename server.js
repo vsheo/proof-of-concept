@@ -13,7 +13,7 @@ app.set("views", "./views")
 
 // 12 uur in milliseconden
 const twelveH = 43200000;
-const now = Date.now();
+const now = Date.now()
 
 // read de cache.json die lokaal staat
 const cacheData = fs.readFileSync("cache.json", "utf-8");
@@ -49,7 +49,7 @@ app.get("/", async function (request, response) {
     const caughtList = await getBookmarks("vsheoPKM")
     // console.log(caughtList)
 
-    response.render("index.liquid", { pkmData: cacheDataJSON, pkmCaught: caughtList, pageTitle: "All Pokemon" });
+    response.render("index.liquid", { pkmData: cacheDataJSON, pkmCaught: caughtList, pageTitle: "All Pokemon" })
 })
 
 // index POST
@@ -59,7 +59,7 @@ app.post("/toggle-caught/:pkmId", async function (request, response) {
     await changeCaught("vsheoPKM", id)
     // console.log(id)
 
-    response.redirect('/');
+    response.redirect('/')
 })
 
 // index Gen filter
@@ -70,12 +70,14 @@ app.get("/pokemon/generation-:number", async function (request, response) {
     const pkmGeneration = [0, [0,151], [152,251], [252,386], [387,493], [494,649], [650,721], [722,809], [810,905], [906,1025]]
 
     // maak een array met alle pokemon die hun id tussen de begin en eind id staat
-    const genData = cacheDataJSON.filter(pkm => pkm.id >= pkmGeneration[gen][0] && pkm.id <= pkmGeneration[gen][1])
+    const genData = cacheDataJSON.filter(pkm =>
+        pkm.id >= pkmGeneration[gen][0] && pkm.id <= pkmGeneration[gen][1]
+    )
 
     // all caught pokemon
     const caughtList = await getBookmarks("vsheoPKM")
 
-    response.render("index.liquid", { pkmData: genData, pkmCaught: caughtList, gen: gen, pageTitle: "Generation "+gen });
+    response.render("index.liquid", { pkmData: genData, pkmCaught: caughtList, gen: gen, pageTitle: "Generation "+gen })
 })
 
 // index caught filter
@@ -91,7 +93,7 @@ app.get("/pokemon/caught", async function (request, response) {
         caughtList.includes(pkm.id.toString())
     );
 
-    response.render("index.liquid", { pkmCaught: caughtList, pkmData: caughtData, pageTitle: "Pokemon caught" });
+    response.render("index.liquid", { pkmCaught: caughtList, pkmData: caughtData, pageTitle: "Pokemon caught" })
 })
 
 // index search
@@ -105,7 +107,7 @@ app.get("/search", async function (request, response) {
         pokemon.name.includes(searchName.toLowerCase())
     );
 
-    response.render("index.liquid", { pkmData:findPkmData });
+    response.render("index.liquid", { pkmData:findPkmData })
 });
 
 // detail GET
@@ -122,7 +124,7 @@ app.get("/details/:pkmName", async function (request, response) {
     const pkmInfoRespJSON = await pkmInfoResp.json()
 
     // gebruik pokemon name, uit de url, en zoek naar de id van die pokemon in cache.json
-    const findPkmInfo = cacheDataJSON.find(pokemon => pokemon.name === pkmName).id;
+    const findPkmInfo = cacheDataJSON.find(pokemon => pokemon.name === pkmName).id
 
     /* Met de pokemon id kan je een fetch URL maken.
     in deze url vind je de link naar de data voor de evolution-chain.
@@ -143,8 +145,8 @@ app.get("/details/:pkmName", async function (request, response) {
     // console.log(basicId)
 
     // we hebben hierna een functie om id's op te halen. we maken deze arrays hier aan zodat we de id's uit de functie kunnen halen 
-    let stageOneId = [];
-    let stageTwoId = [];
+    let stageOneId = []
+    let stageTwoId = []
 
     // check als een pokemon kan evovlen. als dat kan sla dan de id van de volgende vormen op
     if (evoData.chain.evolves_to.length > 0) {
@@ -220,16 +222,16 @@ function structureJSON(names, pkmData) {
         data.name = names[i]
     });
 
-    return pkmData;
+    return pkmData
 }
 
 async function changeCaught(userList, pkmId) {
     // url waar het pokemon id opgeslagen moet worden
-    const postURL = "https://fdnd.directus.app/items/messages/";
+    const postURL = "https://fdnd.directus.app/items/messages/"
 
     // fetch url met een filter om te zoeken naar het pokemon id,
-    const checkPkm = await fetch(postURL + `?filter={"for":"${userList}","text":"${pkmId}"}`);
-    const checkPkmResponseJSON = await checkPkm.json();
+    const checkPkm = await fetch(postURL + `?filter={"for":"${userList}","text":"${pkmId}"}`)
+    const checkPkmResponseJSON = await checkPkm.json()
     // console.log(checkPkmResponseJSON.data[0].id)
 
     // if statement om te kijken als het id al in de lijst staat
@@ -263,14 +265,12 @@ async function changeCaught(userList, pkmId) {
 // dit is een functie die een array maakt met alle bookmarked cadeau's
 async function getBookmarks(list) {
 	// haal alle items uit een lijst op, ik gebruik de for om aan te geven dat het voor mijn website bedoeldt is
-	const yourList = `https://fdnd.directus.app/items/messages?filter={"for":"${list}"}`;
+	const yourList = `https://fdnd.directus.app/items/messages?filter={"for":"${list}"}`
 	const yourListResponse = await fetch(yourList);
-	const yourListResponseJSON = await yourListResponse.json();
+	const yourListResponseJSON = await yourListResponse.json()
 
 	// pokemon id's uit "text" halen en maken tot een array
-	const pkmIdArray = yourListResponseJSON.data.map(
-		entry => entry.text
-	);
+	const pkmIdArray = yourListResponseJSON.data.map( entry => entry.text );
 
 	// return een array met alle pokemon id's
 	return pkmIdArray;
@@ -280,4 +280,4 @@ app.set("port", process.env.PORT || 8000)
 
 app.listen(app.get("port"), function () {
     console.log(`Project draait via http://localhost:${app.get( "port" )}/`);
-});
+})

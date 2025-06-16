@@ -13,7 +13,7 @@ if ("fetch" in window && "DOMParser" in window) {
         if (form.classList.contains("pkm-pokeball")) {
             event.preventDefault();
 
-            const imgRotate = form.querySelector("img");
+            const imgRotate = form.querySelector("img")
             imgRotate.classList.add('loading-state')
 
             const response = await fetch(form.action, {
@@ -24,7 +24,7 @@ if ("fetch" in window && "DOMParser" in window) {
             const responseText = await response.text();
 
             const parser = new DOMParser();
-            const responseDOM = parser.parseFromString(responseText, "text/html");
+            const responseDOM = parser.parseFromString(responseText, "text/html")
 
             const newState = responseDOM.querySelector(
                 '[data-enhanced="' + form.getAttribute("data-enhanced") + '"]'
@@ -55,7 +55,7 @@ if ("onsubmit" in window && "DOMParser" in window) {
             const responseText = await response.text();
 
             const parser = new DOMParser();
-            const responseDOM = parser.parseFromString(responseText, "text/html");
+            const responseDOM = parser.parseFromString(responseText, "text/html")
 
             // select de oude pkm-container
             const currentState = document.querySelector(".pkm-container")
