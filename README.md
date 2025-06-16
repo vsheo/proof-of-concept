@@ -58,8 +58,27 @@ Wat kun je doen op de Poké-app website?
 
 ## Liquid
 ### breadcrumbs nav
-### Dynamische background colors
 
+
+
+
+
+### Dynamische background colors
+Op de index pagina hebben de Pokémon kaartjes allemaal dezelfde achtergrond,
+alleen de kleur verschilt per Pokémon type.
+
+In pokeapp.css heb ik custom properties gemaakt voor de kleuren: --color- + 'de pokémon type'
+De naam van de Pokémon type in de custom property komt overeen met de naam van de Pokémon type in de database.
+
+De svg’s hebben op twee plaatsen een fill color.
+Met Liquid maak ik een variabele `type`. Deze krijgt de naam van het eerste type van een Pokémon (een Pokémon kan maximaal twee types hebben),
+en ik gebruik die variabele om beide fill color plekken in de svg in te vullen.
+https://github.com/vsheo/proof-of-concept/blob/8f8c766fcbd62cd3e7782b4aa05e0ab814802e5d/views/index.liquid#L40-L41
+
+Voor de background svg op de detail pagina heb ik in Figma alleen het witte gedeelte geselecteerd en daar een  svg van gemaakt.
+Daardoor hoef ik alleen de background color aan te passen aan de Pokémon type kleur. De svg zelf hoeft niet meer aangepast te worden.
+Hierdoor kan ik de SVG als een background-image met een URL inladen, in plaats van de svg in de HTML te zetten.
+https://github.com/vsheo/proof-of-concept/blob/8f8c766fcbd62cd3e7782b4aa05e0ab814802e5d/views/detail.liquid#L5
 
 
 
