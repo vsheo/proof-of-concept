@@ -38,7 +38,6 @@ if ("fetch" in window && "DOMParser" in window) {
 }
 
 
-
 if ("onsubmit" in window && "DOMParser" in window) {
     document.addEventListener("submit", async function (event) {
         const form = event.target;
@@ -75,6 +74,11 @@ if ("onsubmit" in window && "DOMParser" in window) {
     })
 }
 
+// auto submit
+// https://stackoverflow.com/questions/58629007/how-to-get-search-result-when-typing-without-hiting-enter-button-or-submit-butto
+// https://www.syncfusion.com/forums/161259/auto-search-when-typing
+const input = document.querySelector('input')
+input.addEventListener('keyup',)
 
 
 // const form = document.querySelector('.search-bar');

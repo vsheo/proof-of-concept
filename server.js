@@ -33,13 +33,13 @@ if (cacheData.length > 0) {
         console.log("cache geupdate")
     }
 }
-// als het leeg is voer de functie getIndexData() uit op de pokemon data op te halen
+// als het leeg is voer de functie getIndexData() uit om de pokemon data op te halen
 else {
     await getIndexData()
     console.log("cache is gemaakt")
 }
 
-// nadat cacheData bestaat/up to dat is maken we JSON van de data
+// nadat cacheData bestaat/up to date is maken we JSON daarvan
 const cacheDataJSON = JSON.parse(cacheData)
 
 
@@ -55,7 +55,7 @@ app.get("/", async function (request, response) {
 // index POST
 app.post("/toggle-caught/:pkmId", async function (request, response) {
     const id = request.params.pkmId;
-    // change if pokemon is caught
+    // voeg een pokemon toe of verwijder een pokemon uit de caught pokemon lijst
     await changeCaught("vsheoPKM", id)
     // console.log(id)
 
@@ -65,7 +65,11 @@ app.post("/toggle-caught/:pkmId", async function (request, response) {
 // index Gen filter
 app.get("/pokemon/generation-:number", async function (request, response) {
     const gen = request.params.number;
+    /* statisch aangegeven wanneer een pokemon generation begint en eindigd.
+    pkmGeneration[0] is een place holder. met request.params krijgen we een nummer. het laagtse nummer is 1, van generation-1 */
     const pkmGeneration = [0, [0,151], [152,251], [252,386], [387,493], [494,649], [650,721], [722,809], [810,905], [906,1025]]
+
+    // maak een array met alle pokemon die hun id tussen de begin en eind id staat
     const genData = cacheDataJSON.filter(pkm => pkm.id >= pkmGeneration[gen][0] && pkm.id <= pkmGeneration[gen][1])
 
     // all caught pokemon
@@ -74,29 +78,35 @@ app.get("/pokemon/generation-:number", async function (request, response) {
     response.render("index.liquid", { pkmData: genData, pkmCaught: caughtList, gen: gen, pageTitle: "Generation "+gen });
 })
 
-// index search
-app.get("/search", async function (request, response) {
-    const searchName = request.query.query;
-
-    const findPkmData = cacheDataJSON.filter(pokemon =>
-        pokemon.name.includes(searchName.toLowerCase())
-    );
-
-    response.render("index.liquid", { pkmData:findPkmData });
-});
-
 // index caught filter
 app.get("/pokemon/caught", async function (request, response) {
     // all caught pokemon
     const caughtList = await getBookmarks("vsheoPKM")
 
-    // get all caught pokemon data
+    /* we hebben de id's van de pokemon die opgeslagen staan in directus.
+    met include vergelijken we als de id van directus voorkomt in cache.json
+    als dat true is wordt die pokemon data (species name, types en name) opgeslagen in de array:caughtData
+    toString() is nodig omdat je dan een string met een string vergelijkt. zonder dit vergelijk je een integer met een string. */
     const caughtData = cacheDataJSON.filter(pkm =>
         caughtList.includes(pkm.id.toString())
     );
 
     response.render("index.liquid", { pkmCaught: caughtList, pkmData: caughtData, pageTitle: "Pokemon caught" });
 })
+
+// index search
+app.get("/search", async function (request, response) {
+    const searchName = request.query.query;
+
+    /* filter naar de pokemon name, deel van de name, in de search bar 
+    includes geeft true of false terug, als de letters van de search op dezelfde volgorde voorkomt in een pokemon name, dan returned het true
+    en voegt het die pokemon data toe aan de array: findPkmData */
+    const findPkmData = cacheDataJSON.filter(pokemon =>
+        pokemon.name.includes(searchName.toLowerCase())
+    );
+
+    response.render("index.liquid", { pkmData:findPkmData });
+});
 
 // detail GET
 app.get("/details/:pkmName", async function (request, response) {
@@ -111,24 +121,32 @@ app.get("/details/:pkmName", async function (request, response) {
     }
     const pkmInfoRespJSON = await pkmInfoResp.json()
 
-    // gebruik pkm name en zoek pkm id in cache.json
+    // gebruik pokemon name, uit de url, en zoek naar de id van die pokemon in cache.json
     const findPkmInfo = cacheDataJSON.find(pokemon => pokemon.name === pkmName).id;
 
-    // in deze url vind je de link naar data voor de evolution-chain. hier vind je de 
+    /* Met de pokemon id kan je een fetch URL maken.
+    in deze url vind je de link naar de data voor de evolution-chain.
+    in die url vind je de namen van hoe de evoluties van deze pokemon heten */
     const getEvoChain = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${findPkmInfo}`)
     const evoChain = await getEvoChain.json()
 
-    // fetch evolution chain
+    /* op de url in evolution-chain voeren we een fetch uit */
     const getEvoData = await fetch(evoChain.evolution_chain.url)
     const evoData = await getEvoData.json()
 
-    // split de url van evolution-chain om id te krijgen, voor elke stage
+    /* We hebben voor de evolution tab de id nodig.
+    in deze response heb je geen id tag staan. maar de id staat wel in de species URL
+    Met split kunnen we de id eruit halen
+    split geeft een array terug met alles dat tussen '/' staat
+    de url zijn altijd hetzelfde opgebouwd dus op positie [6] zal altijd de id nummer staan */
     const basicId = evoData.chain.species.url.split('/')[6]
     // console.log(basicId)
 
+    // we hebben hierna een functie om id's op te halen. we maken deze arrays hier aan zodat we de id's uit de functie kunnen halen 
     let stageOneId = [];
     let stageTwoId = [];
 
+    // check als een pokemon kan evovlen. als dat kan sla dan de id van de volgende vormen op
     if (evoData.chain.evolves_to.length > 0) {
         stageOneId = evoData.chain.evolves_to.map((pkmStage) => {
             return pkmStage.species.url.split('/')[6]
@@ -170,7 +188,7 @@ async function getIndexData() {
         const pkmDetailResp = await fetch(detailURL)
         const pkmDetails = await pkmDetailResp.json()
 
-        // gebruik map om uit de pkmDetails de types te halen
+        // gebruik map om uit de pkmDetails de types te halen en op te slaan in een array
         const types = pkmDetails.types.map((pokemon) => pokemon.type.name)
 
         const speciesName = pkmDetails.species.name
@@ -209,7 +227,7 @@ async function changeCaught(userList, pkmId) {
     // url waar het pokemon id opgeslagen moet worden
     const postURL = "https://fdnd.directus.app/items/messages/";
 
-    // filter om te zoeken naar het pokemon id,
+    // fetch url met een filter om te zoeken naar het pokemon id,
     const checkPkm = await fetch(postURL + `?filter={"for":"${userList}","text":"${pkmId}"}`);
     const checkPkmResponseJSON = await checkPkm.json();
     // console.log(checkPkmResponseJSON.data[0].id)
@@ -244,12 +262,12 @@ async function changeCaught(userList, pkmId) {
 
 // dit is een functie die een array maakt met alle bookmarked cadeau's
 async function getBookmarks(list) {
-	// haal alle items uit een lijst op, ik gebruik de for om aan te geven dat het voor mijn pagina is
+	// haal alle items uit een lijst op, ik gebruik de for om aan te geven dat het voor mijn website bedoeldt is
 	const yourList = `https://fdnd.directus.app/items/messages?filter={"for":"${list}"}`;
 	const yourListResponse = await fetch(yourList);
 	const yourListResponseJSON = await yourListResponse.json();
 
-	// alle pokemon id's uit "text" maken tot een array
+	// pokemon id's uit "text" halen en maken tot een array
 	const pkmIdArray = yourListResponseJSON.data.map(
 		entry => entry.text
 	);
