@@ -48,6 +48,66 @@ Wat kun je doen op de Poké-app website?
 
 ## Kenmerken
 <!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met JS gedaan en hoe? Misschien heb je iets met NodeJS gedaan, of heb je een framwork of library gebruikt? -->
+## Code conventies
+### HTML
+
+### CSS
+- Block elementen in HTML zijn genest in CSS via nesting
+- De nesting gaat niet dieper dan drie lagen (de eerste laag is de eerste selector die genest staat)
+- bij nesten is er een lege regel boven de geneste selector
+voorbeeld HTML block in in CSS genest
+https://github.com/vsheo/proof-of-concept/blob/d0442e8c288f9f5501f73ac3fbcc6a63cc1e1ed8/views/index.liquid#L39-L63
+https://github.com/vsheo/proof-of-concept/blob/d0442e8c288f9f5501f73ac3fbcc6a63cc1e1ed8/public/styles/style.css#L159-L289
+ 
+CSS properties zijn gegroepeerd:<br>
+eerst layout en positie van het element en de child elementen:
+- display
+- position (met top, left, enzovoort er direct onder)
+
+Daar onder positie van de child elementen:
+- align
+- justify
+- place
+
+daarna komt de height en width van het element
+- Height
+- width
+
+Daarna alles dat met kleur of achtergrond te maken heeft:
+- background-color
+- color
+- background
+
+Daarna alles dat met typografie te maken heeft:
+- font-size
+- font-weight
+- line-height
+
+Daarna komen de margins en paddings:
+- Padding en margins schrijf ik op een regel, tenzij slechts maar kant wordt gebruikt, dan gebruik ik bijvoorbeeld margin-left.
+Hier komen de overige, minder gebruikte properties
+- Als laatste komt z-index
+
+binnen deze groepen staan de properties een beetje door elkaar, tenzij 2 of meerdere properties samen nodig zijn
+zoals:
+display grid met grid-template-columns, grid-template-rows en grid-template-areas
+hetzelfde voor display flex
+en als position gebruikt wordt dan is left right top of bottom gelijk eronder
+
+### JavaScript
+- ik gebruik tabs, die ingesteld zijn op 4 spaties
+- code zoveel als mogelijk op 1 regel doen
+nadat de pokemon is gevonden haal ik alleen de id daarui(wat ik nodig heb)
+https://github.com/vsheo/proof-of-concept/blob/5954516dbe2fbd706d3db72dce24aea68f726cb9/server.js#L125
+hier zet ik variables gelijk in een link
+https://github.com/vsheo/proof-of-concept/blob/5954516dbe2fbd706d3db72dce24aea68f726cb9/server.js#L231
+- code in functies zijn altijd 1 tab verder ingedent
+https://github.com/vsheo/proof-of-concept/blob/5954516dbe2fbd706d3db72dce24aea68f726cb9/server.js#L218-L224
+
+
+
+
+
 ## HTML
 ### Index
 ### Details
