@@ -31,14 +31,17 @@
                 <h2 class="pkm-name title-detail">{{current_spName}}</h2>
             {% endif %}
         {% endfor %}
+
         <picture class="pkm-sprite">
             {% comment %} <source type="image/avif" srcset="/assets/test-bulba.avif"> {% endcomment %}
             {% comment %} <source type="image/webp" srcset="/assets/test-bulba.webp"> {% endcomment %}
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{pkmInfo.id}}.png" width="179" height="174" alt="test-bulba" loading="lazy">
         </picture>
+
     </section>
 
     <section class="info-container detail-info">
+
         <nav class="tab-titles">
             <a href="#about">About</a>
             <a href="#stats">Stats</a>
@@ -90,7 +93,9 @@
         </ul>
 
         <section class="evolution tab" id="evolutions">
+
             <article class="pkm-evo">
+
                 <picture class="sprite" style="background-color: var(--color-{{pkmInfo.types[0].type.name}});">
                     {% comment %} <source type="image/avif" srcset="/assets/test-bulba.avif"> {% endcomment %}
                     {% comment %} <source type="image/webp" srcset="/assets/test-bulba.webp"> {% endcomment %}
@@ -109,7 +114,9 @@
             </article>
 
             {% for evo in evolutions.chain.evolves_to %}
+
                 <article class="pkm-evo">
+
                     <picture class="sprite" style="background-color: var(--color-{{pkmInfo.types[0].type.name}});">
                         {% comment %} <source type="image/avif" srcset="/assets/test-bulba.avif"> {% endcomment %}
                         {% comment %} <source type="image/webp" srcset="/assets/test-bulba.webp"> {% endcomment %}
@@ -126,10 +133,13 @@
 
                     <h4 class="pkm-name"><a href="/details/{{evo.species.name}}#about">{{evo.species.name}}</a></h4>
                 </article>
+
             {% endfor %}
 
             {% for evo in evolutions.chain.evolves_to[0].evolves_to %}
+
                 <article class="pkm-evo">
+
                     <picture class="sprite" style="background-color: var(--color-{{pkmInfo.types[0].type.name}});">
                         {% comment %} <source type="image/avif" srcset="/assets/test-bulba.avif"> {% endcomment %}
                         {% comment %} <source type="image/webp" srcset="/assets/test-bulba.webp"> {% endcomment %}
@@ -146,6 +156,7 @@
 
                     <h4 class="pkm-name"><a href="/details/{{evo.species.name}}#about">{{evo.species.name}}</a></h4>
                 </article>
+
             {% endfor %}
         </section>
     </section>
