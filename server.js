@@ -16,7 +16,7 @@ const twelveH = 43200000;
 const now = Date.now()
 
 // read de cache.json die lokaal staat
-const cacheData = fs.readFileSync("cache.json", "utf-8");
+const cacheData = fs.readFileSync("cache.json", "utf-8")
 
 // check als iets in cacheData geschreven staat, als dat zo is check de laatste keer dat de file was bewerkt
 if (cacheData.length > 0) {
@@ -67,7 +67,7 @@ app.get("/pokemon/generation-:number", async function (request, response) {
     const gen = request.params.number;
     /* statisch aangegeven wanneer een pokemon generation begint en eindigd.
     pkmGeneration[0] is een place holder. met request.params krijgen we een nummer. het laagtse nummer is 1, van generation-1 */
-    const pkmGeneration = [0, [0,151], [152,251], [252,386], [387,493], [494,649], [650,721], [722,809], [810,905], [906,1025]]
+    const pkmGeneration = [0, [1,151], [152,251], [252,386], [387,493], [494,649], [650,721], [722,809], [810,905], [906,1025]]
 
     // maak een array met alle pokemon die hun id tussen de begin en eind id staat
     const genData = cacheDataJSON.filter(pkm =>

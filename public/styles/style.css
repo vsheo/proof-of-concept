@@ -424,7 +424,7 @@
     width: calc(100% - 2em);
 
     dt, dd {
-        margin: 0 clamp(.5em, 80%, 1.5em) .5em clamp(.5em, 80%, 1.5em);
+        margin: 0 clamp(0.5em, 80%, 1.5em) 0.5em clamp(0.5em, 80%, 1.5em);
         text-wrap: nowrap;
     }
 
