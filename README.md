@@ -462,6 +462,29 @@ https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17
 
 
 
+### filter document click
+Op de index pagina is er een filter list. Dit is een details element dat een summary en een ul heeft.
+Normaal moet je weer op het details element klikken om het te sluiten.
+Met JavaScript maak ik het ook mogelijk is om buiten het details element te klikken om het te sluiten
+
+https://github.com/user-attachments/assets/8115f5c9-85da-4b21-9952-cc981bd904a3
+
+in javascript selecteren we eerst het details element
+https://github.com/vsheo/proof-of-concept/blob/c0fe0e3223b29ce9fe75971f4d1595db01035cdf/public/main.js#L79
+
+Daarna moet de eventlistener niet op het details element geplaatst te worden, maar op de hele pagina(document)
+Wanneer er een klik plaatsvindt op de pagina, kijk dan waar die klik was.
+https://github.com/vsheo/proof-of-concept/blob/c0fe0e3223b29ce9fe75971f4d1595db01035cdf/public/main.js#L82-L85
+Met `e.target` krijgen we het element waarop er geklikt was.
+In de if statement controleren we of het geklikte element niet het details element was.
+Als dat waar is, betekent het dat er buiten het details element geklikt werd.
+Dus we kunnen het detailselement sluiten.
+https://github.com/vsheo/proof-of-concept/blob/c0fe0e3223b29ce9fe75971f4d1595db01035cdf/public/main.js#L87
+
+
+
+
+
 ## Server
 ### Functies
 #### Functies - getIndexData
