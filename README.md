@@ -49,7 +49,38 @@ Wat kun je doen op de Poké-app website?
 ## Kenmerken
 <!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met JS gedaan en hoe? Misschien heb je iets met NodeJS gedaan, of heb je een framwork of library gebruikt? -->
 ## Code conventies
+### Naamgeving
+- Namen zijn zo kort mogelijk, maar nog steeds beschrijvend waarvoor het bedoeld is
+- HTML en CSS class names zijn altijd in kleine letters, met `-` tussen woorden
+- in HTML en CSS gebruik ik namen die aangeven wat het element is
+Bijvoorbeeld, dit geeft aan dat het gaat om een container voor Pokémon
+https://github.com/vsheo/proof-of-concept/blob/d5dc532df03993b5b1dae9db611f52648191fec1/views/index.liquid#L36
+En deze geeft aan dat het gaat om een kaartje voor de Pokémon
+https://github.com/vsheo/proof-of-concept/blob/d5dc532df03993b5b1dae9db611f52648191fec1/views/index.liquid#L39
+Deze verwijst naar filters voor Pokémon
+https://github.com/vsheo/proof-of-concept/blob/d5dc532df03993b5b1dae9db611f52648191fec1/views/index.liquid#L15
+
+- JavaScript namen hebben camelCase naamgeving: alle woorden aan elkaar vast, eerste woord met kleine letter, volgende woorden met hoofdletter
+  Voorbeelden van JavaScript namen, Deze geeft aan dat het een lijst is van alles wat caught is
+  https://github.com/vsheo/proof-of-concept/blob/d5dc532df03993b5b1dae9db611f52648191fec1/server.js#L86
+  Deze functienaam geeft aan dat je iets kunt veranderen als iets caught is
+  https://github.com/vsheo/proof-of-concept/blob/d5dc532df03993b5b1dae9db611f52648191fec1/server.js#L228
+- Liquid heeft ook camelCase naamgeving
+
+ 
+
 ### HTML
+- In de HTML worden inline elementen op een regel geschreven, ook als het gaat om bijvoorbeeld een <h2> met een afbeelding en een tekst erin (de tekst wordt in een span geschreven)
+https://github.com/vsheo/proof-of-concept/blob/0d7d10d53a93e092e325ab098389c94350fb1fd6/views/index.liquid#L16
+- block elementen krijgen een lege regel erboven en eronder
+voorbeeld van een block element:
+https://github.com/vsheo/proof-of-concept/blob/d5dc532df03993b5b1dae9db611f52648191fec1/views/index.liquid#L15-L31
+- Liquid for loops en if/else statements worden een tab verder ingedent, en de HTML elementen binnen deze blokken worden nog een tab verder ingesprongen
+voorbeeld:
+https://github.com/vsheo/proof-of-concept/blob/d5dc532df03993b5b1dae9db611f52648191fec1/views/detail.liquid#L85-L93
+
+
+
 
 
 ### CSS
@@ -97,6 +128,10 @@ zoals:
 display grid met grid-template-columns, grid-template-rows en grid-template-areas
 hetzelfde voor display flex
 en als position gebruikt wordt dan is left right top of bottom gelijk eronder
+
+
+
+
 
 ### JavaScript
 - ik gebruik tabs, die ingesteld zijn op 4 spaties
