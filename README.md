@@ -763,7 +763,30 @@ https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281
 
 Deze array bevat 10 items. Het item op de eerste index is een placeholder, zodat het generatie getal(die met request.params opgehaald wordt) overeenkomt met de index in de array (pkmGeneration[1] = [0,151]).
 Elke geneste array bevat het id van de eerste en laatste Pokémon die bij die generatie behoord (bijvoorbeeld generatie 1 = ID 1 t/m 151).
+https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L70
 
+met filter ga ik door mn data uit cache.json, en maak ik een nieuwe array `genData`.
+Deze heeft de velden: id, spName, types en name. Met `genData` kunnen de pokemon kaartjes gemaakt worden voor alle pokemnon die tot een generation behoren
+https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L73
+
+Voor elk item in de data controleert de filter of de Pokémon id groter is dan het eerste getal in de geneste array en kleiner dan het tweede getal.
+alles dat daarbuiten is wordt weg gelaten
+https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L74
+
+De data wordt meegegeven aan de pagina in de variable `pkmData`.
+In Liquid gebruik ik deze variabele om alle Pokémon kaartjes op de hoofd pagina in te laden.
+Voor de generation filter gebruik ik dezelfde variabele, maar dan met gefilterde data.
+Daardoor hoef ik in index.liquid verder niets aan te passen — de kaartjes worden automatisch goed in geladen.
+https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L80
+
+Daarna roep ik de `getBookmarks()` functie aan om de lijst met caught Pokémon op te halen.
+Deze functie moet ik in elke route aanroepen, omdat de lijst kan veranderen na een POST.
+
+Als ik de functie buiten de routes zou plaatsen, wordt een Pokémon wel opgeslagen tijdens een POST,
+maar de succes state zal niet op beeld komen, omdat de caught Pokémon lijst dan niet opnieuw opgehaald wordt.
+https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L78
+
+De variabeles: `gen` en `pageTitle` heb ik nodig om het breadcrumb menu op te maken
 
 
 ## Installatie
