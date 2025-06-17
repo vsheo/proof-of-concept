@@ -838,6 +838,109 @@ https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595
 
 
 #### detail route
+Op de detail route hebben we 3 soorten data nodig: de about data, de stats data en de evolutions data
+
+##### about data & stats
+we beginnen  met deze fetch URL
+Op deze URL kun je zowel het id als de naam van de Pokémon gebruiken om de data op te halen.
+Ik gebruik de naam, zodat de gebruiker in de URL kan zien op welke detail pagina van welke Pokémon hij zit.
+https://pokeapi.co/api/v2/pokemon/(+ de naam of id van de pokemon)
+
+Op deze URL kun je de volgende data van een Pokémon vinden:
+- id
+- name
+- base_experience
+- weight
+- height
+- types
+- abilities
+- alle stats
+
+Deze data stuur ik door naar Liquid als pkmInfo. In Liquid geef ik aan welke data ingeladen en getoond moet worden.
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/views/detail.liquid#L58
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/views/detail.liquid#L61
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/views/detail.liquid#L64
+
+De Pokémon name wordt van de index pagina doorgestuurd.
+We gebruiken niet species name, want die kan niet gebruikt worden om data op te halen van de API.
+https://github.com/vsheo/proof-of-concept/blob/90c4644dcd4ab47e2ea19a0ed86ea6852a40f1f4/views/index.liquid#L42
+
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/views/detail.liquid#L67
+
+types zit in een array, daarom gebruiken we een for loop om ze eruit te halen.
+Met forloop.index0 telt de iteraties van de loop, beginnend bij 0 in plaats van 1.
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/views/detail.liquid#L70-L74
+
+abilities zit ook in een array, dus die halen we ook met een for loop eruit.
+Deze keer gebruiken we een if statement om na de eerste iteratie een komma toe te voegen.
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/views/detail.liquid#L77-L81
+
+De stats kunnen we makkelijk ophalen omdat ze in een array staan, waardoor we kunnen loopen.
+De JSON structuur is voor elke stat hetzelfde, het enige verschil is de opgeslagen data.
+JSON structuur
+```JSON
+"stats": [
+    {
+        "base_stat": 45,
+        "effort": 0,
+        "stat": {
+            "name": "hp",
+            "url": "https://pokeapi.co/api/v2/stat/1/"
+        }
+    },
+    {
+        "base_stat": 49,
+        "effort": 0,
+        "stat": {
+            "name": "attack",
+            "url": "https://pokeapi.co/api/v2/stat/2/"
+        }
+    },
+```
+We gebruiken een for loop om alle li in te vullen met de `stat.name` en de waarde `stat.base_stat`
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/views/detail.liquid#L85-L93
+
+
+
+
+##### 
+
+
+
+
+uit cache.json kunnen we de pokemon id ophalen.
+hiervoor gebruik ik find(), find zoekt naar de eerste waarde die voldoet en stopt daarna
+in dt geval zoek ik naar de 
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L122
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
