@@ -821,9 +821,12 @@ https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595
 
 We gebruiken de tekst als filter en zoeken naar Pokémon namen die deze letters hebben, in precies dezelfde volgorde.
 Dat kunnen we doen met de `includes()`.
+
 `includes()` geeft true of false terug als de tekst voorkomt in een Pokémon name.
 Zo kun je bijvoorbeeld zoeken op 'saur' en krijg je Pokémon als 'Bulbasaur' te zien, omdat die naam daarop eindigt.
-`includes()`) is case sensitive. Omdat alle namen in de database kleine letters zijn, gebruiken we `toLowerCase()` om zowel de search tekst naar kleine letters om te zetten.
+
+`includes()` is case sensitive. Omdat alle namen in de database kleine letters zijn, gebruiken we `toLowerCase()` om de search tekst naar kleine letters om te zetten.
+
 De `filter()` zorgt ervoor dat alle Pokémon names die true teruggeven in een nieuwe array worden geplaatst.
 https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L106-L108
 
