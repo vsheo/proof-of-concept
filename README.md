@@ -808,6 +808,39 @@ De variabele `pageTitle` wordt gebruikt voor het breadcrumb menu.
 
 
 
+
+
+#### search route
+Op de index pagina is er een form met een input type search waarmee je kunt zoeken naar een Pokémon.
+https://github.com/vsheo/proof-of-concept/blob/7889b7d3feae83cd478e449bddb05ec45889131f/views/index.liquid#L10-L13
+
+Dit keer werken we met `request.query`.
+De form maakt zelf een URL aan met de tekst uit input: `/search?query=blastoise`
+Met `request.query` halen we de tekst van de gebruiker op uit de URL.
+https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L100-L101
+
+We gebruiken de tekst als filter en zoeken naar Pokémon namen die deze letters hebben, in precies dezelfde volgorde.
+Dat kunnen we doen met de `includes()`.
+`includes()` geeft true of false terug als de tekst voorkomt in een Pokémon name.
+Zo kun je bijvoorbeeld zoeken op 'saur' en krijg je Pokémon als 'Bulbasaur' te zien, omdat die naam daarop eindigt.
+`includes()`) is case sensitive. Omdat alle namen in de database kleine letters zijn, gebruiken we `toLowerCase()` om zowel de search tekst naar kleine letters om te zetten.
+De `filter()` zorgt ervoor dat alle Pokémon names die true teruggeven in een nieuwe array worden geplaatst.
+https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L106-L108
+
+Deze data geven we door aan de pagina in de variabele `pkmData`, zodat Liquid alles op de juiste plek kan laten inladen.
+https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L110
+
+
+
+
+
+#### detail route
+
+
+
+
+
+
 ## Installatie
 - Download de nieuwste versie van Node.js (https://nodejs.org/en) op je laptop of computer.
 - Fork deze repository en Clone jouw fork naar je laptop
