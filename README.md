@@ -903,7 +903,41 @@ https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd75
 
 
 
-##### 
+##### evolutions
+Deze data is wat lastiger te vinden, omdat je eerst een URL moet volgen naar een andere URL om deze data te vinden.
+als we beginnen op de standaard url:
+https://pokeapi.co/api/v2/pokemon/squirtle
+hierin is er een link naar pokemon-species: https://pokeapi.co/api/v2/pokemon-species/7/
+```JSON
+"species": {
+    "name": "squirtle",
+    "url": "https://pokeapi.co/api/v2/pokemon-species/7/"
+},
+```
+Deze URL werkt alleen met het id van de Pokémon.
+Op deze pagina is een link naar een andere URL waar alle evolutions van die Pokémon staan: https://pokeapi.co/api/v2/evolution-chain/3/
+```JSON
+"evolution_chain": {
+    "url": "https://pokeapi.co/api/v2/evolution-chain/3/"
+},
+```
+
+Het probleem is dat het id in de evolution-chain link niet hetzelfde is als de Pokémon id.
+Het evolution-chain id geldt voor alle Pokémon binnen die chain.
+Dus bijvoorbeeld:
+- evolution-chain 1 heeft Bulbasaur, Ivysaur en Venusaur
+- evolution-chain 2 heeft Charmander, Charmeleon en Charizard
+- evolution-chain 3 heeft Squirtle, Wartortle en Blastoise
+
+Om de juiste evolution chain te vinden, moeten we eerst via de Pokémon species URL gaan:
+https://pokeapi.co/api/v2/pokemon-species/7/
+
+Daarin gaan we naar de evolution-chain link:
+https://pokeapi.co/api/v2/evolution-chain/3/
+
+Je moet dus we moeten een fetch in een fetch doen.
+
+
 
 
 
