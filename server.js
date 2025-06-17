@@ -116,11 +116,6 @@ app.get("/details/:pkmName", async function (request, response) {
 
     // pokemon details and stats
     const pkmInfoResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${pkmName}`)
-    if (!pkmInfoResp.ok) {
-        const error = await pkmInfoResp.text()
-        console.error(`Failed to fetch Pokémon "${pkmName}". Status: ${pkmInfoResp.status}. Response: ${error}`)
-        return 
-    }
     const pkmInfoRespJSON = await pkmInfoResp.json()
 
     // gebruik pokemon name, uit de url, en zoek naar de id van die pokemon in cache.json
