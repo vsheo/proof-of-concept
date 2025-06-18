@@ -7,10 +7,16 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
   * [Beschrijving](#beschrijving)
   * [Gebruik](#gebruik)
   * [Kenmerken](#kenmerken)
-    * [HTML](#HTML)
-      * [Index](#Index)
-      * [Details](#Details)
-    * [Liquid](#Liquid)
+    * [Code conventies](#Code-conventies)
+      * [Code conventies - Naamgeving](#Code-conventies---Naamgeving)
+      * [Code conventies - HTML](#Code-conventies---HTML)
+      * [Code conventies - CSS](#Code-conventies---CSS)
+      * [Code conventies - JavaScript](#Code-conventies---JavaScript)
+    * [Responsive](#Responsive)
+      * [Responsive - index](#Responsive---index)
+      * [Responsive - detail](#Responsive---detail)
+    * [HTML en Liquid](#HTML-en-Liquid)
+      * [liquid assign](#liquid-assign)
       * [breadcrumbs nav](#breadcrumbs-nav)
       * [Dynamische background colors](#Dynamische-background-colors)
     * [CSS](#CSS)
@@ -18,10 +24,15 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
       * [View transition](#View-transition)
       * [Detail - Tabs](#Detail---Tabs)
     * [JavaScript](#JavaScript)
-      * [loading animation](#loading-animation)
-      * [Prevent Default - Search](#Prevent-Default---Search)
+      * [Client-side fetch - Caught](#Client-side-fetch---Caught)
+      * [Client-side fetch - Search](#Client-side-fetch---Search)
+      * [filter document click](#filter-document-click)
     * [Server](#Server)
       * [Functies](#Functies)
+        * [Functies - getIndexData](#Functies---getIndexData)
+        * [Functies - structureJSON](#Functies---structureJSON)
+        * [Functies - changeCaught](#Functies---changeCaught)
+        * 
       * [Routes](#Routes)
   * [Installatie](#installatie)
   * [Bronnen](#bronnen)
@@ -148,7 +159,7 @@ https://github.com/vsheo/proof-of-concept/blob/5954516dbe2fbd706d3db72dce24aea68
 
 
 ## Responsive
-### responsive - index
+### Responsive - index
 
 https://github.com/user-attachments/assets/07d0bf8e-1154-4420-ba3a-19c386d9969e
 
@@ -174,8 +185,7 @@ Dit is vooral handig op mobiele en tablet versies, bij de overgang van een naar 
 
 
 
-### responsive - detail
-
+### Responsive - detail
 https://github.com/user-attachments/assets/e2d1f661-624b-4865-857f-152e4657a6a4
 
 Voor de detail pagina gebruik ik een grid om de pagina in twee sections te verdelen.
@@ -371,7 +381,7 @@ Dit doen we ook wanneer pkm-stats of pkm-evolution de target is.
 
 
 ## JavaScript
-### loading animation
+### Client-side fetch - Caught
 Op de hoofdpagina kun je Pokémon toevoegen aan je "Caught Pokémon" lijst.
 Dit doe je door op het Pokéball icon te klikken, dat normaal grijs is. Zodra je hierop klikt, wordt de Pokémon toegevoegd aan je "Caught Pokémon" lijst. Met prevent Default stop ik de pagina refresh. In plaats daarvan verschijnt er een draaiende Pokéball animatie totdat de Pokémon is toegevoegd aan je lijst. Daarna stopt de animatie en zie je een ingekleurde Pokéball.
 
@@ -420,7 +430,7 @@ https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17
 
 
 
-### Prevent Default - Search
+### Client-side fetch - Search
 Op de hoofdpagina kun je de search bar gebruiken om naar Pokémon te zoeken. Ook hier gebruik ik `preventDefault()` om de refresh van de pagina te stoppen en haal ik met een client side fetch de new state van de pagina op.
 De search results worden daarna met een view transition op de pagina weergegeven.
 
@@ -752,7 +762,7 @@ en `/pokemon/generation-:number` voor de generation filters
 
 
 
-#### generation filter
+#### Routes - generation
 Deze route geeft alle Pokémon van een pokemon generation terug.
 
 Op de index pagina heb ik een ul met linkjes naar deze route. Het enige dat verschilt per link is het cijfer aan het eind van de URL, dat de generatie aangeeft.
@@ -792,7 +802,7 @@ De variabeles: `gen` en `pageTitle` heb ik nodig om het breadcrumb menu op te ma
 
 
 
-#### caught filter
+#### Routes - caught
 dit is een simple route die alleen de id uit de caught pokemon lijst neemt
 https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595bdbabb3/server.js#L84-L86
 
@@ -810,7 +820,7 @@ De variabele `pageTitle` wordt gebruikt voor het breadcrumb menu.
 
 
 
-#### search route
+#### Routes - search
 Op de index pagina is er een form met een input type search waarmee je kunt zoeken naar een Pokémon.
 https://github.com/vsheo/proof-of-concept/blob/7889b7d3feae83cd478e449bddb05ec45889131f/views/index.liquid#L10-L13
 
@@ -837,10 +847,10 @@ https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595
 
 
 
-#### detail route
+#### Routes - detail
 Op de detail route hebben we 3 soorten data nodig: de about data, de stats data en de evolutions data
 
-##### about data & stats
+##### Detail - about data & stats
 we beginnen  met deze fetch URL: https://pokeapi.co/api/v2/pokemon/(+ de naam of id van de pokemon)
 
 Op deze URL kun je zowel het id als de naam van de Pokémon gebruiken om de data op te halen.
@@ -904,7 +914,7 @@ https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd75
 
 
 
-##### evolutions
+##### Detail - evolutions
 Deze data is wat lastiger te vinden, omdat je eerst een URL moet volgen naar een andere URL om deze data te vinden.
 
 als we beginnen op de standaard url:
