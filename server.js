@@ -46,11 +46,19 @@ const cacheDataJSON = JSON.parse(cacheData)
 
 // index GET
 app.get("/", async function (request, response) {
-    // all caught pokemon
-    const caughtList = await getBookmarks("vsheoPKM")
-    // console.log(caughtList)
+    try {
 
-    response.render("index.liquid", { pkmData: cacheDataJSON, pkmCaught: caughtList, pageTitle: "All Pokemon" })
+        // all caught pokemon
+        const caughtList = await getBookmarks("vsheoPKM")
+        // console.log(caughtList)
+
+        response.render("index.liquid", { pkmData: cacheDataJSON, pkmCaught: caughtList, pageTitle: "All Pokemon" })
+    }
+    catch (err) {
+        const error = new Error("Page does not exist")
+        error.status = 404
+        next(error)
+    }
 })
 
 // index POST
@@ -64,21 +72,34 @@ app.post("/toggle-caught/:pkmId", async function (request, response) {
 })
 
 // index Gen filter
-app.get("/pokemon/generation-:number", async function (request, response) {
-    const gen = request.params.number;
-    /* statisch aangegeven wanneer een pokemon generation begint en eindigd.
-    pkmGeneration[0] is een place holder. met request.params krijgen we een nummer. het laagtse nummer is 1, van generation-1 */
-    const pkmGeneration = [0, [1,151], [152,251], [252,386], [387,493], [494,649], [650,721], [722,809], [810,905], [906,1025]]
+app.get("/pokemon/generation-:number", async function (request, response, next) {
+    try {
+        const gen = request.params.number;
 
-    // maak een array met alle pokemon die hun id tussen de begin en eind id staat
-    const genData = cacheDataJSON.filter(pkm =>
-        pkm.id >= pkmGeneration[gen][0] && pkm.id <= pkmGeneration[gen][1]
-    )
+        if (gen >= 10) {
+            const error = new Error("Generation does not exist")
+            error.status = 404
+            return next(error)
+        }
 
-    // all caught pokemon
-    const caughtList = await getBookmarks("vsheoPKM")
+        /* statisch aangegeven wanneer een pokemon generation begint en eindigd.
+        pkmGeneration[0] is een place holder. met request.params krijgen we een nummer. het laagtse nummer is 1, van generation-1 */
+        const pkmGeneration = [0, [1,151], [152,251], [252,386], [387,493], [494,649], [650,721], [722,809], [810,905], [906,1025]]
 
-    response.render("index.liquid", { pkmData: genData, pkmCaught: caughtList, gen: gen, pageTitle: "Generation "+gen })
+        // maak een array met alle pokemon die hun id tussen de begin en eind id staat
+        const genData = cacheDataJSON.filter(pkm =>
+            pkm.id >= pkmGeneration[gen][0] && pkm.id <= pkmGeneration[gen][1]
+        )
+
+        // all caught pokemon
+        const caughtList = await getBookmarks("vsheoPKM")
+
+        response.render("index.liquid", { pkmData: genData, pkmCaught: caughtList, gen: gen, pageTitle: "Generation "+gen })
+    }
+    catch (error) {
+        // Andere fouten ook doorgeven aan error-handler
+        next(error)
+    }
 })
 
 // index caught filter
@@ -273,10 +294,22 @@ async function getBookmarks(list) {
 }
 
 
-// https://expressjs.com/en/starter/faq.html?utm_source=chatgpt.com#:~:text=How%20do%20I%20handle%20404%20responses%3F
-app.use((request, response, next) => {
+// https://expressjs.com/en/starter/faq.html?utm_source#:~:text=How%20do%20I%20setup%20an%20error%20handler%3F
+// error handling middle ware
+app.use((error, request, response, next) => {
+    console.log(error)
     response.status(404).render('error.liquid')
 });
+
+// als route niet bestaat (catch all error)
+app.use((request, response) => {
+    console.log(new Error("Pagina niet gevonden"))
+    response.status(404).render('error.liquid')
+});
+
+// app.use((error, request, response, next) => {
+//   response.status(error.status || 500).render('error.liquid');
+// });
 
 app.set("port", process.env.PORT || 8000)
 
