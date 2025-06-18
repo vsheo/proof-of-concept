@@ -492,6 +492,7 @@
     margin: 1em;
     border-radius: 15px;
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
+    z-index: 2;
 
     @media (min-width: 950px) {
         margin: 1em 7vw;
@@ -509,9 +510,11 @@
         grid-area: sprite;
         display: grid;
         place-items: center;
+        position: relative;
         padding: 0.5em;
         margin-right: 0.5em;
         border-radius: 15px 0 0 15px;
+        z-index: 2;
 
         @media (min-width: 1050px) {
             width: 150px;
@@ -523,11 +526,29 @@
         }
     }
 
+    /* hover background color */
+    &::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 0%;
+        background-color: rgb(255, 0, 0);
+        border-radius: 15px;
+        transition: width 0.4s ease-in-out;
+        z-index: 1;
+    }
+
+    &:has(a:hover)::before {
+        width: 100%;
+        inset: 0;
+    }
+
     .details-pkm-id {
         grid-area: id;
         align-self: end;
         height: 27px;
         width: 60px;
+        z-index: 2;
 
         @media (min-width: 820px) {
             height: 40px;
@@ -538,6 +559,7 @@
     .pkm-name {
         grid-area: name;
         align-self: center;
+        z-index: 2;
 
         a::before {
             content: '';
@@ -565,6 +587,7 @@
         padding: 0.5em;
         border: 1px solid #5c3613;
         border-radius: 15px;
+        cursor: pointer;
 
         &:hover {
             color: #f4dc26;
