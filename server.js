@@ -54,10 +54,11 @@ app.get("/", async function (request, response) {
 
         response.render("index.liquid", { pkmData: cacheDataJSON, pkmCaught: caughtList, pageTitle: "All Pokemon" })
     }
-    catch (err) {
-        const error = new Error("Page does not exist")
-        error.status = 404
-        next(error)
+    catch (error) {
+        // Andere fouten ook doorgeven aan error-handler
+        const errorMessage = new Error("index url does not exist")
+        errorMessage.status = 404;
+        next(errorMessage)
     }
 })
 
@@ -98,7 +99,9 @@ app.get("/pokemon/generation-:number", async function (request, response, next) 
     }
     catch (error) {
         // Andere fouten ook doorgeven aan error-handler
-        next(error)
+        const errorMessage = new Error("generation url does not exist")
+        errorMessage.status = 404;
+        next(errorMessage)
     }
 })
 
@@ -303,7 +306,7 @@ app.use((error, request, response, next) => {
 
 // als route niet bestaat (catch all error)
 app.use((request, response) => {
-    console.log(new Error("Pagina niet gevonden"))
+    console.log(new Error("Page does noet exist"))
     response.status(404).render('error.liquid')
 });
 
