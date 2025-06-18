@@ -23,6 +23,7 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
       * [Styleguide](#Styleguide)
       * [View transition](#View-transition)
       * [Detail - Tabs](#Detail---Tabs)
+      * [Detail - evolution hover animation](Detail---evolution-hover-animation)
     * [JavaScript](#JavaScript)
       * [Client-side fetch - Caught](#Client-side-fetch---Caught)
       * [Client-side fetch - Search](#Client-side-fetch---Search)
@@ -375,6 +376,53 @@ Als de info-container, pkm-about heeft dat de target is, dan verplaatsen we de i
 https://github.com/vsheo/proof-of-concept/blob/1358e4a3dfa8b4ac2c9e56e1e6f4ce76b516546b/public/styles/style.css#L376-L378
 
 Dit doen we ook wanneer pkm-stats of pkm-evolution de target is.
+
+
+
+
+
+### Detail - evolution hover animation
+Op de detail pagina van Evolution is er een hover animatie:
+
+https://github.com/user-attachments/assets/a4452ef6-6147-4145-b3e8-449d8e3b6d7e
+
+Dit werkt doordat er een `::before` wordt toegevoegd aan de `pkm-evo` container.
+De `::before` neemt de volledige ruimte van de `pkm-evo` container in beslag met `position: absolute` en `inset: 0`
+https://github.com/vsheo/proof-of-concept/blob/ea41c5670df2aecf1831a15e4d48bb27926586e2/public/styles/style.css#L530-L540
+
+Wanneer je over de `pkm-name` hover, wordt de width van de container volledig gevuld
+https://github.com/vsheo/proof-of-concept/blob/3c6db6ccb947139aee2eb3b87392822bd56c19c7/public/styles/style.css#L542-L544
+
+De hover moet op `pkm-name` staan omdat ik eerder ook een `::before` aan de link binnen `pkm-name` heb toegevoegd en dit over de hele `pkm-evo` container heb geplaatst.
+Hierdoor kan de gebruiker overal binnen deze container klikken om naar de volgende detail pagina te gaan.
+https://github.com/vsheo/proof-of-concept/blob/3c6db6ccb947139aee2eb3b87392822bd56c19c7/public/styles/style.css#L559-L571
+
+Deze code bevat alles wat nodig is om de hover animatie te maken.
+Maar, ik gebruik een custom property voor de background color die geanimeerd moet worden,
+deze custom property bestaat nog niet.
+https://github.com/vsheo/proof-of-concept/blob/3c6db6ccb947139aee2eb3b87392822bd56c19c7/public/styles/style.css#L536
+
+De background color wordt dynamisch via Liquid ingeladen met inline CSS. Hierdoor kan de kleur verschillen, afhankelijk van de Pokémon type
+https://github.com/vsheo/proof-of-concept/blob/3c6db6ccb947139aee2eb3b87392822bd56c19c7/views/detail.liquid#L99
+
+Om de juiste background color te gebruiken in CSS, schrijf ik alvast op het `::before` de custom property.
+https://github.com/vsheo/proof-of-concept/blob/3c6db6ccb947139aee2eb3b87392822bd56c19c7/public/styles/style.css#L536
+
+Daarna haal ik met JavaScript de kleur op.
+We moeten eerst wachten totdat de DOM volledig is ingeladen.
+Vervolgens selecteren we het `sprite` element, dit is het element waarop de background color inline staat.
+https://github.com/vsheo/proof-of-concept/blob/3c6db6ccb947139aee2eb3b87392822bd56c19c7/public/main.js#L108-L110
+
+Daarna controleren we of het `sprite` element op deze pagina aanwezig is.
+Als we dit niet doen, stopt de JavaScript zodra we op een pagina komen waar dit element niet aanwezig is
+https://github.com/vsheo/proof-of-concept/blob/3c6db6ccb947139aee2eb3b87392822bd56c19c7/public/main.js#L112
+
+nu kunnen we de body selecteren, dit is waar we de nieuwe custom property aanmaken.
+en we moeten ook de background color van het `sprite` element selecteren.
+https://github.com/vsheo/proof-of-concept/blob/3c6db6ccb947139aee2eb3b87392822bd56c19c7/public/main.js#L114-L117
+
+Nu hebben we alles om met `setProperty` de nieuwe custom property op de body aan te maken.
+https://github.com/vsheo/proof-of-concept/blob/3c6db6ccb947139aee2eb3b87392822bd56c19c7/public/main.js#L120
 
 
 
