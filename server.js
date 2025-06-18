@@ -56,8 +56,8 @@ app.get("/", async function (request, response, next) {
     }
     catch (error) {
         // Andere fouten ook doorgeven aan error-handler
-        const errorMessage = new Error("index url does not exist")
-        errorMessage.status = 404;
+        const errorMessage = new Error("index try blok went wrong")
+        errorMessage.status = 500;
         next(errorMessage)
     }
 })
@@ -98,9 +98,8 @@ app.get("/pokemon/generation-:number", async function (request, response, next) 
         response.render("index.liquid", { pkmData: genData, pkmCaught: caughtList, gen: gen, pageTitle: "Generation "+gen })
     }
     catch (error) {
-        // Andere fouten ook doorgeven aan error-handler
-        const errorMessage = new Error("generation url does not exist")
-        errorMessage.status = 404;
+        const errorMessage = new Error("generation try blok went wrong")
+        errorMessage.status = 500;
         next(errorMessage)
     }
 })
@@ -189,9 +188,8 @@ app.get("/details/:pkmName", async function (request, response, next) {
         response.render("detail.liquid", { pkmData: cacheDataJSON, pkmInfo: pkmInfoRespJSON, evolutions: evoData, basicId: basicId, stageOneIds: stageOneId, stageTwoIds: stageTwoId, pkmCaught: caughtList })
     }
     catch (error) {
-        // Andere fouten ook doorgeven aan error-handler
-        const errorMessage = new Error("detail url does not exist")
-        errorMessage.status = 404;
+        const errorMessage = new Error("detail try blok went wrong")
+        errorMessage.status = 500;
         next(errorMessage)
     }
 });
@@ -309,7 +307,7 @@ async function getBookmarks(list) {
 // error handling middle ware
 app.use((error, request, response, next) => {
     console.log(error)
-    response.status(404).render('error.liquid')
+    response.status(500).render('error.liquid')
 });
 
 // als route niet bestaat (catch all error)
