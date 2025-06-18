@@ -35,6 +35,16 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
         * [Functies - changeCaught](#Functies---changeCaught)
         * [Functies - getBookmarks](#Functies---getBookmarks)
       * [Routes](#Routes)
+        * [Routes - Index GET](#Routes---Index-GET)
+        * [Routes - Index POST](#Routes---Index-POST)
+        * [Routes - generation](#Routes---generation)
+        * [Routes - caught](#Routes---caught)
+        * [Routes - search](#Routes---search)
+        * [Detail - about data & stats](#Detail---about data-and-stats)
+          * [Detail - evolutions](#Detail---evolutions)
+        * [Routes - error](#Routes---error)
+          * [Error - generation-:number](#Error---generation-:number)
+          * [Error - details/:pkmName](#Error---etails/:pkmName)
   * [Installatie](#installatie)
   * [Bronnen](#bronnen)
   * [Licentie](#licentie)
@@ -898,7 +908,7 @@ https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595
 #### Routes - detail
 Op de detail route hebben we 3 soorten data nodig: de about data, de stats data en de evolutions data
 
-##### Detail - about data & stats
+##### Detail - about data and stats
 we beginnen  met deze fetch URL: https://pokeapi.co/api/v2/pokemon/(+ de naam of id van de pokemon)
 
 Op deze URL kun je zowel het id als de naam van de Pokémon gebruiken om de data op te halen.
@@ -1093,6 +1103,78 @@ https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd75
 
 Al deze data stuur ik mee naar de pagina via `response.render`
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L163
+
+
+
+
+
+#### Routes - error
+Voor de error route heb ik een algemene `app.use` gemaakt die alle niet-bestaande pagina’s opvangt.
+Dit vangt URL's op die niet compleet zijn of waar iets teveel aan is toegevoegd, bijvoorbeeld:
+`/fghgds`
+`/pokemon/genrrr`
+`/pokemon/caughttt`
+
+`app.use` is een functie van express.js die alle routes opvangt die niet bestaan.
+Wanneer zo’n route wordt gevraagd, renderen we de error pagina `error.liquid`
+https://github.com/vsheo/proof-of-concept/blob/128a8ded412864427c228f0c944071801798e605/server.js#L316-L319
+
+Deze `app.use` vangt geen verzoeken op waarbij data van de website naar de server wordt gestuurd, zoals:
+`/pokemon/generation-:number`
+`/details/:pkmName`
+
+Voor `:number` en `:pkmName` accepteert de server alle mogelijke waarden.
+In deze routes kunnen we daarom try catch gebruiken om fouten op te vangen.
+
+
+
+
+
+##### Error - generation-:number
+In de try komt de code die we eerder hadden, maar we voegen nu een if statement toe:
+als het getal kleiner is dan 1 of groter dan 10, dan stoppen we de uitvoering van de code.
+https://github.com/vsheo/proof-of-concept/blob/128a8ded412864427c228f0c944071801798e605/server.js#L76-L80
+
+In de if statement maken we een error message en voegen er zelf een status toe aan deze error.
+Vervolgens geven we deze error door aan de error handler van express met `next(error)`
+https://github.com/vsheo/proof-of-concept/blob/128a8ded412864427c228f0c944071801798e605/server.js#L81-L83
+
+Om dit te kunnen gebruiken, moeten we in onze route ook aangeven dat we `next` mogen gebruiken.
+https://github.com/vsheo/proof-of-concept/blob/128a8ded412864427c228f0c944071801798e605/server.js#L76
+
+We hebben nu een nieuwe `app.use` nodig die deze errors opvangt die we met `next()` naar de error handler hebben doorgestuurd.
+Deze `app.use` rendert de error pagina.
+Daarnaast wordt de error message in de console van vscode weergegeven, zodat je kunt nagaan van waar de error kwam.
+https://github.com/vsheo/proof-of-concept/blob/a37bf86697c5d08f0e870e3af8d1bf7950a579b4/server.js#L308-L311
+
+als we nu dit proberen:
+`/pokemon/generation-10`
+dan krijgen we de error pagina
+
+In de catch vangen we alle fouten op die in de `try` kunnen ontstaan. Dit zijn, in dit geval, internal server errors, bijvoorbeeld als er iets misgaat bij een fetch.
+De `errorMessage` loggen we in de console(console.log) binnen de `app.use` zodat we de fout kunnen zien van welke route de fout kwam.
+https://github.com/vsheo/proof-of-concept/blob/128a8ded412864427c228f0c944071801798e605/server.js#L100-L105
+Express weet vanzelf dat het om een error gaat wanneer we een variabele(`errorMessage`) via `next()` doorsturen.
+
+
+
+
+
+##### Error - details/:pkmName
+Ook in deze route heb ik een try catch toegevoegd.
+Alle code die ik eerder had, staat nu binnen de try block.
+https://github.com/vsheo/proof-of-concept/blob/128a8ded412864427c228f0c944071801798e605/server.js#L139-L141
+
+Ik heb bij deze niets extra’s toegevoegd in de try, omdat het niet nodig was.
+De `pkmName` wordt hier direct in de fetch URL gebruikt.
+Als er iets misgaat, vangt de catch dat direct op.
+https://github.com/vsheo/proof-of-concept/blob/128a8ded412864427c228f0c944071801798e605/server.js#L144-L145
+
+Deze error sturen we door naar de error handler, met statuscode 500. Dit betekent dat dit een internal server error was.
+https://github.com/vsheo/proof-of-concept/blob/a37bf86697c5d08f0e870e3af8d1bf7950a579b4/server.js#L190-L194
+
+Dezelfde `app.use` vangt ook deze error op.
+https://github.com/vsheo/proof-of-concept/blob/a37bf86697c5d08f0e870e3af8d1bf7950a579b4/server.js#L308-L311
 
 
 
