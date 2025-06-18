@@ -32,7 +32,7 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
         * [Functies - getIndexData](#Functies---getIndexData)
         * [Functies - structureJSON](#Functies---structureJSON)
         * [Functies - changeCaught](#Functies---changeCaught)
-        * 
+        * [Functies - getBookmarks](#Functies---getBookmarks)
       * [Routes](#Routes)
   * [Installatie](#installatie)
   * [Bronnen](#bronnen)
