@@ -45,7 +45,7 @@ const cacheDataJSON = JSON.parse(cacheData)
 
 
 // index GET
-app.get("/", async function (request, response) {
+app.get("/", async function (request, response, next) {
     try {
 
         // all caught pokemon
@@ -77,7 +77,7 @@ app.get("/pokemon/generation-:number", async function (request, response, next) 
     try {
         const gen = request.params.number;
 
-        if (gen >= 10) {
+        if (gen < 1 || gen >= 10) {
             const error = new Error("Generation does not exist")
             error.status = 404
             return next(error)
@@ -136,56 +136,64 @@ app.get("/search", async function (request, response) {
 });
 
 // detail GET
-app.get("/details/:pkmName", async function (request, response) {
-    const pkmName = request.params.pkmName;
+app.get("/details/:pkmName", async function (request, response, next) {
+    try {
+        const pkmName = request.params.pkmName;
 
-    // pokemon details and stats
-    const pkmInfoResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${pkmName}`)
-    const pkmInfoRespJSON = await pkmInfoResp.json()
+        // pokemon details and stats
+        const pkmInfoResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${pkmName}`)
+        const pkmInfoRespJSON = await pkmInfoResp.json()
 
-    // gebruik pokemon name, uit de url, en zoek naar de id van die pokemon in cache.json
-    const findPkmInfo = cacheDataJSON.find(pokemon => pokemon.name === pkmName).id
+        // gebruik pokemon name, uit de url, en zoek naar de id van die pokemon in cache.json
+        const findPkmInfo = cacheDataJSON.find(pokemon => pokemon.name === pkmName).id
 
-    /* Met de pokemon id kan je een fetch URL maken.
-    in deze url vind je de link naar de data voor de evolution-chain.
-    in die url vind je de namen van hoe de evoluties van deze pokemon heten */
-    const getEvoChain = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${findPkmInfo}`)
-    const evoChain = await getEvoChain.json()
+        /* Met de pokemon id kan je een fetch URL maken.
+        in deze url vind je de link naar de data voor de evolution-chain.
+        in die url vind je de namen van hoe de evoluties van deze pokemon heten */
+        const getEvoChain = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${findPkmInfo}`)
+        const evoChain = await getEvoChain.json()
 
-    /* op de url in evolution-chain voeren we een fetch uit */
-    const getEvoData = await fetch(evoChain.evolution_chain.url)
-    const evoData = await getEvoData.json()
+        /* op de url in evolution-chain voeren we een fetch uit */
+        const getEvoData = await fetch(evoChain.evolution_chain.url)
+        const evoData = await getEvoData.json()
 
-    /* We hebben voor de evolution tab de id nodig.
-    in deze response heb je geen id tag staan. maar de id staat wel in de species URL
-    Met split kunnen we de id eruit halen
-    split geeft een array terug met alles dat tussen '/' staat
-    de url zijn altijd hetzelfde opgebouwd dus op positie [6] zal altijd de id nummer staan */
-    const basicId = evoData.chain.species.url.split('/')[6]
-    // console.log(basicId)
+        /* We hebben voor de evolution tab de id nodig.
+        in deze response heb je geen id tag staan. maar de id staat wel in de species URL
+        Met split kunnen we de id eruit halen
+        split geeft een array terug met alles dat tussen '/' staat
+        de url zijn altijd hetzelfde opgebouwd dus op positie [6] zal altijd de id nummer staan */
+        const basicId = evoData.chain.species.url.split('/')[6]
+        // console.log(basicId)
 
-    // we hebben hierna een functie om id's op te halen. we maken deze arrays hier aan zodat we de id's uit de functie kunnen halen 
-    let stageOneId = []
-    let stageTwoId = []
+        // we hebben hierna een functie om id's op te halen. we maken deze arrays hier aan zodat we de id's uit de functie kunnen halen 
+        let stageOneId = []
+        let stageTwoId = []
 
-    // check als een pokemon kan evovlen. als dat kan sla dan de id van de volgende vormen op
-    if (evoData.chain.evolves_to.length > 0) {
-        stageOneId = evoData.chain.evolves_to.map((pkmStage) => {
-            return pkmStage.species.url.split('/')[6]
-        });
-        // console.log(stageOneId)
+        // check als een pokemon kan evovlen. als dat kan sla dan de id van de volgende vormen op
+        if (evoData.chain.evolves_to.length > 0) {
+            stageOneId = evoData.chain.evolves_to.map((pkmStage) => {
+                return pkmStage.species.url.split('/')[6]
+            });
+            // console.log(stageOneId)
 
-        stageTwoId = evoData.chain.evolves_to[0].evolves_to.map((pkmStage) => {
-            return pkmStage.species.url.split('/')[6]
-        });
-        // console.log(stageTwoId)
+            stageTwoId = evoData.chain.evolves_to[0].evolves_to.map((pkmStage) => {
+                return pkmStage.species.url.split('/')[6]
+            });
+            // console.log(stageTwoId)
+        }
+
+        // all caught pokemon
+        const caughtList = await getBookmarks("vsheoPKM")
+        // console.log(caughtList)
+
+        response.render("detail.liquid", { pkmData: cacheDataJSON, pkmInfo: pkmInfoRespJSON, evolutions: evoData, basicId: basicId, stageOneIds: stageOneId, stageTwoIds: stageTwoId, pkmCaught: caughtList })
     }
-
-    // all caught pokemon
-    const caughtList = await getBookmarks("vsheoPKM")
-    // console.log(caughtList)
-
-    response.render("detail.liquid", { pkmData: cacheDataJSON, pkmInfo: pkmInfoRespJSON, evolutions: evoData, basicId: basicId, stageOneIds: stageOneId, stageTwoIds: stageTwoId, pkmCaught: caughtList })
+    catch (error) {
+        // Andere fouten ook doorgeven aan error-handler
+        const errorMessage = new Error("detail url does not exist")
+        errorMessage.status = 404;
+        next(errorMessage)
+    }
 });
 
 
@@ -306,7 +314,7 @@ app.use((error, request, response, next) => {
 
 // als route niet bestaat (catch all error)
 app.use((request, response) => {
-    console.log(new Error("Page does noet exist"))
+    console.log(new Error("Page does not exist"))
     response.status(404).render('error.liquid')
 });
 
