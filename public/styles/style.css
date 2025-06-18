@@ -539,7 +539,7 @@
         z-index: 1;
     }
 
-    &:has(a:hover)::before {
+    &:has(.pkm-name:hover)::before {
         width: 100%;
     }
 
