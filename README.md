@@ -841,10 +841,11 @@ https://github.com/vsheo/proof-of-concept/blob/72b14e0de4c0e537209cf03f997c19595
 Op de detail route hebben we 3 soorten data nodig: de about data, de stats data en de evolutions data
 
 ##### about data & stats
-we beginnen  met deze fetch URL
+we beginnen  met deze fetch URL: https://pokeapi.co/api/v2/pokemon/(+ de naam of id van de pokemon)
+
 Op deze URL kun je zowel het id als de naam van de Pokémon gebruiken om de data op te halen.
 Ik gebruik de naam, zodat de gebruiker in de URL kan zien op welke detail pagina van welke Pokémon hij zit.
-https://pokeapi.co/api/v2/pokemon/(+ de naam of id van de pokemon)
+
 
 Op deze URL kun je de volgende data van een Pokémon vinden:
 - id
@@ -862,13 +863,13 @@ https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd75
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/views/detail.liquid#L64
 
 De Pokémon name wordt van de index pagina doorgestuurd.
-We gebruiken niet species name, want die kan niet gebruikt worden om data op te halen van de API.
+We gebruiken species name alleen om de naam op pagina te tonen, niet in de href, omdat die niet gebruikt kan worden om data op te halen van de API.
 https://github.com/vsheo/proof-of-concept/blob/90c4644dcd4ab47e2ea19a0ed86ea6852a40f1f4/views/index.liquid#L42
 
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/views/detail.liquid#L67
 
 types zit in een array, daarom gebruiken we een for loop om ze eruit te halen.
-Met forloop.index0 telt de iteraties van de loop, beginnend bij 0 in plaats van 1.
+Met forloop.index0 telt de iteraties van de loop, vanaf 0 in plaats van 1.
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/views/detail.liquid#L70-L74
 
 abilities zit ook in een array, dus die halen we ook met een for loop eruit.
@@ -905,8 +906,10 @@ https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd75
 
 ##### evolutions
 Deze data is wat lastiger te vinden, omdat je eerst een URL moet volgen naar een andere URL om deze data te vinden.
+
 als we beginnen op de standaard url:
 https://pokeapi.co/api/v2/pokemon/squirtle
+
 hierin is er een link naar pokemon-species: https://pokeapi.co/api/v2/pokemon-species/7/
 ```JSON
 "species": {
@@ -929,32 +932,87 @@ Dus bijvoorbeeld:
 - evolution-chain 2 heeft Charmander, Charmeleon en Charizard
 - evolution-chain 3 heeft Squirtle, Wartortle en Blastoise
 
-Om de juiste evolution chain te vinden, moeten we eerst via de Pokémon species URL gaan:
+Om de juiste evolution chain te vinden, moeten we eerst via de Pokémon species URL:
 https://pokeapi.co/api/v2/pokemon-species/7/
 
-Daarin gaan we naar de evolution-chain link:
+Naar de evolution-chain link gaan:
 https://pokeapi.co/api/v2/evolution-chain/3/
 
-Je moet dus we moeten een fetch in een fetch doen.
+Je moet dus we moeten een fetch in een fetch doen.<br><br>
 
 
+Als eerste moeten we de id van de Pokémon opzoeken.
+We hebben de naam van de Pokémon, dus we gebruiken find() op de `cache.json` om de juiste id te zoeken.
 
-
-
-
-uit cache.json kunnen we de pokemon id ophalen.
-hiervoor gebruik ik find(), find zoekt naar de eerste waarde die voldoet en stopt daarna
-in dt geval zoek ik naar de 
+find() zoekt naar het eerste dat voldoet aan de voorwaarde die je aangeeft, en stopt daarna met zoeken.
+In dit geval zoeken we naar een Pokémon name, en dan krijgen we dit terug:
+```JSON
+  {
+    "id": 7,
+    "spName": "squirtle",
+    "types": [
+      "water"
+    ],
+    "name": "squirtle"
+  }
+```
+Hieruit hebben we alleen de id nodig, dus die kunnen we direct meegeven:
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L122
 
 
+Met die id kunnen we onze eerste fecth doen op deze url: https://pokeapi.co/api/v2/pokemon-species/ `+ id`
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L127-L128
 
+daarna kunnen we onze tweede fetch doen op de evolutio-chain url die in de pokemon-species data staat
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L131-L132
 
+Voor de evolutions tab moeten we opniew alle id ophalen.
+de id die we nu hebben kunnen we niet voor 1 van ze opnieuw gebruiken omdat we van 3 verschillende pokemon dezelfde evolution tab laten zien,
+we weten dus niet van welke ge bruiker op zit.
+dus we zoeken van alle 3 pokemon opnieuw hun id op
 
+de id zit zelf niet in deze data, maar het zit wel in een url.
+als we `split()` gebruiken op `/` dan zal de id altijd op de 6de positie staan in de array die gemaakt wordt
+```JSON
+"url": "https://pokeapi.co/api/v2/pokemon-species/9/"
+```
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L139
 
+de data van deze fetch ziet er zo uit(wat niet belangrijk was heb ik weg gelaten)
+```JSON
+{
+    "chain": {
+        "evolves_to": [
+            {
+                "evolves_to": [
+                    {
+                        "evolution_details": [
+                            {}
+                        ],
+                        "evolves_to": [],
+                        "species": {
+                            "name": "blastoise",
+                            "url": "https://pokeapi.co/api/v2/pokemon-species/9/"
+                        }
+                    }
+                ],
+                "species": {
+                    "name": "wartortle",
+                    "url": "https://pokeapi.co/api/v2/pokemon-species/8/"
+                }
+            }
+        ],
+        "species": {
+            "name": "squirtle",
+            "url": "https://pokeapi.co/api/v2/pokemon-species/7/"
+        }
+    }
+}
+```
 
-
-
+wat we hieruit nodig hebben is (evoData):
+-  evoData.chain.evolves_to
+-  evoData.chain.evolves_to[0].evolves_to
 
 
 
