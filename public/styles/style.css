@@ -154,6 +154,7 @@
     .pkm-caught {
         background-color: var(--color-primary-daylight);
         color: var(--color-primary-midnight);
+        margin: 1em 0;
 
         &:hover {
             background-color: var(--color-primary-purple);
