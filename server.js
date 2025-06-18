@@ -11,6 +11,7 @@ const engine = new Liquid()
 app.engine("liquid", engine.express())
 app.set("views", "./views")
 
+
 // 12 uur in milliseconden
 const twelveH = 43200000;
 const now = Date.now()
@@ -158,7 +159,7 @@ app.get("/details/:pkmName", async function (request, response) {
 
     // all caught pokemon
     const caughtList = await getBookmarks("vsheoPKM")
-    console.log(caughtList)
+    // console.log(caughtList)
 
     response.render("detail.liquid", { pkmData: cacheDataJSON, pkmInfo: pkmInfoRespJSON, evolutions: evoData, basicId: basicId, stageOneIds: stageOneId, stageTwoIds: stageTwoId, pkmCaught: caughtList })
 });
@@ -270,6 +271,12 @@ async function getBookmarks(list) {
 	// return een array met alle pokemon id's
 	return pkmIdArray;
 }
+
+
+// https://expressjs.com/en/starter/faq.html?utm_source=chatgpt.com#:~:text=How%20do%20I%20handle%20404%20responses%3F
+app.use((request, response, next) => {
+    response.status(404).render('error.liquid')
+});
 
 app.set("port", process.env.PORT || 8000)
 
