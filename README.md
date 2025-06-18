@@ -43,8 +43,8 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
         * [Detail - about data & stats](#Detail---about-data-and-stats)
           * [Detail - evolutions](#Detail---evolutions)
         * [Routes - error](#Routes---error)
-          * [Error - generation-:number](#Error---generation-:number)
-          * [Error - details/:pkmName](#Error---details/:pkmName)
+          * [Error - generation route](#Error---generation-route)
+          * [Error - details route](#Error---details-route)
   * [Installatie](#installatie)
   * [Bronnen](#bronnen)
   * [Licentie](#licentie)
@@ -1130,7 +1130,7 @@ In deze routes kunnen we daarom try catch gebruiken om fouten op te vangen.
 
 
 
-##### Error - generation-:number
+##### Error - generation route
 In de try komt de code die we eerder hadden, maar we voegen nu een if statement toe:
 als het getal kleiner is dan 1 of groter dan 10, dan stoppen we de uitvoering van de code.
 https://github.com/vsheo/proof-of-concept/blob/128a8ded412864427c228f0c944071801798e605/server.js#L76-L80
@@ -1160,7 +1160,7 @@ Express weet vanzelf dat het om een error gaat wanneer we een variabele(`errorMe
 
 
 
-##### Error - details/:pkmName
+##### Error - details route
 Ook in deze route heb ik een try catch toegevoegd.
 Alle code die ik eerder had, staat nu binnen de try block.
 https://github.com/vsheo/proof-of-concept/blob/128a8ded412864427c228f0c944071801798e605/server.js#L139-L141
