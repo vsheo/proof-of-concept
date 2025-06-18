@@ -1010,30 +1010,31 @@ de data van deze fetch ziet er zo uit(wat niet belangrijk was heb ik weg gelaten
 }
 ```
 
-wat we hieruit nodig hebben is (evoData):
--  evoData.chain.evolves_to
--  evoData.chain.evolves_to[0].evolves_to
+wat we hieruit nodig hebben zijn de id's uit:
+-  chain.evolves_to, dit is de tweede vorm van de pokemon
+-  chain.evolves_to[0].evolves_to, deze heeft de overige evoluties, als deze er is dan kan het minimaal 1 zijn maximaal 8(op dit moment, voor de pokemon eevee)
 
+als een pokemon niet evolved dan bestaat deze niet chain.evolves_to[0].evolves_to
+in dat geval hebben we al de id, (basicId) die we eerder hebben opgehaald. uit evoData halen we alleen de naam op in liquid
 
+als het wel evolved dan hebben we een if statement om eerst te kijken als het kan evolven, zodat de server niet crashed ingeval die velden niet bestaan
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L147
 
+om de id's van alle stage 3 evolutions(alles dat na stage 2 komt) op te halene gebruiken we map, die gaat zelf door de evolves_to array
+en neemt elke species.url
+split het bij elke `/`
+en geeft de id terug, die op index 6 staat
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L149
 
+Het zelfde doen we voor alle stage 2 evolutions(de eerste keer dat de pokemon eveolved)
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L153-L155
 
+het laatst dat we in deze route doen is de caught list weer ophalen.
+zodat we die pokemon een ingekleurde pokeball kan krijgen
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L159-L161
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+al deze data sturen me met response.render mee naar de pagina
+https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L163
 
 
 
