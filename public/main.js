@@ -21,7 +21,7 @@ if ("fetch" in window && "DOMParser" in window) {
                 body: new URLSearchParams(new FormData(form)),
             });
 
-            const responseText = await response.text();
+            const responseText = await response.text()
 
             const parser = new DOMParser();
             const responseDOM = parser.parseFromString(responseText, "text/html")
@@ -32,7 +32,7 @@ if ("fetch" in window && "DOMParser" in window) {
 
             form.classList.remove('loading-state')
 
-            form.outerHTML = newState.outerHTML;
+            form.outerHTML = newState.outerHTML
         }
     });
 }
@@ -40,10 +40,10 @@ if ("fetch" in window && "DOMParser" in window) {
 
 if ("onsubmit" in window && "DOMParser" in window) {
     document.addEventListener("submit", async function (event) {
-        const form = event.target;
+        const form = event.target
         
         if (form.classList.contains("search-bar")) {
-            event.preventDefault();
+            event.preventDefault()
 
             // maak de URL met de query voor de GET request
             const url = form.action + '?' + new URLSearchParams(new FormData(form));
@@ -52,9 +52,9 @@ if ("onsubmit" in window && "DOMParser" in window) {
                 method: "GET"
             });
 
-            const responseText = await response.text();
+            const responseText = await response.text()
 
-            const parser = new DOMParser();
+            const parser = new DOMParser()
             const responseDOM = parser.parseFromString(responseText, "text/html")
 
             // select de oude pkm-container
@@ -63,13 +63,13 @@ if ("onsubmit" in window && "DOMParser" in window) {
             const newState = responseDOM.querySelector(".pkm-container")
             // update de oude pkm-container en laat de resultaten met view transition naar boven komen
             document.startViewTransition(() => {
-                currentState.outerHTML = newState.outerHTML;
+                currentState.outerHTML = newState.outerHTML
             });
 
             // update de breadcrumb nav
             const currentNav = document.querySelector(".breadcrumbs")
             const newNAv = responseDOM.querySelector(".breadcrumbs")
-            currentNav.outerHTML = newNAv.outerHTML;
+            currentNav.outerHTML = newNAv.outerHTML
         }
     })
 }
@@ -78,25 +78,52 @@ if ("onsubmit" in window && "DOMParser" in window) {
 // https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element#:~:text=Here%20is%20the%20vanilla%20JavaScript%20solution%20for%20future%20viewers.
 const filters = document.querySelector('.pkm-filters')
 
-// luister dan naar een klik event op de web pagina
-document.addEventListener('click', function (e) {
-    // als er een klik plaats vindt dat niet op/in het details element is
-    // of als er een klik plaatst vindt op het details element
-    if (filters !== e.target) {
-        // dan sluit het details element
-        filters.removeAttribute('open');
-    }
-});
+if (filters) {
+    // luister dan naar een klik event op de web pagina
+    document.addEventListener('click', function (e) {
+        // als er een klik plaats vindt dat niet op/in het details element is
+        // of als er een klik plaatst vindt op het details element
+        if (filters !== e.target) {
+            // dan sluit het details element
+            filters.removeAttribute('open')
+        }
+    });
+}
 
 
 // van error pagina 1 pagina terug gaan
 const btnBack = document.querySelector('.back-button')
 
-btnBack.addEventListener('click', () => {
+if (btnBack) {
+  btnBack.addEventListener('click', () => {
     window.history.back()
+  });
+
+  btnBack.hidden = false
+}
+
+
+// haal dynamische background color op en plaats het in een custom property
+// wacht totdat de dom ingeladen is
+document.addEventListener('DOMContentLoaded', () => {
+    // selecteer het element waar de background color staat
+    const sprites = document.querySelector('.sprite')
+
+    if (sprites) {
+        // selecteer de body
+        const body = document.querySelector('body')
+
+        // haal de background color op
+        const bgColor = sprites.style.backgroundColor
+
+        // bewaar de kleur in een nieuw custom property die op de body staat
+        body.style.setProperty('--current-bg-color', bgColor)
+    }
 });
 
-btnBack.hidden = false
+
+
+
 
 // auto submit
 // https://stackoverflow.com/questions/58629007/how-to-get-search-result-when-typing-without-hiting-enter-button-or-submit-butto
