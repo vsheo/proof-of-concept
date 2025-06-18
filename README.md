@@ -938,14 +938,14 @@ https://pokeapi.co/api/v2/pokemon-species/7/
 Naar de evolution-chain link gaan:
 https://pokeapi.co/api/v2/evolution-chain/3/
 
-Je moet dus we moeten een fetch in een fetch doen.<br><br>
+Dus we moeten een fetch in een fetch doen.<br><br>
 
 
 Als eerste moeten we de id van de Pokémon opzoeken.
-We hebben de naam van de Pokémon, dus we gebruiken find() op de `cache.json` om de juiste id te zoeken.
+We hebben de naam van de Pokémon, dus gebruiken we `find()` op `cache.json` om de id te vinden.
 
-find() zoekt naar het eerste dat voldoet aan de voorwaarde die je aangeeft, en stopt daarna met zoeken.
-In dit geval zoeken we naar een Pokémon name, en dan krijgen we dit terug:
+`find()` zoekt naar het eerste item dat aan de voorwaarde voldoet en stopt daarna met zoeken.
+In dit geval zoeken we op de naam van de Pokémon en krijgen we het volgende terug:
 ```JSON
   {
     "id": 7,
@@ -956,29 +956,29 @@ In dit geval zoeken we naar een Pokémon name, en dan krijgen we dit terug:
     "name": "squirtle"
   }
 ```
-Hieruit hebben we alleen de id nodig, dus die kunnen we direct meegeven:
+We hebben hier alleen de id nodig, dus die kunnen we direct ophalen met:
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L122
 
 
-Met die id kunnen we onze eerste fecth doen op deze url: https://pokeapi.co/api/v2/pokemon-species/ `+ id`
+Met die id kunnen we onze eerste fetch doen op deze URL: https://pokeapi.co/api/v2/pokemon-species/ `+ id`
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L127-L128
 
-daarna kunnen we onze tweede fetch doen op de evolutio-chain url die in de pokemon-species data staat
+Daarna kunnen we een tweede fetch uitvoeren naar de evolution-chain URL, die in de Pokémon-species data staat
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L131-L132
 
-Voor de evolutions tab moeten we opniew alle id ophalen.
-de id die we nu hebben kunnen we niet voor 1 van ze opnieuw gebruiken omdat we van 3 verschillende pokemon dezelfde evolution tab laten zien,
-we weten dus niet van welke ge bruiker op zit.
-dus we zoeken van alle 3 pokemon opnieuw hun id op
+Voor het evolutions tab moeten we opnieuw de id’s van alle Pokémon in de evolution chain ophalen.
+De id die we nu hebben kunnen we hiervoor niet gebruiken, omdat we een evolution chain voor meerdere Pokémon hetzelfde is.
+We weten dus niet zeker op welke Pokémon de gebruiker zich bevindt.
+Daarom zoeken we van alle drie de Pokémon in de chain opnieuw hun id op.
 
-de id zit zelf niet in deze data, maar het zit wel in een url.
-als we `split()` gebruiken op `/` dan zal de id altijd op de 6de positie staan in de array die gemaakt wordt
+De id staat niet in de data van deze fetch, maar is het staat wel in een URL.
+Als we de URL splitsen met `split('/')`, dan staat de id altijd op de 6de positie van de array die we eruit krijgen.
 ```JSON
 "url": "https://pokeapi.co/api/v2/pokemon-species/9/"
 ```
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L139
 
-de data van deze fetch ziet er zo uit(wat niet belangrijk was heb ik weg gelaten)
+De data van deze fetch ziet er zo uit (velden die niet belangrijk zijn, heb ik weggelaten):
 ```JSON
 {
     "chain": {
@@ -1010,30 +1010,30 @@ de data van deze fetch ziet er zo uit(wat niet belangrijk was heb ik weg gelaten
 }
 ```
 
-wat we hieruit nodig hebben zijn de id's uit:
--  chain.evolves_to, dit is de tweede vorm van de pokemon
--  chain.evolves_to[0].evolves_to, deze heeft de overige evoluties, als deze er is dan kan het minimaal 1 zijn maximaal 8(op dit moment, voor de pokemon eevee)
+Wat we uit deze data nodig hebben, zijn de id’s van de pokemon, die staan in:
+- `chain.evolves_to`: hier staat de tweede vorm van de Pokémon( stage 2)
+- `chain.evolves_to[0].evolves_to`: dit bevat de derde evolution vormen, als die er zijn.
 
-als een pokemon niet evolved dan bestaat deze niet chain.evolves_to[0].evolves_to
-in dat geval hebben we al de id, (basicId) die we eerder hebben opgehaald. uit evoData halen we alleen de naam op in liquid
 
-als het wel evolved dan hebben we een if statement om eerst te kijken als het kan evolven, zodat de server niet crashed ingeval die velden niet bestaan
+De id van de eerste vorm (basic stage id) hebben we al eerder opgehaald, deze staat opgeslagen in `basicId`.
+
+Als een Pokémon niet evolved, bestaat `chain.evolves_to[0].evolves_to` niet.
+Als de Pokémon wel evolved, dan gebruiken we een if statement om eerst te controleren of deze velden bestaan. Zo voorkomen we dat de server crasht wanneer de velden er niet zijn.
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L147
 
-om de id's van alle stage 3 evolutions(alles dat na stage 2 komt) op te halene gebruiken we map, die gaat zelf door de evolves_to array
-en neemt elke species.url
-split het bij elke `/`
-en geeft de id terug, die op index 6 staat
+Om de id’s van alle stage 3 evolutions (alles na stage 2) op te halen, gebruiken we `map()`
+Deze loopt door de `evolves_to` array, pakt van elke item `species.url`
+
+Daarna splitsen we de URL op `/` en halen we de id op, die altijd op index 6 staat.
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L149
 
-Het zelfde doen we voor alle stage 2 evolutions(de eerste keer dat de pokemon eveolved)
+Hetzelfde doen we voor alle stage 2 evolutions.
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L153-L155
 
-het laatst dat we in deze route doen is de caught list weer ophalen.
-zodat we die pokemon een ingekleurde pokeball kan krijgen
+Als laatste dat we doen in deze route is de caught list opnieuw op halen, zodat de Pokémon een ingekleurde Pokéball kan krijgen.
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L159-L161
 
-al deze data sturen me met response.render mee naar de pagina
+Al deze data stuur ik mee naar de pagina via `response.render`
 https://github.com/vsheo/proof-of-concept/blob/aa79fb9d0185b05bea7877485207ebd7568725c3/server.js#L163
 
 
