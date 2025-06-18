@@ -550,6 +550,35 @@
 }
 
 
+.error {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    background-color: var(--color-electric);
+    justify-content: center;
+    height: 100dvh;
+
+    .back {
+        color: #e92929;
+        background-color: #f4dc26;
+        margin-top: 1em;
+        padding: 0.5em;
+        border: 1px solid #5c3613;
+        border-radius: 15px;
+
+        &:hover {
+            color: #f4dc26;
+            background-color: #e92929;
+        }
+
+        &:active {
+            scale: 0.8;
+        }
+    }
+
+}
+
+
 .loading-state {
     position: relative;
     transform-origin: center;

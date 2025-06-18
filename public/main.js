@@ -89,6 +89,14 @@ document.addEventListener('click', function (e) {
 });
 
 
+// van error pagina 1 pagina terug gaan
+const btnBack = document.querySelector('.back-button')
+
+btnBack.addEventListener('click', () => {
+    window.history.back()
+});
+
+btnBack.hidden = false
 
 // auto submit
 // https://stackoverflow.com/questions/58629007/how-to-get-search-result-when-typing-without-hiting-enter-button-or-submit-butto

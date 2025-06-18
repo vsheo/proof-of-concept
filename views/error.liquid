@@ -6,13 +6,19 @@
     <title>PokéApp</title>
     <link rel="stylesheet" href="/styles/pokeapp.css">
     <link rel="stylesheet" href="/styles/style.css">
+	<script src="/main.js" defer></script>
 </head>
 <body>
-    <main class="error-404-message">
-        <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="none" stroke="#7F7F7F" stroke-width="10"/><circle cx="70" cy="80" r="12" fill="#7F7F7F"/><circle cx="130" cy="80" r="12" fill="#7F7F7F"/><path d="M 60 140 Q 100 100, 140 140" stroke="#7F7F7F" stroke-width="10" fill="transparent" stroke-linecap="round"/></svg>
-        <span class="error-text">404</span>
-        <span>pagina niet gevonden</span>
-        <a class="link-home" href="/">Terug naar de hoofdpagina</a>
+    <main class="error">
+        <picture class="error-img">
+            <source type="image/avif" srcset="/assets/pikachu-error.avif">
+            <source type="image/webp" srcset="/assets/pikachu-error.webp">
+            <img src="/assets/pikachu-error.jpg" width="250" height="250" alt="test-bulba" loading="lazy">
+        </picture>
+        <span>404</span>
+        <span>Page not found</span>
+        <a class="back" href="/">Back to home page</a>
+        <button class="back back-button" hidden>Back to previous page</button>
     </main>
 </body>
 </html>
