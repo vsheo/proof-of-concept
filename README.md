@@ -1,6 +1,6 @@
 # Poké-app
 <!-- Geef je project een titel en schrijf in één zin wat het is -->
-Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémon kunt bekijken
+Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémon kunt opzoeken en bekijken
 
 ## Inhoudsopgave
 
