@@ -530,6 +530,7 @@
     &::before {
         content: '';
         position: absolute;
+        inset: 0;
         height: 100%;
         width: 0%;
         background-color: var(--current-bg-color);
@@ -540,7 +541,6 @@
 
     &:has(a:hover)::before {
         width: 100%;
-        inset: 0;
     }
 
     .details-pkm-id {
