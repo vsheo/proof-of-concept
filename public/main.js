@@ -61,10 +61,16 @@ if ("onsubmit" in window && "DOMParser" in window) {
             const currentState = document.querySelector(".pkm-container")
             // select de pkm-container die gefetched is
             const newState = responseDOM.querySelector(".pkm-container")
-            // update de oude pkm-container en laat de resultaten met view transition naar boven komen
-            document.startViewTransition(() => {
-                currentState.outerHTML = newState.outerHTML
-            });
+
+            if (document.startViewTransition) {
+                // update de oude pkm-container en laat de resultaten met view transition naar boven komen
+                document.startViewTransition(() => {
+                    currentState.outerHTML = newState.outerHTML
+                });
+            }
+            else {
+                currentState.outerHTML = newState.outerHTML;
+            }
 
             // update de breadcrumb nav
             const currentNav = document.querySelector(".breadcrumbs")
