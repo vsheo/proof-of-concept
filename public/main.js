@@ -97,6 +97,17 @@ if (filters) {
 }
 
 
+// sluit details als tab index het menu verlaat
+// selecteer het laatste element van het menu
+const lastTab = document.querySelector('.pkm-filters li:last-child')
+
+// https://developer.mozilla.org/en-US/docs/Web/API/Element/focusout_event
+// Wanneer het laatste element in het detail element focus verliest, dan sluit het detail element
+lastTab.addEventListener('focusout', (e) => {
+    filters.removeAttribute('open')
+});
+
+
 // van error pagina 1 pagina terug gaan
 const btnBack = document.querySelector('.back-button')
 
