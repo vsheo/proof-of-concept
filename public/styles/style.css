@@ -476,6 +476,11 @@
             &::-webkit-meter-optimum-value {
                 background: var(--color-primary-purple);
             }
+
+            &::-moz-meter-bar {
+                background: var(--color-primary-purple);
+                border-radius: 15px;
+            }
         }
     }
 }
