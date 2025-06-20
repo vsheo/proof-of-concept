@@ -30,6 +30,7 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
       * [Client-side fetch - Caught](#Client-side-fetch---Caught)
       * [Client-side fetch - Search](#Client-side-fetch---Search)
       * [filter document click](#filter-document-click)
+      * [filters focus out](#filters-focus-out)
     * [Server](#Server)
       * [Functies](#Functies)
         * [Functies - getIndexData](#Functies---getIndexData)
@@ -572,6 +573,22 @@ In de if statement controleren we of het geklikte element niet het details eleme
 Als dat waar is, betekent het dat er buiten het details element geklikt werd.
 Dus we kunnen het detailselement sluiten.
 https://github.com/vsheo/proof-of-concept/blob/c0fe0e3223b29ce9fe75971f4d1595db01035cdf/public/main.js#L87
+
+
+
+
+
+### filters focus out
+Met de tab kun je over de filters (dit is een details summary element) navigeren zonder ze te openen.
+Als je het filter menu wel opent en met tab door de filter links gaat, verlaat je na de laatste link het details element, maar het details element blijft open.
+
+Met JavaScript selecteer ik het laatste element binnen het details element, dit is de laatste li
+https://github.com/vsheo/proof-of-concept/blob/5ca54ce7826235182fc3bddd1fa297752e271ed0/public/main.js#L102
+
+Daarop plaats ik een eventlistener op focusout.
+Dit betekent dat er iets gebeurt zodra focus dit element verlaat.
+In dit geval verwijder ik het open attribuut van het details element.
+https://github.com/vsheo/proof-of-concept/blob/5ca54ce7826235182fc3bddd1fa297752e271ed0/public/main.js#L106-L108
 
 
 
