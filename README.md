@@ -29,7 +29,7 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
     * [JavaScript](#JavaScript)
       * [Client-side fetch - Caught](#Client-side-fetch---Caught)
       * [Client-side fetch - Search](#Client-side-fetch---Search)
-      * [filter document click](#filter-document-click)
+      * [open filter, document click](#[open-filter,-document-click)
       * [filters focus out](#filters-focus-out)
     * [Server](#Server)
       * [Functies](#Functies)
@@ -557,7 +557,7 @@ https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17
 
 
 
-### filter document click
+### open filter, document click
 Op de index pagina is er een filter list. Dit is een details element dat een summary en een ul heeft.
 Normaal moet je weer op het details element klikken om het te sluiten.
 Met JavaScript maak ik het ook mogelijk is om buiten het details element te klikken om het te sluiten
@@ -569,7 +569,7 @@ https://github.com/vsheo/proof-of-concept/blob/c0fe0e3223b29ce9fe75971f4d1595db0
 
 Daarna moet de eventlistener niet op het details element geplaatst te worden, maar op de hele pagina(document)
 Wanneer er een klik plaatsvindt op de pagina, kijk dan waar die klik was.
-https://github.com/vsheo/proof-of-concept/blob/c0fe0e3223b29ce9fe75971f4d1595db01035cdf/public/main.js#L82-L85
+https://github.com/vsheo/proof-of-concept/blob/5ca54ce7826235182fc3bddd1fa297752e271ed0/public/main.js#L89-L92
 Met `e.target` krijgen we het element waarop er geklikt was.
 In de if statement controleren we of het geklikte element niet het details element was.
 Als dat waar is, betekent het dat er buiten het details element geklikt werd.
