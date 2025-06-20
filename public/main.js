@@ -89,7 +89,7 @@ if (filters) {
     document.addEventListener('click', (e) => {
         // als er een klik plaats vindt dat niet op/in het details element is
         // of als er een klik plaatst vindt op het summary element
-        if (!filters.contains(e.target)) {
+        if (filters !== e.target) {
             // dan sluit het details element
             filters.removeAttribute('open')
         }
