@@ -24,7 +24,7 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
       * [View transition](#View-transition)
       * [Detail - tabs](#Detail---tabs)
         * [Tabs - meter element](#Tabs---meter-element)
-      * [Detail - evolution hover animation](Detail---evolution-hover-animation)
+      * [Detail - evolution hover animation](#Detail---evolution-hover-animation)
     * [JavaScript](#JavaScript)
       * [Client-side fetch - Caught](#Client-side-fetch---Caught)
       * [Client-side fetch - Search](#Client-side-fetch---Search)
