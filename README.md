@@ -862,7 +862,15 @@ en `/pokemon/generation-:number` voor de generation filters
 
 
 #### Routes - generation
-Deze route geeft alle Pokémon van een pokemon generation terug.
+Deze route geeft alle Pokémon van een Pokémon generatie terug.
+
+Eerst had ik alle Pokémon op de hoofd pagina staan. Ik was van plan om alleen de optie te geven om per Pokémon generatie de Pokémon te tonen, om de website sneller te maken.
+Uiteindelijk merkte ik dat de website alleen traag was bij de eerste search, ook wanneer hij op Render werd gehost. Dit komt doordat ik alle data voor de hoofd pagina maar een keer ophaal en opsla in een lokaal JSON bestand
+
+Op mijn telefoon was het ook alleen bij de eerste zoekopdracht langzaam, verder viel het wel mee, vooral gezien dat er 1025 Pokémon op de hoofd pagina worden ingeladen.
+Daarom heb ik besloten om toch alle 1025 Pokémon in te laden.
+
+Maar omdat ik de filters al had, heb ik ze op de website gelaten.
 
 Op de index pagina heb ik een ul met linkjes naar deze route. Het enige dat verschilt per link is het cijfer aan het eind van de URL, dat de generatie aangeeft.
 https://github.com/vsheo/proof-of-concept/blob/4a838bf90bf682e6b612788bb290ead482ad757d/views/index.liquid#L18-L29
