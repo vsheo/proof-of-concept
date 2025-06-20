@@ -870,12 +870,13 @@ Uiteindelijk merkte ik dat de website alleen traag was bij de eerste search, ook
 Op mijn telefoon was het ook alleen bij de eerste zoekopdracht langzaam, verder viel het wel mee, vooral gezien dat er 1025 Pokémon op de hoofd pagina worden ingeladen.
 Daarom heb ik besloten om toch alle 1025 Pokémon in te laden.
 
-Maar omdat ik de filters al had, heb ik ze op de website gelaten.
+Maar omdat ik de filters al had, heb ik ze op de website gelaten.<br><br>
+
 
 Op de index pagina heb ik een ul met linkjes naar deze route. Het enige dat verschilt per link is het cijfer aan het eind van de URL, dat de generatie aangeeft.
 https://github.com/vsheo/proof-of-concept/blob/4a838bf90bf682e6b612788bb290ead482ad757d/views/index.liquid#L18-L29
 
-In de route haal ik het generatiecijfer op met `request.params`
+In de route haal ik het generation cijfer op met `request.params`
 https://github.com/vsheo/proof-of-concept/blob/4ba1f40116c3874a89b13618ff4ed6281bbac863/server.js#L66-L67
 
 Deze array bevat 10 items. Het item op de eerste index is een placeholder, zodat het generatie getal(die met request.params opgehaald wordt) overeenkomt met de index in de array (pkmGeneration[1] = [0,151]).
