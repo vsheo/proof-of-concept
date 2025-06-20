@@ -88,7 +88,7 @@ if (filters) {
     // luister dan naar een klik event op de web pagina
     document.addEventListener('click', (e) => {
         // als er een klik plaats vindt dat niet op/in het details element is
-        // of als er een klik plaatst vindt op het details element
+        // of als er een klik plaatst vindt op het summary element
         if (!filters.contains(e.target)) {
             // dan sluit het details element
             filters.removeAttribute('open')
@@ -114,11 +114,11 @@ if (lastTab) {
 const btnBack = document.querySelector('.back-button')
 
 if (btnBack) {
-  btnBack.addEventListener('click', () => {
-    window.history.back()
-  });
-
-  btnBack.hidden = false
+    btnBack.addEventListener('click', () => {
+        window.history.back()
+    })
+    
+    btnBack.hidden = false
 }
 
 
