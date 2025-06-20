@@ -22,7 +22,8 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
     * [CSS](#CSS)
       * [Styleguide](#Styleguide)
       * [View transition](#View-transition)
-      * [Detail - Tabs](#Detail---Tabs)
+      * [Detail - tabs](#Detail---tabs)
+        * [Tabs - meter element](#Tabs---meter-element)
       * [Detail - evolution hover animation](Detail---evolution-hover-animation)
     * [JavaScript](#JavaScript)
       * [Client-side fetch - Caught](#Client-side-fetch---Caught)
@@ -333,7 +334,7 @@ De slide animatie, de fade in en fade out worden automatisch aangemaakt door de 
 
 
 
-### Detail - Tabs
+### Detail - tabs
 Op de detail pagina zijn er drie tabs die informatie over de Pokémon weergeven.
 Dit is gemaakt met CSS door gebruik te maken van id’s op de elementen, anker tag elemenmten die naar deze id’s toe gaan en de `:target` pseudo class.
 
