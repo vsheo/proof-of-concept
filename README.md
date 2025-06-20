@@ -25,6 +25,7 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
       * [Detail - tabs](#Detail---tabs)
         * [Tabs - meter element](#Tabs---meter-element)
       * [Detail - evolution hover animation](#Detail---evolution-hover-animation)
+        * [Evolution hover - color](#Evolution-hover---color)
     * [JavaScript](#JavaScript)
       * [Client-side fetch - Caught](#Client-side-fetch---Caught)
       * [Client-side fetch - Search](#Client-side-fetch---Search)
@@ -425,6 +426,11 @@ Maar, ik gebruik een custom property voor de background color die geanimeerd moe
 deze custom property bestaat nog niet.
 https://github.com/vsheo/proof-of-concept/blob/3c6db6ccb947139aee2eb3b87392822bd56c19c7/public/styles/style.css#L536
 
+
+
+
+
+#### Evolution hover - color
 De background color wordt dynamisch via Liquid ingeladen met inline CSS. Hierdoor kan de kleur verschillen, afhankelijk van de Pokémon type
 https://github.com/vsheo/proof-of-concept/blob/3c6db6ccb947139aee2eb3b87392822bd56c19c7/views/detail.liquid#L99
 
