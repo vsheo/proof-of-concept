@@ -584,6 +584,8 @@ https://github.com/vsheo/proof-of-concept/blob/c0fe0e3223b29ce9fe75971f4d1595db0
 Met de tab kun je over de filters (dit is een details summary element) navigeren zonder ze te openen.
 Als je het filter menu wel opent en met tab door de filter links gaat, verlaat je na de laatste link het details element, maar het details element blijft open.
 
+Nu zorg ik ervoor dat het details element sluit wanneer de focus het laatste element in de lijst verlaat.
+
 Met JavaScript selecteer ik het laatste element binnen het details element, dit is de laatste li
 https://github.com/vsheo/proof-of-concept/blob/5ca54ce7826235182fc3bddd1fa297752e271ed0/public/main.js#L102
 
