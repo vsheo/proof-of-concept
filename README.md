@@ -332,6 +332,11 @@ https://github.com/vsheo/proof-of-concept/blob/8f33d5b7f865650751e04fd03fdec71ba
 De slide animatie, de fade in en fade out worden automatisch aangemaakt door de browser en de `@View-transition`.
 
 
+View transitions zijn nog erg nieuw en worden nog niet door alle browsers ondersteund, zoals Firefox.
+Daarom heb ik een fallback gemaakt: als view transitions worden ondersteund worden ze gebruikt, anders wordt de nieuwe data ingeladen zonder view transition.
+https://github.com/vsheo/proof-of-concept/blob/5ca54ce7826235182fc3bddd1fa297752e271ed0/public/main.js#L65-L73
+
+
 
 
 
