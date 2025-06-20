@@ -29,7 +29,7 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
     * [JavaScript](#JavaScript)
       * [Client-side fetch - Caught](#Client-side-fetch---Caught)
       * [Client-side fetch - Search](#Client-side-fetch---Search)
-      * [open filter list document click](#[open-filter-list-document-click)
+      * [open filter list document click](#open-filter-list-document-click)
       * [filters focus out](#filters-focus-out)
     * [Server](#Server)
       * [Functies](#Functies)
