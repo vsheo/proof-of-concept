@@ -412,7 +412,9 @@ https://github.com/vsheo/proof-of-concept/blob/c6da680fcc16cfd8e20de0c6c523320fb
 
 
 ### Detail - evolution hover animation
-Op de detail pagina van Evolution is er een hover animatie:
+Op de detail pagina van Evolution is er een hover animatie.
+De animatie geeft de background dezelfde kleur als het type van de Pokémon.
+Het is een leuke animatie die ook aangeeft dat het heel kaartje klikbaar is.
 
 https://github.com/user-attachments/assets/a4452ef6-6147-4145-b3e8-449d8e3b6d7e
 
