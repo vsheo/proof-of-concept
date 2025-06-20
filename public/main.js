@@ -86,10 +86,10 @@ const filters = document.querySelector('.pkm-filters')
 
 if (filters) {
     // luister dan naar een klik event op de web pagina
-    document.addEventListener('click', function (e) {
+    document.addEventListener('click', (e) => {
         // als er een klik plaats vindt dat niet op/in het details element is
         // of als er een klik plaatst vindt op het details element
-        if (filters !== e.target) {
+        if (!filters.contains(e.target)) {
             // dan sluit het details element
             filters.removeAttribute('open')
         }
@@ -102,10 +102,12 @@ if (filters) {
 const lastTab = document.querySelector('.pkm-filters li:last-child')
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/focusout_event
-// Wanneer het laatste element in het detail element focus verliest, dan sluit het detail element
-lastTab.addEventListener('focusout', (e) => {
-    filters.removeAttribute('open')
-});
+if (lastTab) {
+    // Wanneer het laatste element in het detail element focus verliest, dan sluit het detail element
+    lastTab.addEventListener('focusout', (e) => {
+        filters.removeAttribute('open')
+    })
+}
 
 
 // van error pagina 1 pagina terug gaan
