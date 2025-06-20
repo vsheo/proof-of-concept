@@ -837,6 +837,14 @@ Nu staat er zeker iets in cache.json geschreven, dus wanneer we de JSON gaan par
 
 
 #### Routes - Index POST
+user story: Als gebruiker wil ik kunnen aangeven welke Pokémon ik heb gevangen, zodat ik kan zien welke ik nog moet vangen.
+
+breakdown schets:
+- rood: client side
+- blauw server side
+
+<img src="/bewijslast/caught-pkm-bd.jpg" alt="caught-pkm-bd.jpg" width="800"/>
+
 De POST op de index pagina voegt een Pokémon toe aan, of verwijdert deze uit, je caught Pokémon lijst.
 Op de pagina heeft elk Pokémon kaartje een unieke `action`, die wordt gemaakt met de Pokémon id.
 https://github.com/vsheo/proof-of-concept/blob/4a838bf90bf682e6b612788bb290ead482ad757d/views/index.liquid#L44
