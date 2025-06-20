@@ -391,6 +391,18 @@ Dit doen we ook wanneer pkm-stats of pkm-evolution de target is.
 
 
 
+#### Tabs - meter element
+Het meter element wordt gestyled met ` ::-webkit` pseudo selector.
+Deze werkt alleen in Chrome. Tijdens het testen zag ik dat de kleur in Safari en Firefox groen was, de default color.
+In Safari is het niet gelukt om de kleur aan te passen, maar in Firefox wel.
+In Firefox werkte het wel, maar daarvoor moest ik de `::-moz-meter-bar` pseudo selector gebruiken ipv `::-webkit`
+`::-webkit` eerst voor chrome en daarna `::-moz-meter-bar` voor firefox:
+https://github.com/vsheo/proof-of-concept/blob/c6da680fcc16cfd8e20de0c6c523320fb7d24caa/public/styles/style.css#L476-L484
+
+
+
+
+
 ### Detail - evolution hover animation
 Op de detail pagina van Evolution is er een hover animatie:
 
