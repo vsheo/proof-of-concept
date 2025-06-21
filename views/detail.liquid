@@ -44,37 +44,37 @@
 
         <nav class="tab-titles">
             <a href="#about" tabindex="1">About</a>
-            <a href="#stats" tabindex="2">Stats</a>
-            <a href="#evolutions" tabindex="3">Evolutions</a>
+            <a href="#stats" tabindex="1">Stats</a>
+            <a href="#evolutions" tabindex="1">Evolutions</a>
             <div class="bar"></div>
             <div class="indicator"></div>
         </nav>
 
         <dl class="pkm-about tab" id="about">
-            <dt>Name</dt>
-            <dd>{{current_spName}}</dd>
+            <dt tabindex="0">Name</dt>
+            <dd tabindex="0">{{current_spName}}</dd>
 
-            <dt>Id</dt>
-            <dd>{{pkmInfo.id}}</dd>
+            <dt tabindex="0">Id</dt>
+            <dd tabindex="0">{{pkmInfo.id}}</dd>
 
-            <dt>Base XP</dt>
-            <dd>{{pkmInfo.base_experience}}</dd>
+            <dt tabindex="0">Base XP</dt>
+            <dd tabindex="0">{{pkmInfo.base_experience}}</dd>
 
-            <dt>Weight</dt>
-            <dd>{{pkmInfo.weight}} kg</dd>
+            <dt tabindex="0">Weight</dt>
+            <dd tabindex="0">{{pkmInfo.weight}} kg</dd>
 
-            <dt>Height</dt>
-            <dd>{{pkmInfo.height}} cm</dd>
+            <dt tabindex="0">Height</dt>
+            <dd tabindex="0">{{pkmInfo.height}} cm</dd>
 
-            <dt>Type</dt>
-            <dd>
+            <dt tabindex="0">Type</dt>
+            <dd tabindex="0">
                 {% for type in pkmInfo.types %}
                     <span class="type" style="background-color: var(--color-{{pkmInfo.types[forloop.index0].type.name}});">{{type.type.name}}</span>
                 {% endfor %}
             </dd>
 
-            <dt>Abilities</dt>
-            <dd>
+            <dt tabindex="0">Abilities</dt>
+            <dd tabindex="0">
                 {% for ability in pkmInfo.abilities %}
                     <span class="text">{{ability.ability.name}}</span>
                     {% if forloop.index == 1 %}, {% endif %}
@@ -85,8 +85,8 @@
         <ul class="pkm-stats tab" id="stats">
             {% for stat in pkmInfo.stats %}
                 <li>
-                    <span class="stat">{{stat.stat.name}}</span>
-                    <span class="number">{{stat.base_stat}}</span>
+                    <span class="stat" tabindex="0">{{stat.stat.name}}</span>
+                    <span class="number" tabindex="0">{{stat.base_stat}}</span>
                     <meter value="{{stat.base_stat}}" min="0" max="255"></meter>
                 </li>
             {% endfor %}
