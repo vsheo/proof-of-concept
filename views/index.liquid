@@ -30,7 +30,7 @@
 
         </details>
 
-        <a href="/pokemon/caught" class="pkm-caught"><img src="/assets/pokeball-black.svg" width="24" height="24" alt="pokeball logo"><span>Caught Pokemon</span></a>
+        <a href="/pokemon/caught" class="pkm-caught"><img src="/assets/pokeball-black.svg" width="24" height="24" alt="pokemon ball logo"><span>Caught Pokemon</span></a>
     </section>
 
     <div class="pkm-container">
@@ -47,9 +47,9 @@
                     {% assign pkmIdString = pkm.id | append: "" %}
                     {% if pkmCaught contains pkmIdString %}
                         {% comment %} als het cadeau in de bookmark list zit, dan is de bookmark icon zwart {% endcomment %}
-                        <button class="btn-caught" type="submit" aria-label="verwijder uit bookmarks lijst"><img src="/assets/pokeball.svg" width="40" height="40" alt="{{pkm.name}} is caught"></button>
+                        <button class="btn-caught" type="submit" aria-label="remove {{pkm.name}} from caught list"><img src="/assets/pokeball.svg" width="40" height="40" alt="{{pkm.name}} is caught"></button>
                     {% else %}
-                        <button class="btn-caught" type="submit" aria-label="voeg toe aan bookmarks lijst" style="filter: grayscale(100%);"><img src="/assets/pokeball.svg" width="40" height="40" alt="{{pkm.name}} is caught"></button>
+                        <button class="btn-caught" type="submit" aria-label="add {{pkm.name}} to caught list" style="filter: grayscale(100%);"><img src="/assets/pokeball.svg" width="40" height="40" alt="{{pkm.name}} is caught"></button>
                     {% endif %}
 
                     {% comment %} <div class="loader" hidden></div> {% endcomment %}
