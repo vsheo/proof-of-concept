@@ -29,7 +29,7 @@ Een Pokédex website waarop je informatie, statistieken en evoluties van Pokémo
     * [JavaScript](#JavaScript)
       * [Client-side fetch - Caught](#Client-side-fetch---Caught)
       * [Client-side fetch - Search](#Client-side-fetch---Search)
-      * [open filter list document click](#open-filter-list-document-click)
+      * [open filter list - document click](#open-filter-list---document-click)
       * [filters focus out](#filters-focus-out)
     * [Server](#Server)
       * [Functies](#Functies)
@@ -557,7 +557,7 @@ https://github.com/vsheo/proof-of-concept/blob/5fec173ad0c3ddc4ec3cf2504448d0d17
 
 
 
-### open filter list document click
+### open filter list - document click
 Op de index pagina is er een filter list. Dit is een details element dat een summary en een ul heeft.
 Normaal moet je weer op het details element klikken om het te sluiten.
 Met JavaScript maak ik het ook mogelijk is om buiten het details element te klikken om het te sluiten
