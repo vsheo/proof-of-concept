@@ -15,7 +15,7 @@ app.set("views", "./views")
 
 
 // 12 uur in milliseconden = 43200000
-const twelveH = 43200000
+const twelveH = 1
 const now = Date.now()
 
 // read de cache.json die lokaal staat
@@ -250,8 +250,8 @@ async function getIndexData() {
 function structureJSON(names, pkmData) {
     pkmData.forEach((data, i) => {
         data.name = names[i],
-        data.spriteAVIF = `/assets/sprites/${i+1}.avif`
-        data.spriteWEBP = `/assets/sprites/${i+1}.webp`
+        data.spriteAVIF = `/assets/sprites/avif/${i+1}.avif`
+        data.spriteWEBP = `/assets/sprites/webp/${i+1}.webp`
     });
 
     return pkmData
