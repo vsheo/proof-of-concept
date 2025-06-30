@@ -252,15 +252,34 @@
 
 .btn-load-more {
     display: block;
+    position: relative;
+    text-align: center;
     margin: 1em auto;
     background-color: var(--color-primary-purple);
     color: var(--color-layering-daylight);
     padding: 0.3em 1em;
-    border-radius: 10px;
-    cursor: pointer;
+    border-radius: 15px;
 
     &:hover {
         color: black;
+    }
+
+    button {
+        display: flex;
+        align-self: center;
+        background-color: inherit;
+        color: inherit;
+        font-size: var(--fs-details-resp);
+        border: none;
+        cursor: pointer;
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+        }
     }
 }
 

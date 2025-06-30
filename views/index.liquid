@@ -65,7 +65,10 @@
         {% endfor %}
     </div>
 
-    <a href="/pokemon/up-to/{{ upTo | plus: 15 }}" class="btn-load-more">load more</a>
+    {% comment %} <a href="/pokemon/up-to/{{ upTo | plus: 15 }}" class="btn-load-more">load more</a> {% endcomment %}
+    <form action="/pokemon/up-to/{{ upTo | plus: 15 }}" method="GET" class="btn-load-more">
+        <button>load more</button>
+    </form>
 </main>
 {% comment %} {{pkmData.types[0].type.name|json}} {% endcomment %}
 

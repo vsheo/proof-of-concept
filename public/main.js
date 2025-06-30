@@ -1,6 +1,7 @@
 // workshop
 // https://github.com/fdnd-task/the-web-is-for-everyone-interactive-functionality/blob/main/docs/client-side-fetch.md
 
+// add to caught
 if ("fetch" in window && "DOMParser" in window) {
     document.addEventListener("submit", async function (event) {
         const form = event.target;
@@ -37,7 +38,7 @@ if ("fetch" in window && "DOMParser" in window) {
     });
 }
 
-
+// search
 if ("onsubmit" in window && "DOMParser" in window) {
     document.addEventListener("submit", async function (event) {
         const form = event.target
@@ -78,6 +79,48 @@ if ("onsubmit" in window && "DOMParser" in window) {
             currentNav.outerHTML = newNAv.outerHTML
         }
     })
+}
+
+// load more
+if ("fetch" in window && "DOMParser" in window) {
+    document.addEventListener("submit", async function (event) {
+        const form = event.target;
+        // console.log(form);
+
+        if (form.classList.contains("btn-load-more")) {
+            event.preventDefault();
+
+            const response = await fetch(form.action, {
+                method: form.method,
+            });
+
+            const responseText = await response.text()
+
+            const parser = new DOMParser();
+            const responseDOM = parser.parseFromString(responseText, "text/html")
+
+            // select de oude pkm-container
+            const currentState = document.querySelector(".pkm-container")
+            // select de pkm-container die gefetched is
+            const newState = responseDOM.querySelector(".pkm-container")
+
+            if (document.startViewTransition) {
+                // update de oude pkm-container en laat de resultaten met view transition naar boven komen
+                document.startViewTransition(() => {
+                    currentState.outerHTML = newState.outerHTML
+                });
+            }
+            else {
+                currentState.outerHTML = newState.outerHTML;
+            }
+
+            // selecteer en update de load more button
+            const loadMore = document.querySelector(".btn-load-more")
+            const newloadMore = responseDOM.querySelector(".btn-load-more")
+            loadMore.outerHTML = newloadMore.outerHTML;
+
+        }
+    });
 }
 
 
