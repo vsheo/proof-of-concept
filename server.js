@@ -43,6 +43,9 @@ else {
 // nadat cacheData bestaat/up to date is maken we JSON daarvan
 const cacheDataJSON = JSON.parse(cacheData)
 
+// in de json voegen we de responsive images toe door deze functie aan te roepen
+getRespImg()
+
 
 // index GET
 app.get("/", async function (request, response, next) {
@@ -249,6 +252,26 @@ function structureJSON(names, pkmData) {
     });
 
     return pkmData
+}
+
+// get responsive images
+function getRespImg() {
+    
+
+    /* array met alle pokemon sprites.
+       spritePNG: image
+    */
+    const addImg = cacheDataJSON.map((pkm) => {
+        const pkmPNG = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pkm.id}.png`
+
+        return {
+            ...pkm,
+            spritePNG: pkmPNG
+        }
+    })
+    fs.writeFileSync("cache.json", JSON.stringify(addImg, null, 2))
+
+
 }
 
 async function changeCaught(userList, pkmId) {
