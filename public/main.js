@@ -119,6 +119,10 @@ if ("fetch" in window && "DOMParser" in window) {
             const newloadMore = responseDOM.querySelector(".btn-load-more")
             loadMore.outerHTML = newloadMore.outerHTML;
 
+            // update de breadcrumb nav
+            const currentNav = document.querySelector(".breadcrumbs")
+            const newNAv = responseDOM.querySelector(".breadcrumbs")
+            currentNav.outerHTML = newNAv.outerHTML
         }
     });
 }

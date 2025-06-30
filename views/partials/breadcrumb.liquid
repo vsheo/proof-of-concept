@@ -1,5 +1,7 @@
 <nav class="breadcrumbs">
-    {% if pageTitle == "All Pokemon" %}
+    {% if pageTitle == "All Pokemon" and upTo >= 30 %}
+        <a href="/">Home: pokemon up to id: {{ upTo }}</a>
+    {% elsif pageTitle == "All Pokemon" %}
         <a href="/">Home: All pokemon</a>
     {% else %}
         <a href="/">Home</a>
