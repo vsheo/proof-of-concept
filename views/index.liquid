@@ -56,7 +56,7 @@
                 </form>
 
                 <picture class="pkm-sprite">
-                    {% comment %} <source type="image/avif" srcset="/assets/test-bulba-2.avif"> {% endcomment %}
+                    <source type="image/avif" srcset="{{pkm.spriteAVIF}}">
                     {% comment %} <source type="image/webp" srcset="/assets/test-bulba-2.webp"> {% endcomment %}
                     <img id="add-loading-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{pkm.id}}.png" width="100" height="100" alt="pokemon image not found" loading="lazy">
                 </picture>
