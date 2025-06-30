@@ -15,7 +15,7 @@ app.set("views", "./views")
 
 
 // 12 uur in milliseconden = 43200000
-const twelveH = 1
+const twelveH = 43200000
 const now = Date.now()
 
 // read de cache.json die lokaal staat
@@ -58,7 +58,7 @@ app.get("/", async function (request, response, next) {
         // stuur maar 15 pokemon door naar de pagina
         const limitedPkmData = cacheDataJSON.slice(0, 15);
 
-        response.render("index.liquid", { pkmData: limitedPkmData, pkmCaught: caughtList, pageTitle: "All Pokemon" })
+        response.render("index.liquid", { pkmData: limitedPkmData, pkmCaught: caughtList, pageTitle: "All Pokemon", upTo: 15 })
     }
     catch (error) {
         // Andere fouten ook doorgeven aan error-handler
@@ -81,7 +81,7 @@ app.get("/pokemon/up-to/:id", async function (request, response, next) {
         // stuur maar 15 pokemon door naar de pagina
         const limitedPkmData = cacheDataJSON.slice(0, sliceId);
 
-        response.render("index.liquid", { pkmData: limitedPkmData, pkmCaught: caughtList, pageTitle: "All Pokemon" })
+        response.render("index.liquid", { pkmData: limitedPkmData, pkmCaught: caughtList, pageTitle: "All Pokemon", upTo: sliceId })
     }
     catch (error) {
         // Andere fouten ook doorgeven aan error-handler
