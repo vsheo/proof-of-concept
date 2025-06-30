@@ -55,7 +55,10 @@ app.get("/", async function (request, response, next) {
         const caughtList = await getBookmarks("vsheoPKM")
         // console.log(caughtList)
 
-        response.render("index.liquid", { pkmData: cacheDataJSON, pkmCaught: caughtList, pageTitle: "All Pokemon" })
+        // stuur maar 15 pokemon door naar de pagina
+        const limitedPkmData = cacheDataJSON.slice(0, 15);
+
+        response.render("index.liquid", { pkmData: limitedPkmData, pkmCaught: caughtList, pageTitle: "All Pokemon" })
     }
     catch (error) {
         // Andere fouten ook doorgeven aan error-handler

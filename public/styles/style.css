@@ -250,6 +250,20 @@
     }
 }
 
+.btn-load-more {
+    display: block;
+    margin: 1em auto;
+    background-color: var(--color-primary-purple);
+    color: var(--color-layering-daylight);
+    padding: 0.3em 1em;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:hover {
+        color: black;
+    }
+}
+
 .detail-container {
     display: grid;
     grid-template-columns: 1fr;
