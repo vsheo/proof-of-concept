@@ -243,9 +243,6 @@ async function getIndexData() {
 
     // zet de structuur om naar JSON en sla het op in de cache
     fs.writeFileSync("cache.json", JSON.stringify(jsonStruc, null, 2))
-
-    // in de cache.json voegen we de responsive images toe door deze functie aan te roepen
-    await getRespImg()
 }
 
 
@@ -254,38 +251,12 @@ function structureJSON(names, pkmData) {
     pkmData.forEach((data, i) => {
         data.name = names[i],
         data.spriteAVIF = `/assets/sprites/${i+1}.avif`
+        data.spriteWEBP = `/assets/sprites/${i+1}.webp`
     });
 
     return pkmData
 }
 
-// download responsive images
-async function getRespImg() {
-    const addImgPromises = cacheDataJSON.map(async (pkm) => {
-        const avifPath = path.resolve("public/assets/sprites",`${pkm.id}.avif`)
-
-        try {
-            // check als avif img bestaat
-            await fs.promises.access(avifPath);
-            console.log(`Bestand ${avifPath} bestaat, overslaan`)
-        }
-        // als het niet bestaat fetch de png van github en maak avif ervan
-        catch {
-            const pkmPNG = await fetch(
-                `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pkm.id}.png`
-            );
-            const pngBuffer = await pkmPNG.arrayBuffer()
-
-            await sharp(Buffer.from(pngBuffer))
-                .resize({ width: 100, height: 100 })
-                .toFormat("avif")
-                .toFile(avifPath)
-            console.log(`Bestand ${avifPath} aangemaakt`)
-        }
-    })
-
-    await Promise.all(addImgPromises);
-}
 
 async function changeCaught(userList, pkmId) {
     // url waar het pokemon id opgeslagen moet worden
