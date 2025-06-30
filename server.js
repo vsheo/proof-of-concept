@@ -68,6 +68,29 @@ app.get("/", async function (request, response, next) {
     }
 })
 
+// index load more
+app.get("/pokemon/up-to/:id", async function (request, response, next) {
+    const id = parseInt(request.params.id, 10)
+    const sliceId = id + 15
+
+    try {
+        // all caught pokemon
+        const caughtList = await getBookmarks("vsheoPKM")
+        // console.log(caughtList)
+
+        // stuur maar 15 pokemon door naar de pagina
+        const limitedPkmData = cacheDataJSON.slice(0, sliceId);
+
+        response.render("index.liquid", { pkmData: limitedPkmData, pkmCaught: caughtList, pageTitle: "All Pokemon" })
+    }
+    catch (error) {
+        // Andere fouten ook doorgeven aan error-handler
+        const errorMessage = new Error("index try blok went wrong")
+        errorMessage.status = 500;
+        next(errorMessage)
+    }
+})
+
 // index POST
 app.post("/toggle-caught/:pkmId", async function (request, response) {
     const id = request.params.pkmId;
