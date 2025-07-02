@@ -259,6 +259,7 @@
     color: var(--color-layering-daylight);
     padding: 0.3em 1em;
     border-radius: 15px;
+    z-index: 500;
 
     @media (min-width: 1114px) {
         position: fixed;
@@ -271,6 +272,10 @@
 
     &:hover {
         color: black;
+    }
+
+    &.hidden {
+        display: none;
     }
 
     button {
@@ -291,6 +296,8 @@
         }
     }
 }
+
+
 
 .detail-container {
     display: grid;

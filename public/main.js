@@ -96,7 +96,7 @@ if ("fetch" in window && "DOMParser" in window) {
 
             const responseText = await response.text()
 
-            const parser = new DOMParser();
+            const parser = new DOMParser()
             const responseDOM = parser.parseFromString(responseText, "text/html")
 
             // select de oude pkm-container
@@ -111,21 +111,44 @@ if ("fetch" in window && "DOMParser" in window) {
                 });
             }
             else {
-                currentState.outerHTML = newState.outerHTML;
+                currentState.outerHTML = newState.outerHTML
             }
 
             // selecteer en update de load more button
             const loadMore = document.querySelector(".btn-load-more")
             const newloadMore = responseDOM.querySelector(".btn-load-more")
-            loadMore.outerHTML = newloadMore.outerHTML;
+            loadMore.outerHTML = newloadMore.outerHTML
 
             // update de breadcrumb nav
             const currentNav = document.querySelector(".breadcrumbs")
             const newNAv = responseDOM.querySelector(".breadcrumbs")
             currentNav.outerHTML = newNAv.outerHTML
+
+            // roep de functie aan zodat de button weer op display block komt
+            // in de nieuwe dom heeft het weer de hidden class
+            loadBtnVisible()
         }
     });
 }
+
+// load more button alleen als de gebruiker op de "all pokemon" pagina is
+function loadBtnVisible() {
+  const loadMoreBtn = document.querySelector('.btn-load-more');
+  const breadcrumbs = document.querySelector('.breadcrumbs');
+
+  if (loadMoreBtn && breadcrumbs) {
+    const links = breadcrumbs.querySelectorAll('a');
+
+    // als de breadcrumb met home begint dan is er een load more button
+    if (links.length && links[0].textContent.trim().startsWith('Home: ')) {
+      loadMoreBtn.classList.remove('hidden');
+    } else {
+      loadMoreBtn.classList.add('hidden');
+    }
+  }
+}
+// roep de functie aan
+loadBtnVisible()
 
 
 // https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element#:~:text=Here%20is%20the%20vanilla%20JavaScript%20solution%20for%20future%20viewers.
@@ -186,6 +209,11 @@ document.addEventListener('DOMContentLoaded', () => {
         body.style.setProperty('--current-bg-color', bgColor)
     }
 });
+
+
+
+
+
 
 
 
